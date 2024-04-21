@@ -8,12 +8,21 @@
 import SwiftUI
 import SwiftData
 
+enum AppRoute {
+    case signup
+    case signIn
+    case home
+}
+
 struct ContentView: View {
     @Environment(\.modelContext) private var modelContext
     @Query private var items: [Item]
+    
+    @State private var navPath: [AppRoute] = []
 
     var body: some View {
-        NavigationSplitView {
+        NavigationStack(path: $navPath) {
+            
             List {
                 ForEach(items) { item in
                     NavigationLink {
@@ -39,8 +48,16 @@ struct ContentView: View {
                     }
                 }
             }
-        } detail: {
-            Text("Select an item")
+            .navigationDestination(for: AppRoute.self) { route in
+                switch route {
+                case .signup:
+                    SignUpScreen()
+                case .signIn:
+                    SignUpScreen()
+                case .home:
+                    ContentView()
+                }
+            }
         }
     }
 

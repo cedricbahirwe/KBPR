@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		CB4515492BD50A870025AEB8 /* Button.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB4515482BD50A870025AEB8 /* Button.swift */; };
+		CB45154B2BD511A20025AEB8 /* SplashScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB45154A2BD511A20025AEB8 /* SplashScreen.swift */; };
+		CB45154D2BD5125A0025AEB8 /* SignInScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB45154C2BD5125A0025AEB8 /* SignInScreen.swift */; };
 		CB71A2BF2BD4507C008AD154 /* KahuziBiegaApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB71A2BE2BD4507C008AD154 /* KahuziBiegaApp.swift */; };
 		CB71A2C12BD4507C008AD154 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB71A2C02BD4507C008AD154 /* ContentView.swift */; };
 		CB71A2C32BD4507C008AD154 /* Item.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB71A2C22BD4507C008AD154 /* Item.swift */; };
@@ -15,6 +18,8 @@
 		CB71A2D32BD4507F008AD154 /* KahuziBiegaTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB71A2D22BD4507F008AD154 /* KahuziBiegaTests.swift */; };
 		CB71A2DD2BD4507F008AD154 /* KahuziBiegaUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB71A2DC2BD4507F008AD154 /* KahuziBiegaUITests.swift */; };
 		CB71A2DF2BD4507F008AD154 /* KahuziBiegaUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB71A2DE2BD4507F008AD154 /* KahuziBiegaUITestsLaunchTests.swift */; };
+		CB71A2EF2BD45376008AD154 /* SignUpScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB71A2EE2BD45376008AD154 /* SignUpScreen.swift */; };
+		CB71A2F12BD453BA008AD154 /* Colors.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CB71A2F02BD453BA008AD154 /* Colors.xcassets */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -35,6 +40,9 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		CB4515482BD50A870025AEB8 /* Button.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Button.swift; sourceTree = "<group>"; };
+		CB45154A2BD511A20025AEB8 /* SplashScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SplashScreen.swift; sourceTree = "<group>"; };
+		CB45154C2BD5125A0025AEB8 /* SignInScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInScreen.swift; sourceTree = "<group>"; };
 		CB71A2BB2BD4507C008AD154 /* KahuziBiega.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = KahuziBiega.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		CB71A2BE2BD4507C008AD154 /* KahuziBiegaApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KahuziBiegaApp.swift; sourceTree = "<group>"; };
 		CB71A2C02BD4507C008AD154 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -47,6 +55,8 @@
 		CB71A2D82BD4507F008AD154 /* KahuziBiegaUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = KahuziBiegaUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		CB71A2DC2BD4507F008AD154 /* KahuziBiegaUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KahuziBiegaUITests.swift; sourceTree = "<group>"; };
 		CB71A2DE2BD4507F008AD154 /* KahuziBiegaUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KahuziBiegaUITestsLaunchTests.swift; sourceTree = "<group>"; };
+		CB71A2EE2BD45376008AD154 /* SignUpScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpScreen.swift; sourceTree = "<group>"; };
+		CB71A2F02BD453BA008AD154 /* Colors.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Colors.xcassets; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -74,6 +84,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		CB4515472BD50A7D0025AEB8 /* Style */ = {
+			isa = PBXGroup;
+			children = (
+				CB4515482BD50A870025AEB8 /* Button.swift */,
+			);
+			path = Style;
+			sourceTree = "<group>";
+		};
 		CB71A2B22BD4507C008AD154 = {
 			isa = PBXGroup;
 			children = (
@@ -99,8 +117,11 @@
 			children = (
 				CB71A2BE2BD4507C008AD154 /* KahuziBiegaApp.swift */,
 				CB71A2C02BD4507C008AD154 /* ContentView.swift */,
+				CB4515472BD50A7D0025AEB8 /* Style */,
+				CB71A2EB2BD4535D008AD154 /* Views */,
 				CB71A2C22BD4507C008AD154 /* Item.swift */,
 				CB71A2C42BD4507E008AD154 /* Assets.xcassets */,
+				CB71A2F02BD453BA008AD154 /* Colors.xcassets */,
 				CB71A2C62BD4507E008AD154 /* KahuziBiega.entitlements */,
 				CB71A2C72BD4507E008AD154 /* Preview Content */,
 			);
@@ -130,6 +151,16 @@
 				CB71A2DE2BD4507F008AD154 /* KahuziBiegaUITestsLaunchTests.swift */,
 			);
 			path = KahuziBiegaUITests;
+			sourceTree = "<group>";
+		};
+		CB71A2EB2BD4535D008AD154 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				CB71A2EE2BD45376008AD154 /* SignUpScreen.swift */,
+				CB45154C2BD5125A0025AEB8 /* SignInScreen.swift */,
+				CB45154A2BD511A20025AEB8 /* SplashScreen.swift */,
+			);
+			path = Views;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -236,6 +267,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				CB71A2F12BD453BA008AD154 /* Colors.xcassets in Resources */,
 				CB71A2C92BD4507E008AD154 /* Preview Assets.xcassets in Resources */,
 				CB71A2C52BD4507E008AD154 /* Assets.xcassets in Resources */,
 			);
@@ -262,9 +294,13 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				CB45154B2BD511A20025AEB8 /* SplashScreen.swift in Sources */,
+				CB4515492BD50A870025AEB8 /* Button.swift in Sources */,
 				CB71A2C12BD4507C008AD154 /* ContentView.swift in Sources */,
+				CB45154D2BD5125A0025AEB8 /* SignInScreen.swift in Sources */,
 				CB71A2C32BD4507C008AD154 /* Item.swift in Sources */,
 				CB71A2BF2BD4507C008AD154 /* KahuziBiegaApp.swift in Sources */,
+				CB71A2EF2BD45376008AD154 /* SignUpScreen.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
