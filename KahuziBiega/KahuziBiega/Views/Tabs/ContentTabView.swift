@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct ContentTabView: View {
-    @State private var selection = 1
+    @AppStorage("tab_selection") private var selection = 1
     @Binding var navPath: [AppRoute]
     @AppStorage(.recentScreen) private var recentScreen: AppRoute?
     

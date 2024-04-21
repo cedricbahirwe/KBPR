@@ -20,7 +20,9 @@ struct ReportScreen: View {
                             .resizable()
                     }
                     
-                    Button(action: {}) {
+                    NavigationLink {
+                        IncidentsListView()
+                    } label: {
                         Image(.viewReport)
                             .resizable()
                     }
@@ -55,7 +57,8 @@ struct ReportScreen: View {
                 }
                 
                 Spacer()
-                Text("Reporting")
+                Text("Reporting").bold()
+                
                 Spacer()
                 Button(action: {}) {
                     Image(.more)
@@ -71,7 +74,7 @@ struct ReportScreen: View {
     ReportScreen()
 }
 
-private struct RecentReportRowView: View {
+struct RecentReportRowView: View {
     let incident: Incident
     var report: Incident.Report { incident.report }
     private let dateFormatter: DateFormatter = {

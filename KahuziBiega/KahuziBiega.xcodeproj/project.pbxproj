@@ -17,6 +17,9 @@
 		CB4515582BD535AE0025AEB8 /* ChatsScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB4515572BD535AE0025AEB8 /* ChatsScreen.swift */; };
 		CB45155A2BD535C10025AEB8 /* AnalyticsScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB4515592BD535C10025AEB8 /* AnalyticsScreen.swift */; };
 		CB45155D2BD536280025AEB8 /* ContentTabView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB45155C2BD536280025AEB8 /* ContentTabView.swift */; };
+		CB45155F2BD549D30025AEB8 /* IncidentsListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB45155E2BD549D30025AEB8 /* IncidentsListView.swift */; };
+		CB4515632BD549E80025AEB8 /* IncidentReportview.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB4515622BD549E80025AEB8 /* IncidentReportview.swift */; };
+		CB4515652BD5AD9D0025AEB8 /* ChatDetailScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB4515642BD5AD9D0025AEB8 /* ChatDetailScreen.swift */; };
 		CB71A2BF2BD4507C008AD154 /* KahuziBiegaApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB71A2BE2BD4507C008AD154 /* KahuziBiegaApp.swift */; };
 		CB71A2C12BD4507C008AD154 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB71A2C02BD4507C008AD154 /* ContentView.swift */; };
 		CB71A2C32BD4507C008AD154 /* Item.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB71A2C22BD4507C008AD154 /* Item.swift */; };
@@ -57,6 +60,9 @@
 		CB4515572BD535AE0025AEB8 /* ChatsScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatsScreen.swift; sourceTree = "<group>"; };
 		CB4515592BD535C10025AEB8 /* AnalyticsScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnalyticsScreen.swift; sourceTree = "<group>"; };
 		CB45155C2BD536280025AEB8 /* ContentTabView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentTabView.swift; sourceTree = "<group>"; };
+		CB45155E2BD549D30025AEB8 /* IncidentsListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IncidentsListView.swift; sourceTree = "<group>"; };
+		CB4515622BD549E80025AEB8 /* IncidentReportview.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IncidentReportview.swift; sourceTree = "<group>"; };
+		CB4515642BD5AD9D0025AEB8 /* ChatDetailScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatDetailScreen.swift; sourceTree = "<group>"; };
 		CB71A2BB2BD4507C008AD154 /* KahuziBiega.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = KahuziBiega.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		CB71A2BE2BD4507C008AD154 /* KahuziBiegaApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KahuziBiegaApp.swift; sourceTree = "<group>"; };
 		CB71A2C02BD4507C008AD154 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -121,7 +127,10 @@
 				CB4515502BD51AE30025AEB8 /* HomeScreen.swift */,
 				CB4515552BD535950025AEB8 /* ReportScreen.swift */,
 				CB4515572BD535AE0025AEB8 /* ChatsScreen.swift */,
+				CB4515642BD5AD9D0025AEB8 /* ChatDetailScreen.swift */,
 				CB4515592BD535C10025AEB8 /* AnalyticsScreen.swift */,
+				CB45155E2BD549D30025AEB8 /* IncidentsListView.swift */,
+				CB4515622BD549E80025AEB8 /* IncidentReportview.swift */,
 			);
 			path = Tabs;
 			sourceTree = "<group>";
@@ -342,6 +351,9 @@
 				CB4515582BD535AE0025AEB8 /* ChatsScreen.swift in Sources */,
 				CB4515512BD51AE30025AEB8 /* HomeScreen.swift in Sources */,
 				CB45155D2BD536280025AEB8 /* ContentTabView.swift in Sources */,
+				CB45155F2BD549D30025AEB8 /* IncidentsListView.swift in Sources */,
+				CB4515652BD5AD9D0025AEB8 /* ChatDetailScreen.swift in Sources */,
+				CB4515632BD549E80025AEB8 /* IncidentReportview.swift in Sources */,
 				CB71A2C32BD4507C008AD154 /* Item.swift in Sources */,
 				CB71A2BF2BD4507C008AD154 /* KahuziBiegaApp.swift in Sources */,
 				CB71A2EF2BD45376008AD154 /* SignUpScreen.swift in Sources */,
