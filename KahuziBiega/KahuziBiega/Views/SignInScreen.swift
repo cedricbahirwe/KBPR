@@ -29,8 +29,8 @@ struct SignInScreen: View {
                 KBField("Password ", text: .constant(""), contentType: .password)
                 
                 Button(action: {
-                    recentScreen = .home
-                    navPath = [.home]
+                    recentScreen = .content
+                    navPath = [.content]
                     print("Signing Up")
                 }, label: {
                     Label("Sign In", systemImage: "arrow.forward.circle.fill")

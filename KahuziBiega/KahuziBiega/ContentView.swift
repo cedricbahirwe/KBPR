@@ -10,7 +10,7 @@ import SwiftUI
 enum AppRoute: Int {
     case signUp
     case signIn
-    case home
+    case content
 }
 
 
@@ -32,8 +32,8 @@ struct ContentView: View {
                         SignUpScreen(navPath: $navPath)
                     case .signIn:
                         SignInScreen(navPath: $navPath)
-                    case .home:
-                        HomeScreen(navPath: $navPath)
+                    case .content:
+                        ContentTabView(navPath: $navPath)
                     }
                 }
         }

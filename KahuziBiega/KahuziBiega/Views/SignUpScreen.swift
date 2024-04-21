@@ -49,8 +49,8 @@ struct SignUpScreen: View {
             .padding()
             
             Button(action: {
-                recentScreen = .home
-                navPath = [.home]
+                recentScreen = .content
+                navPath = [.content]
                 print("Signing Up")
             }, label: {
                 Label("Sign Up", systemImage: "arrow.forward.circle.fill")
