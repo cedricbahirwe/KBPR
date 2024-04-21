@@ -8,12 +8,13 @@
 import SwiftUI
 
 struct SignInScreen: View {
+    @Binding var navPath: [AppRoute]
+    
     var body: some View {
         VStack {
             Image(.signinHeader)
                 .resizable()
                 .scaledToFit()
-            //                .background(Color.red)
                 .overlay(alignment: .bottomLeading) {
                     Image(.signinLabel)
                         .padding()
@@ -46,7 +47,7 @@ struct SignInScreen: View {
                         Color(red: 222/255, green: 225/255, blue: 231/255)
                         , lineWidth: 2
                     )
-                    
+                
             }
             
             .padding(20)
@@ -59,12 +60,12 @@ struct SignInScreen: View {
                 .resizable()
                 .ignoresSafeArea()
         )
-//        .frame(maxWidth: .infinity)
         .safeAreaInset(edge: .bottom) {
             HStack {
                 Spacer()
                 
                 Button {
+                    navPath = [.signUp]
                     print("Signing Up")
                 } label: {
                     Image(.signupBtn)
@@ -73,9 +74,10 @@ struct SignInScreen: View {
             }
         }
         .ignoresSafeArea()
+        .toolbar(.hidden, for: .navigationBar)
     }
 }
 
 #Preview {
-    SignInScreen()
+    SignInScreen(navPath: .constant([]))
 }

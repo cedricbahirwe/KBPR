@@ -18,7 +18,9 @@ struct SignUpModel: Codable {
 }
 
 struct SignUpScreen: View {
+    @Binding var navPath: [AppRoute]
     @State private var signupModel = SignUpModel.empty
+    @State private var isSignUp = false
     
     var body: some View {
         VStack {
@@ -61,6 +63,7 @@ struct SignUpScreen: View {
                 Spacer()
                 
                 Button {
+                    navPath.append(.signIn)
                     print("Signing In")
                 } label: {
                     Image(.signinBtn)
@@ -69,6 +72,7 @@ struct SignUpScreen: View {
             }
         }
         .ignoresSafeArea()
+        .toolbar(.hidden, for: .navigationBar)
     }
 }
 
@@ -91,5 +95,5 @@ struct KBField: View {
 }
 
 #Preview {
-    SignUpScreen()
+    SignUpScreen(navPath: .constant([]))
 }
