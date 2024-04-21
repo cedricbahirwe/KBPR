@@ -55,7 +55,8 @@ struct HomeScreen: View {
                     }
                     .padding(.horizontal)
                     
-                    Map()
+//                    Map()
+                    Image(.heatMap)
                         .frame(height: 200)
                     
                 }
@@ -136,6 +137,18 @@ struct Incident:Identifiable {
             description: "Something happened in the night and should check this and that before or access....",
             area: .example1
         )
+        
+        static let report3 = Report(
+            title: "Encounter with juvenile mountain gorilla",
+            description: "On the morning patrol, encountered a group of visitors near the Eastern Trail Area who had an unexpected close encounter with a juvenile mountain gorilla.",
+            area: .example1
+        )
+        
+        static let report4 = Report(
+            title: "Illegal hunting activity near the Visitor Center Area.",
+            description: "Upon investigation, discovered evidence of poaching, including animal traps and remains of a hunted antelope. The perpetrators had already fled the scene before ...",
+            area: .example1
+        )
     }
     
     enum Status: String {
@@ -155,6 +168,11 @@ struct Incident:Identifiable {
     static let incidents = [
         Incident(report: .report1, status: .inReview),
         Incident(report: .report2, status: .inReview)
+    ]
+    
+    static let recents = [
+        Incident(report: .report3, status: .inReview),
+        Incident(report: .report4, status: .resolved),
     ]
 }
 
