@@ -11,6 +11,8 @@
 		CB45154B2BD511A20025AEB8 /* SplashScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB45154A2BD511A20025AEB8 /* SplashScreen.swift */; };
 		CB45154D2BD5125A0025AEB8 /* SignInScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB45154C2BD5125A0025AEB8 /* SignInScreen.swift */; };
 		CB45154F2BD519090025AEB8 /* TodoList.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB45154E2BD519090025AEB8 /* TodoList.swift */; };
+		CB4515512BD51AE30025AEB8 /* HomeScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB4515502BD51AE30025AEB8 /* HomeScreen.swift */; };
+		CB4515542BD51FF40025AEB8 /* LocalStoreKey.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB4515532BD51FF40025AEB8 /* LocalStoreKey.swift */; };
 		CB71A2BF2BD4507C008AD154 /* KahuziBiegaApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB71A2BE2BD4507C008AD154 /* KahuziBiegaApp.swift */; };
 		CB71A2C12BD4507C008AD154 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB71A2C02BD4507C008AD154 /* ContentView.swift */; };
 		CB71A2C32BD4507C008AD154 /* Item.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB71A2C22BD4507C008AD154 /* Item.swift */; };
@@ -45,6 +47,8 @@
 		CB45154A2BD511A20025AEB8 /* SplashScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SplashScreen.swift; sourceTree = "<group>"; };
 		CB45154C2BD5125A0025AEB8 /* SignInScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInScreen.swift; sourceTree = "<group>"; };
 		CB45154E2BD519090025AEB8 /* TodoList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoList.swift; sourceTree = "<group>"; };
+		CB4515502BD51AE30025AEB8 /* HomeScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeScreen.swift; sourceTree = "<group>"; };
+		CB4515532BD51FF40025AEB8 /* LocalStoreKey.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalStoreKey.swift; sourceTree = "<group>"; };
 		CB71A2BB2BD4507C008AD154 /* KahuziBiega.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = KahuziBiega.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		CB71A2BE2BD4507C008AD154 /* KahuziBiegaApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KahuziBiegaApp.swift; sourceTree = "<group>"; };
 		CB71A2C02BD4507C008AD154 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -94,6 +98,14 @@
 			path = Style;
 			sourceTree = "<group>";
 		};
+		CB4515522BD51FDF0025AEB8 /* LocalStorage */ = {
+			isa = PBXGroup;
+			children = (
+				CB4515532BD51FF40025AEB8 /* LocalStoreKey.swift */,
+			);
+			path = LocalStorage;
+			sourceTree = "<group>";
+		};
 		CB71A2B22BD4507C008AD154 = {
 			isa = PBXGroup;
 			children = (
@@ -119,6 +131,7 @@
 			children = (
 				CB71A2BE2BD4507C008AD154 /* KahuziBiegaApp.swift */,
 				CB71A2C02BD4507C008AD154 /* ContentView.swift */,
+				CB4515522BD51FDF0025AEB8 /* LocalStorage */,
 				CB4515472BD50A7D0025AEB8 /* Style */,
 				CB71A2EB2BD4535D008AD154 /* Views */,
 				CB71A2C22BD4507C008AD154 /* Item.swift */,
@@ -162,6 +175,7 @@
 				CB45154C2BD5125A0025AEB8 /* SignInScreen.swift */,
 				CB45154A2BD511A20025AEB8 /* SplashScreen.swift */,
 				CB45154E2BD519090025AEB8 /* TodoList.swift */,
+				CB4515502BD51AE30025AEB8 /* HomeScreen.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -300,8 +314,10 @@
 				CB45154B2BD511A20025AEB8 /* SplashScreen.swift in Sources */,
 				CB4515492BD50A870025AEB8 /* Button.swift in Sources */,
 				CB71A2C12BD4507C008AD154 /* ContentView.swift in Sources */,
+				CB4515542BD51FF40025AEB8 /* LocalStoreKey.swift in Sources */,
 				CB45154F2BD519090025AEB8 /* TodoList.swift in Sources */,
 				CB45154D2BD5125A0025AEB8 /* SignInScreen.swift in Sources */,
+				CB4515512BD51AE30025AEB8 /* HomeScreen.swift in Sources */,
 				CB71A2C32BD4507C008AD154 /* Item.swift in Sources */,
 				CB71A2BF2BD4507C008AD154 /* KahuziBiegaApp.swift in Sources */,
 				CB71A2EF2BD45376008AD154 /* SignUpScreen.swift in Sources */,

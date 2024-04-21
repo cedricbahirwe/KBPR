@@ -19,6 +19,9 @@ struct SignUpModel: Codable {
 
 struct SignUpScreen: View {
     @Binding var navPath: [AppRoute]
+    @AppStorage(.recentScreen) private var recentScreen: AppRoute?
+
+
     @State private var signupModel = SignUpModel.empty
     @State private var isSignUp = false
     
@@ -41,12 +44,13 @@ struct SignUpScreen: View {
                 
                 KBField("Park ID /  Badge Number", text: $signupModel.email)
                 
-                
-                
+                 
             }
             .padding()
             
             Button(action: {
+                recentScreen = .home
+                navPath = [.home]
                 print("Signing Up")
             }, label: {
                 Label("Sign Up", systemImage: "arrow.forward.circle.fill")

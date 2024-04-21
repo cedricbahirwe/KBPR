@@ -7,21 +7,23 @@
 
 import SwiftUI
 
-enum AppRoute {
+enum AppRoute: Int {
     case signUp
     case signIn
     case home
 }
 
+
 struct ContentView: View {
     @State private var navPath: [AppRoute] = []
+    @AppStorage(.recentScreen) private var recentScreen: AppRoute = .signUp
     
     var body: some View {
         NavigationStack(path: $navPath) {
             SplashScreen()
                 .onAppear() {
                     DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
-                        navPath = [.signUp]
+                        navPath = [recentScreen]
                     }
                 }
                 .navigationDestination(for: AppRoute.self) { route in
@@ -31,7 +33,7 @@ struct ContentView: View {
                     case .signIn:
                         SignInScreen(navPath: $navPath)
                     case .home:
-                        ContentView()
+                        HomeScreen(navPath: $navPath)
                     }
                 }
         }

@@ -9,7 +9,8 @@ import SwiftUI
 
 struct SignInScreen: View {
     @Binding var navPath: [AppRoute]
-    
+    @AppStorage(.recentScreen) private var recentScreen: AppRoute?
+
     var body: some View {
         VStack {
             Image(.signinHeader)
@@ -28,6 +29,8 @@ struct SignInScreen: View {
                 KBField("Password ", text: .constant(""), contentType: .password)
                 
                 Button(action: {
+                    recentScreen = .home
+                    navPath = [.home]
                     print("Signing Up")
                 }, label: {
                     Label("Sign In", systemImage: "arrow.forward.circle.fill")
