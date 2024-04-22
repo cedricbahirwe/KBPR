@@ -79,17 +79,19 @@ struct HomeScreen: View {
 
 #Preview {
     HomeScreen(navPath: .constant([]))
+        .embedInNavigation()
 }
 
 private extension HomeScreen {
     var topBarView: some View {
         HStack {
             HStack(spacing: 16) {
-                Button(action: {
-                    
-                }) {
+                NavigationLink {
+                    MapScreen()
+                } label: {
                     Image(.mapMarker)
                 }
+                
                 Button(action: {}) {
                     Image(.siren)
                 }

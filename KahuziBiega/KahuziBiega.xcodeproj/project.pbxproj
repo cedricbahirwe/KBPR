@@ -7,6 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		CB1F81372BD64AC9006A2908 /* MapScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB1F81362BD64AC9006A2908 /* MapScreen.swift */; };
+		CB1F813A2BD64B04006A2908 /* LocationViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB1F81392BD64B04006A2908 /* LocationViewModel.swift */; };
+		CB1F813D2BD64BF8006A2908 /* LocationAnnotationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB1F813C2BD64BF8006A2908 /* LocationAnnotationView.swift */; };
+		CB1F81402BD65340006A2908 /* ViewExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB1F813F2BD65340006A2908 /* ViewExtensions.swift */; };
 		CB4515492BD50A870025AEB8 /* Button.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB4515482BD50A870025AEB8 /* Button.swift */; };
 		CB45154B2BD511A20025AEB8 /* SplashScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB45154A2BD511A20025AEB8 /* SplashScreen.swift */; };
 		CB45154D2BD5125A0025AEB8 /* SignInScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB45154C2BD5125A0025AEB8 /* SignInScreen.swift */; };
@@ -50,6 +54,10 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		CB1F81362BD64AC9006A2908 /* MapScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapScreen.swift; sourceTree = "<group>"; };
+		CB1F81392BD64B04006A2908 /* LocationViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationViewModel.swift; sourceTree = "<group>"; };
+		CB1F813C2BD64BF8006A2908 /* LocationAnnotationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationAnnotationView.swift; sourceTree = "<group>"; };
+		CB1F813F2BD65340006A2908 /* ViewExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewExtensions.swift; sourceTree = "<group>"; };
 		CB4515482BD50A870025AEB8 /* Button.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Button.swift; sourceTree = "<group>"; };
 		CB45154A2BD511A20025AEB8 /* SplashScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SplashScreen.swift; sourceTree = "<group>"; };
 		CB45154C2BD5125A0025AEB8 /* SignInScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInScreen.swift; sourceTree = "<group>"; };
@@ -104,6 +112,37 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		CB1F81382BD64AFB006A2908 /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				CB1F81392BD64B04006A2908 /* LocationViewModel.swift */,
+			);
+			path = ViewModel;
+			sourceTree = "<group>";
+		};
+		CB1F813B2BD64BEF006A2908 /* Custom */ = {
+			isa = PBXGroup;
+			children = (
+				CB1F813C2BD64BF8006A2908 /* LocationAnnotationView.swift */,
+			);
+			path = Custom;
+			sourceTree = "<group>";
+		};
+		CB1F813E2BD65337006A2908 /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				CB1F813F2BD65340006A2908 /* ViewExtensions.swift */,
+			);
+			path = Extensions;
+			sourceTree = "<group>";
+		};
+		CB1F81412BD6536D006A2908 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
 		CB4515472BD50A7D0025AEB8 /* Style */ = {
 			isa = PBXGroup;
 			children = (
@@ -129,6 +168,7 @@
 				CB4515572BD535AE0025AEB8 /* ChatsScreen.swift */,
 				CB4515642BD5AD9D0025AEB8 /* ChatDetailScreen.swift */,
 				CB4515592BD535C10025AEB8 /* AnalyticsScreen.swift */,
+				CB1F81362BD64AC9006A2908 /* MapScreen.swift */,
 				CB45155E2BD549D30025AEB8 /* IncidentsListView.swift */,
 				CB4515622BD549E80025AEB8 /* IncidentReportview.swift */,
 			);
@@ -160,6 +200,9 @@
 			children = (
 				CB71A2BE2BD4507C008AD154 /* KahuziBiegaApp.swift */,
 				CB71A2C02BD4507C008AD154 /* ContentView.swift */,
+				CB1F81412BD6536D006A2908 /* Models */,
+				CB1F813E2BD65337006A2908 /* Extensions */,
+				CB1F81382BD64AFB006A2908 /* ViewModel */,
 				CB4515522BD51FDF0025AEB8 /* LocalStorage */,
 				CB4515472BD50A7D0025AEB8 /* Style */,
 				CB71A2EB2BD4535D008AD154 /* Views */,
@@ -200,6 +243,7 @@
 		CB71A2EB2BD4535D008AD154 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				CB1F813B2BD64BEF006A2908 /* Custom */,
 				CB71A2EE2BD45376008AD154 /* SignUpScreen.swift */,
 				CB45154C2BD5125A0025AEB8 /* SignInScreen.swift */,
 				CB45154A2BD511A20025AEB8 /* SplashScreen.swift */,
@@ -340,14 +384,18 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				CB1F81372BD64AC9006A2908 /* MapScreen.swift in Sources */,
+				CB1F81402BD65340006A2908 /* ViewExtensions.swift in Sources */,
 				CB45154B2BD511A20025AEB8 /* SplashScreen.swift in Sources */,
 				CB4515492BD50A870025AEB8 /* Button.swift in Sources */,
+				CB1F813A2BD64B04006A2908 /* LocationViewModel.swift in Sources */,
 				CB71A2C12BD4507C008AD154 /* ContentView.swift in Sources */,
 				CB4515542BD51FF40025AEB8 /* LocalStoreKey.swift in Sources */,
 				CB4515562BD535950025AEB8 /* ReportScreen.swift in Sources */,
 				CB45154F2BD519090025AEB8 /* TodoList.swift in Sources */,
 				CB45155A2BD535C10025AEB8 /* AnalyticsScreen.swift in Sources */,
 				CB45154D2BD5125A0025AEB8 /* SignInScreen.swift in Sources */,
+				CB1F813D2BD64BF8006A2908 /* LocationAnnotationView.swift in Sources */,
 				CB4515582BD535AE0025AEB8 /* ChatsScreen.swift in Sources */,
 				CB4515512BD51AE30025AEB8 /* HomeScreen.swift in Sources */,
 				CB45155D2BD536280025AEB8 /* ContentTabView.swift in Sources */,

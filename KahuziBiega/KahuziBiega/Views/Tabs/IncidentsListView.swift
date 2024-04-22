@@ -31,6 +31,7 @@ struct IncidentsListView: View {
                     dismiss()
                 }) {
                     Image(systemName: "chevron.left")
+                        .bold()
                 }
                 
                 Spacer()
