@@ -9,7 +9,7 @@ import SwiftUI
 
 struct IncidentsListView: View {
     @Environment(\.dismiss) private var dismiss
-    private let incidents = Incident.incidents + Incident.recents
+    @State private var incidents =  [KBIncident]()//KBIncident.incidents + KBIncident.recents
     var body: some View {
         ScrollView {
             VStack(spacing: 8) {
@@ -46,6 +46,15 @@ struct IncidentsListView: View {
             .background(.ultraThinMaterial, ignoresSafeAreaEdges: .top)
         }
         .toolbar(.hidden, for: .navigationBar)
+        .task {
+            do {
+                let results: [KBIncident] = try LocalDecoder.decodeAs()
+                incidents = results
+                
+            } catch {
+                print("Error: ", error)
+            }
+        }
     }
 }
 

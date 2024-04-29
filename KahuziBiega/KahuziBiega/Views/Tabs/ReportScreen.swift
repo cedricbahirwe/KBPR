@@ -8,8 +8,11 @@
 import SwiftUI
 
 struct ReportScreen: View {
-    private let reports = Incident.recents
+    @State private var reports: [KBIncident] = []
     
+    init() {
+        getRecentReports()
+    }
     var body: some View {
         ScrollView {
             
@@ -67,6 +70,24 @@ struct ReportScreen: View {
             .padding()
             .background(.ultraThinMaterial, ignoresSafeAreaEdges: .top)
         }
+        .task {
+            do {
+                let userData = try await NetworkClient.shared.getUserData()
+                
+            } catch {
+                // Handle errors
+                print("Error found: ", error)
+            }
+        }
+    }
+    
+    private func getRecentReports() {
+        do {
+            let result: [KBIncident] = try LocalDecoder.decodeAs()
+            reports = result + KBIncident.recents
+        } catch {
+            print("Error: ", error)
+        }
     }
 }
 
@@ -75,8 +96,8 @@ struct ReportScreen: View {
 }
 
 struct RecentReportRowView: View {
-    let incident: Incident
-    var report: Incident.Report { incident.report }
+    let incident: KBIncident
+    var report: KBIncident.Report { incident.report }
     private let dateFormatter: DateFormatter = {
         let formatter = DateFormatter()
         formatter.dateFormat = "dd MMM yyyy, h:mm a"
@@ -95,19 +116,30 @@ struct RecentReportRowView: View {
             HStack {
                 
                 Group {
-                    Label(dateFormatter.string(from: report.date), systemImage: "calendar")
+                    Label(dateFormatter.string(from: incident.createAt), systemImage: "calendar")
                         .font(.callout.weight(.light))
-                        .foregroundStyle(.accent)
+                        .foregroundStyle(.secondary)
                     
                     Spacer()
                     
-                    Text("In Review")
+                    Text(incident.status.formatted)
                         .font(.callout.weight(.semibold))
                         .padding(8)
-                        .background(.tint.quinary.opacity(0.3), in: .capsule)
-                        .foregroundStyle(.accent)
+                        .background(statusColors.quinary.opacity(0.3), in: .capsule)
+                        .foregroundStyle(statusColors)
                 }
             }
+        }
+    }
+    
+    var statusColors: Color {
+        switch incident.status {
+        case .pending:
+                .blue
+        case .inReview:
+                .yellow
+        case .resolved:
+                .green
         }
     }
 }

@@ -24,6 +24,11 @@
 		CB45155F2BD549D30025AEB8 /* IncidentsListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB45155E2BD549D30025AEB8 /* IncidentsListView.swift */; };
 		CB4515632BD549E80025AEB8 /* IncidentReportview.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB4515622BD549E80025AEB8 /* IncidentReportview.swift */; };
 		CB4515652BD5AD9D0025AEB8 /* ChatDetailScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB4515642BD5AD9D0025AEB8 /* ChatDetailScreen.swift */; };
+		CB58D56C2BDE663500F822A7 /* KBUser.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB58D56B2BDE663500F822A7 /* KBUser.swift */; };
+		CB58D56E2BDEDB5600F822A7 /* KBIncident.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB58D56D2BDEDB5600F822A7 /* KBIncident.swift */; };
+		CB58D5702BDEFC5C00F822A7 /* Networking.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB58D56F2BDEFC5C00F822A7 /* Networking.swift */; };
+		CB58D5722BDF9B2C00F822A7 /* response.json in Resources */ = {isa = PBXBuildFile; fileRef = CB58D5712BDF9B2C00F822A7 /* response.json */; };
+		CB58D5742BDF9B4500F822A7 /* LocalDecoder.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB58D5732BDF9B4500F822A7 /* LocalDecoder.swift */; };
 		CB71A2BF2BD4507C008AD154 /* KahuziBiegaApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB71A2BE2BD4507C008AD154 /* KahuziBiegaApp.swift */; };
 		CB71A2C12BD4507C008AD154 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB71A2C02BD4507C008AD154 /* ContentView.swift */; };
 		CB71A2C32BD4507C008AD154 /* Item.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB71A2C22BD4507C008AD154 /* Item.swift */; };
@@ -71,6 +76,11 @@
 		CB45155E2BD549D30025AEB8 /* IncidentsListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IncidentsListView.swift; sourceTree = "<group>"; };
 		CB4515622BD549E80025AEB8 /* IncidentReportview.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IncidentReportview.swift; sourceTree = "<group>"; };
 		CB4515642BD5AD9D0025AEB8 /* ChatDetailScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatDetailScreen.swift; sourceTree = "<group>"; };
+		CB58D56B2BDE663500F822A7 /* KBUser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KBUser.swift; sourceTree = "<group>"; };
+		CB58D56D2BDEDB5600F822A7 /* KBIncident.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KBIncident.swift; sourceTree = "<group>"; };
+		CB58D56F2BDEFC5C00F822A7 /* Networking.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Networking.swift; sourceTree = "<group>"; };
+		CB58D5712BDF9B2C00F822A7 /* response.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = response.json; sourceTree = "<group>"; };
+		CB58D5732BDF9B4500F822A7 /* LocalDecoder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalDecoder.swift; sourceTree = "<group>"; };
 		CB71A2BB2BD4507C008AD154 /* KahuziBiega.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = KahuziBiega.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		CB71A2BE2BD4507C008AD154 /* KahuziBiegaApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KahuziBiegaApp.swift; sourceTree = "<group>"; };
 		CB71A2C02BD4507C008AD154 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -139,6 +149,9 @@
 		CB1F81412BD6536D006A2908 /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				CB71A2C22BD4507C008AD154 /* Item.swift */,
+				CB58D56B2BDE663500F822A7 /* KBUser.swift */,
+				CB58D56D2BDEDB5600F822A7 /* KBIncident.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -200,13 +213,15 @@
 			children = (
 				CB71A2BE2BD4507C008AD154 /* KahuziBiegaApp.swift */,
 				CB71A2C02BD4507C008AD154 /* ContentView.swift */,
+				CB58D56F2BDEFC5C00F822A7 /* Networking.swift */,
+				CB58D5712BDF9B2C00F822A7 /* response.json */,
+				CB58D5732BDF9B4500F822A7 /* LocalDecoder.swift */,
 				CB1F81412BD6536D006A2908 /* Models */,
 				CB1F813E2BD65337006A2908 /* Extensions */,
 				CB1F81382BD64AFB006A2908 /* ViewModel */,
 				CB4515522BD51FDF0025AEB8 /* LocalStorage */,
 				CB4515472BD50A7D0025AEB8 /* Style */,
 				CB71A2EB2BD4535D008AD154 /* Views */,
-				CB71A2C22BD4507C008AD154 /* Item.swift */,
 				CB71A2C42BD4507E008AD154 /* Assets.xcassets */,
 				CB71A2F02BD453BA008AD154 /* Colors.xcassets */,
 				CB71A2C62BD4507E008AD154 /* KahuziBiega.entitlements */,
@@ -357,6 +372,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				CB58D5722BDF9B2C00F822A7 /* response.json in Resources */,
 				CB71A2F12BD453BA008AD154 /* Colors.xcassets in Resources */,
 				CB71A2C92BD4507E008AD154 /* Preview Assets.xcassets in Resources */,
 				CB71A2C52BD4507E008AD154 /* Assets.xcassets in Resources */,
@@ -387,6 +403,7 @@
 				CB1F81372BD64AC9006A2908 /* MapScreen.swift in Sources */,
 				CB1F81402BD65340006A2908 /* ViewExtensions.swift in Sources */,
 				CB45154B2BD511A20025AEB8 /* SplashScreen.swift in Sources */,
+				CB58D5702BDEFC5C00F822A7 /* Networking.swift in Sources */,
 				CB4515492BD50A870025AEB8 /* Button.swift in Sources */,
 				CB1F813A2BD64B04006A2908 /* LocationViewModel.swift in Sources */,
 				CB71A2C12BD4507C008AD154 /* ContentView.swift in Sources */,
@@ -397,10 +414,13 @@
 				CB45154D2BD5125A0025AEB8 /* SignInScreen.swift in Sources */,
 				CB1F813D2BD64BF8006A2908 /* LocationAnnotationView.swift in Sources */,
 				CB4515582BD535AE0025AEB8 /* ChatsScreen.swift in Sources */,
+				CB58D56E2BDEDB5600F822A7 /* KBIncident.swift in Sources */,
 				CB4515512BD51AE30025AEB8 /* HomeScreen.swift in Sources */,
+				CB58D5742BDF9B4500F822A7 /* LocalDecoder.swift in Sources */,
 				CB45155D2BD536280025AEB8 /* ContentTabView.swift in Sources */,
 				CB45155F2BD549D30025AEB8 /* IncidentsListView.swift in Sources */,
 				CB4515652BD5AD9D0025AEB8 /* ChatDetailScreen.swift in Sources */,
+				CB58D56C2BDE663500F822A7 /* KBUser.swift in Sources */,
 				CB4515632BD549E80025AEB8 /* IncidentReportview.swift in Sources */,
 				CB71A2C32BD4507C008AD154 /* Item.swift in Sources */,
 				CB71A2BF2BD4507C008AD154 /* KahuziBiegaApp.swift in Sources */,
