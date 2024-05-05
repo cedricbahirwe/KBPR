@@ -22,10 +22,13 @@ struct KahuziBiegaApp: App {
             fatalError("Could not create ModelContainer: \(error)")
         }
     }()
+    
+    @StateObject private var authVM = AuthenticationViewModel()
 
     var body: some Scene {
         WindowGroup {
             ContentView()
+                .environmentObject(authVM)
         }
         .modelContainer(sharedModelContainer)
     }

@@ -8,55 +8,63 @@
 import SwiftUI
 
 struct SignInScreen: View {
+    
     @Binding var navPath: [AppRoute]
     @AppStorage(.recentScreen) private var recentScreen: AppRoute?
-
+    @EnvironmentObject private var authStore: AuthenticationViewModel
+    
+    @State private var loginModel = LoginModel.example
     var body: some View {
-        VStack {
-            Image(.signinHeader)
-                .resizable()
-                .scaledToFit()
-                .overlay(alignment: .bottomLeading) {
-                    Image(.signinLabel)
-                        .padding()
+        ZStack {
+            VStack {
+                Image(.signinHeader)
+                    .resizable()
+                    .scaledToFit()
+                    .overlay(alignment: .bottomLeading) {
+                        Image(.signinLabel)
+                            .padding()
+                    }
+                    .ignoresSafeArea()
+                
+                VStack(spacing: 25) {
+                    
+                    KBField("Email", text: $loginModel.email, contentType: .emailAddress)
+                        .keyboardType(.emailAddress)
+                    
+                    KBField("Password ", text: $loginModel.password)
+                        .toSecureField()
+                    
+                    
+                    Button(action: {
+                        performLogin()
+                    }, label: {
+                        Label("Sign In", systemImage: "arrow.forward.circle.fill")
+                            .font(.largeTitle)
+                            .bold()
+                            .labelStyle(.titleThenIcon)
+                    })
                 }
-                .ignoresSafeArea()
-            
-            VStack(spacing: 25) {
+                .frame(maxWidth: .infinity)
+                .frame(height: 220)
+                .padding(20)
+                .background(.background.opacity(0.6))
+                .clipShape(.rect(cornerRadius: 25.0))
+                .overlay {
+                    RoundedRectangle(cornerRadius: 25.0)
+                        .stroke(
+                            Color(red: 222/255, green: 225/255, blue: 231/255)
+                            , lineWidth: 2
+                        )
+                    
+                }
                 
-                KBField("Phone Number", text: .constant(""), contentType: .telephoneNumber)
+                .padding(20)
                 
-                KBField("Password ", text: .constant(""), contentType: .password)
                 
-                Button(action: {
-                    recentScreen = .content
-                    navPath = [.content]
-                    print("Signing Up")
-                }, label: {
-                    Label("Sign In", systemImage: "arrow.forward.circle.fill")
-                        .font(.largeTitle)
-                        .bold()
-                        .labelStyle(.titleThenIcon)
-                })
-            }
-            .frame(maxWidth: .infinity)
-            .frame(height: 220)
-            .padding(20)
-            .background(.background.opacity(0.6))
-            .clipShape(.rect(cornerRadius: 25.0))
-            .overlay {
-                RoundedRectangle(cornerRadius: 25.0)
-                    .stroke(
-                        Color(red: 222/255, green: 225/255, blue: 231/255)
-                        , lineWidth: 2
-                    )
-                
+                Spacer()
             }
             
-            .padding(20)
-            
-            
-            Spacer()
+            ActivityIndicator(isVisible: authStore.isLoading)
         }
         .background(
             Image(.authBackground)
@@ -79,8 +87,43 @@ struct SignInScreen: View {
         .ignoresSafeArea()
         .toolbar(.hidden, for: .navigationBar)
     }
+    
+    private func performLogin() {
+        Task {
+            print("Signing In")
+            
+            let success = await authStore.login(model: loginModel)
+            print("Login Result:", success)
+            if success {
+                recentScreen = .content
+                navPath = [.content]
+            }
+        }
+    }
 }
 
 #Preview {
     SignInScreen(navPath: .constant([]))
+}
+
+extension SignInScreen {
+    struct LoginModel: Encodable {
+        var email: String = ""
+        var password: String = ""
+        
+        static let example = LoginModel(
+            email: "newone@gmail.com",
+            password: "driosman"
+        )
+        
+        func getValidationError() -> String? {
+            if email.count < 3 {
+                return "Username must be at least 3 characters long."
+            }
+            if password.count < 5 {
+                return "Password must be at least 5 characters long."
+            }
+            return nil // No validation errors
+        }
+    }
 }

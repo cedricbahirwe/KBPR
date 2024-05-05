@@ -111,7 +111,7 @@ struct ChatPreviewRowView: View {
                     
                     Group {
                         if preview.onRead == 0 {
-                            Image("checkmark")
+                            Image(.redCheckmark)
                                 .renderingMode(.template)
                                 .resizable()
                                 .scaledToFit()

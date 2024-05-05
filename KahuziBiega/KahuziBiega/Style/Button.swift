@@ -23,6 +23,7 @@ extension ButtonStyle where Self == UnhighlightedButtonStyle {
 
 
 struct BorderedTextFieldStyle: TextFieldStyle {
+    var padding: CGFloat
     func _body(configuration: TextField<Self._Label>) -> some View {
         configuration
 //            .padding(10)
@@ -30,7 +31,7 @@ struct BorderedTextFieldStyle: TextFieldStyle {
 //            .cornerRadius(8)
 //            .foregroundColor(.primary)
         
-            .padding(10)
+            .padding(padding)
             .overlay {
                 RoundedRectangle(cornerRadius: 8)
                     .strokeBorder()
@@ -40,7 +41,11 @@ struct BorderedTextFieldStyle: TextFieldStyle {
 
 extension TextFieldStyle where Self == BorderedTextFieldStyle {
     static var borderedStyle: BorderedTextFieldStyle {
-        BorderedTextFieldStyle()
+        BorderedTextFieldStyle(padding: 10.0)
+    }
+    
+    static func bordereStyle(_ padding: CGFloat) -> BorderedTextFieldStyle {
+        BorderedTextFieldStyle(padding: padding)
     }
 }
 

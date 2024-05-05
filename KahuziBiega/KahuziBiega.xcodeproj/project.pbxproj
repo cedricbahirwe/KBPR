@@ -11,6 +11,9 @@
 		CB1F813A2BD64B04006A2908 /* LocationViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB1F81392BD64B04006A2908 /* LocationViewModel.swift */; };
 		CB1F813D2BD64BF8006A2908 /* LocationAnnotationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB1F813C2BD64BF8006A2908 /* LocationAnnotationView.swift */; };
 		CB1F81402BD65340006A2908 /* ViewExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB1F813F2BD65340006A2908 /* ViewExtensions.swift */; };
+		CB2A65BA2BE7BC2A0072027B /* AuthenticationViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB2A65B92BE7BC2A0072027B /* AuthenticationViewModel.swift */; };
+		CB2A65BC2BE7C7770072027B /* AdminDashboardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB2A65BB2BE7C7770072027B /* AdminDashboardView.swift */; };
+		CB2A65C02BE7C7F10072027B /* WaitingApprovalView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB2A65BF2BE7C7F10072027B /* WaitingApprovalView.swift */; };
 		CB4515492BD50A870025AEB8 /* Button.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB4515482BD50A870025AEB8 /* Button.swift */; };
 		CB45154B2BD511A20025AEB8 /* SplashScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB45154A2BD511A20025AEB8 /* SplashScreen.swift */; };
 		CB45154D2BD5125A0025AEB8 /* SignInScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB45154C2BD5125A0025AEB8 /* SignInScreen.swift */; };
@@ -63,6 +66,9 @@
 		CB1F81392BD64B04006A2908 /* LocationViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationViewModel.swift; sourceTree = "<group>"; };
 		CB1F813C2BD64BF8006A2908 /* LocationAnnotationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationAnnotationView.swift; sourceTree = "<group>"; };
 		CB1F813F2BD65340006A2908 /* ViewExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewExtensions.swift; sourceTree = "<group>"; };
+		CB2A65B92BE7BC2A0072027B /* AuthenticationViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthenticationViewModel.swift; sourceTree = "<group>"; };
+		CB2A65BB2BE7C7770072027B /* AdminDashboardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdminDashboardView.swift; sourceTree = "<group>"; };
+		CB2A65BF2BE7C7F10072027B /* WaitingApprovalView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WaitingApprovalView.swift; sourceTree = "<group>"; };
 		CB4515482BD50A870025AEB8 /* Button.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Button.swift; sourceTree = "<group>"; };
 		CB45154A2BD511A20025AEB8 /* SplashScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SplashScreen.swift; sourceTree = "<group>"; };
 		CB45154C2BD5125A0025AEB8 /* SignInScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInScreen.swift; sourceTree = "<group>"; };
@@ -126,6 +132,7 @@
 			isa = PBXGroup;
 			children = (
 				CB1F81392BD64B04006A2908 /* LocationViewModel.swift */,
+				CB2A65B92BE7BC2A0072027B /* AuthenticationViewModel.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -261,6 +268,8 @@
 				CB1F813B2BD64BEF006A2908 /* Custom */,
 				CB71A2EE2BD45376008AD154 /* SignUpScreen.swift */,
 				CB45154C2BD5125A0025AEB8 /* SignInScreen.swift */,
+				CB2A65BB2BE7C7770072027B /* AdminDashboardView.swift */,
+				CB2A65BF2BE7C7F10072027B /* WaitingApprovalView.swift */,
 				CB45154A2BD511A20025AEB8 /* SplashScreen.swift */,
 				CB45155B2BD535C50025AEB8 /* Tabs */,
 				CB45154E2BD519090025AEB8 /* TodoList.swift */,
@@ -400,8 +409,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				CB2A65BA2BE7BC2A0072027B /* AuthenticationViewModel.swift in Sources */,
 				CB1F81372BD64AC9006A2908 /* MapScreen.swift in Sources */,
 				CB1F81402BD65340006A2908 /* ViewExtensions.swift in Sources */,
+				CB2A65C02BE7C7F10072027B /* WaitingApprovalView.swift in Sources */,
 				CB45154B2BD511A20025AEB8 /* SplashScreen.swift in Sources */,
 				CB58D5702BDEFC5C00F822A7 /* Networking.swift in Sources */,
 				CB4515492BD50A870025AEB8 /* Button.swift in Sources */,
@@ -410,6 +421,7 @@
 				CB4515542BD51FF40025AEB8 /* LocalStoreKey.swift in Sources */,
 				CB4515562BD535950025AEB8 /* ReportScreen.swift in Sources */,
 				CB45154F2BD519090025AEB8 /* TodoList.swift in Sources */,
+				CB2A65BC2BE7C7770072027B /* AdminDashboardView.swift in Sources */,
 				CB45155A2BD535C10025AEB8 /* AnalyticsScreen.swift in Sources */,
 				CB45154D2BD5125A0025AEB8 /* SignInScreen.swift in Sources */,
 				CB1F813D2BD64BF8006A2908 /* LocationAnnotationView.swift in Sources */,

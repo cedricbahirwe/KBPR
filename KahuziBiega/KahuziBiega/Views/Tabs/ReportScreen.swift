@@ -10,9 +10,6 @@ import SwiftUI
 struct ReportScreen: View {
     @State private var reports: [KBIncident] = []
     
-    init() {
-        getRecentReports()
-    }
     var body: some View {
         ScrollView {
             
@@ -48,6 +45,7 @@ struct ReportScreen: View {
                         }
                     }
                 }
+                .frame(maxWidth: .infinity, alignment: .leading)
             }
             .padding()
             
@@ -71,22 +69,24 @@ struct ReportScreen: View {
             .background(.ultraThinMaterial, ignoresSafeAreaEdges: .top)
         }
         .task {
-            do {
-                let userData = try await NetworkClient.shared.getUserData()
-                
-            } catch {
-                // Handle errors
-                print("Error found: ", error)
-            }
+//            do {
+//                let userData = try await NetworkClient.shared.getUserData()
+//                
+//            } catch {
+//                // Handle errors
+//                print("Error found: ", error)
+//            }
+            
+            getRecentReports()
         }
     }
     
     private func getRecentReports() {
         do {
             let result: [KBIncident] = try LocalDecoder.decodeAs()
-            reports = result + KBIncident.recents
+            self.reports = result + KBIncident.recents
         } catch {
-            print("Error: ", error)
+            print("Error incidents: ", error)
         }
     }
 }

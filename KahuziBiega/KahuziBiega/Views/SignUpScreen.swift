@@ -7,76 +7,117 @@
 
 import SwiftUI
 
-struct SignUpModel: Codable {
-    var phoneNumber: String
-    var fullName: String
-    var email: String
-    var password: String
-    var parkID: String
+struct SignUpModel: Encodable {
+    var username = ""
+    var email = ""
+    var password = ""
+    var firstName = ""
+    var lastName = ""
+    var badgeNumber = ""
+    var phoneNumber: String?
     
-    static let empty = SignUpModel(phoneNumber: "", fullName: "", email: "", password: "", parkID: "")
+    static let example = SignUpModel(username: "driosman", email: "newone@gmail.com", password: "driosman", firstName: "Drios", lastName: "Man", badgeNumber: "Drios1234", phoneNumber: "0782628000")
 }
 
 struct SignUpScreen: View {
     @Binding var navPath: [AppRoute]
     @AppStorage(.recentScreen) private var recentScreen: AppRoute?
-
-
-    @State private var signupModel = SignUpModel.empty
+    
+    @EnvironmentObject var authVM: AuthenticationViewModel
+    
+    @State private var signupModel = SignUpModel.example
     @State private var isSignUp = false
     
     var body: some View {
-        VStack {
+        ZStack(alignment: .top) {
             Image(.signupHeader)
                 .resizable()
                 .scaledToFit()
                 .ignoresSafeArea()
             
-            VStack(spacing: 12) {
+            
+            VStack(spacing: 30) {
                 
-                KBField("Phone Number", text: $signupModel.phoneNumber)
+                Image(.signupHeader)
+                    .resizable()
+                    .scaledToFit()
+                    .ignoresSafeArea()
+                    .hidden()
                 
-                KBField("Full Name", text: $signupModel.fullName)
                 
-                KBField("Email", text: $signupModel.email)
+                VStack(spacing: 12) {
+                    
+                    KBField("Username", text: $signupModel.username)
+                    
+                    KBField("Email", text: $signupModel.email)
+                    
+                    KBField("Password", text: $signupModel.password)
+                    
+                    HStack {
+                        KBField("First Name", text: $signupModel.firstName)
+                        
+                        KBField("Last Name", text: $signupModel.firstName)
+                        
+                    }
+                    
+                    KBField("Badge Number", text: $signupModel.email)
+                    
+                    KBField(
+                        "Phone Number",
+                        text: Binding(get: {
+                            signupModel.phoneNumber ?? ""
+                        }, set: { newValue in
+                            let cleanNumber = newValue.trimmingCharacters(in: .whitespacesAndNewlines)
+                            signupModel.phoneNumber = cleanNumber.isEmpty ? nil : cleanNumber
+                        })
+                    )
+                    
+                }
+                .padding()
+                .background(.background)
                 
-                KBField("Password", text: $signupModel.email)
+                Button(action: {
+                    performRegistration()
+                }, label: {
+                    Label("Sign Up", systemImage: "arrow.forward.circle.fill")
+                        .font(.largeTitle)
+                        .bold()
+                        .labelStyle(.titleThenIcon)
+                })
                 
-                KBField("Park ID /  Badge Number", text: $signupModel.email)
-                
-                 
+                Spacer()
             }
-            .padding()
+            .frame(maxWidth: .infinity, maxHeight: .infinity)
             
-            Button(action: {
-                recentScreen = .content
-                navPath = [.content]
-                print("Signing Up")
-            }, label: {
-                Label("Sign Up", systemImage: "arrow.forward.circle.fill")
-                    .font(.largeTitle)
-                    .bold()
-                    .labelStyle(.titleThenIcon)
-            })
-            
-            Spacer()
+       
+            ActivityIndicator(isVisible: authVM.isLoading)
         }
-        .frame(maxWidth: .infinity)
         .safeAreaInset(edge: .bottom) {
             HStack {
                 Spacer()
                 
                 Button {
                     navPath.append(.signIn)
-                    print("Signing In")
                 } label: {
                     Image(.signinBtn)
                 }
                 .buttonStyle(.unhighlighted)
             }
         }
-        .ignoresSafeArea()
+        .ignoresSafeArea(edges: .bottom)
         .toolbar(.hidden, for: .navigationBar)
+    }
+    
+    private func performRegistration() {
+        Task {
+            print("Signing Up")
+           let success = await authVM.signup(signupModel)
+            print("Registration Result:", success)
+            if success {
+                recentScreen = .content
+                navPath = [.content]
+            }
+        }
     }
 }
 
@@ -92,12 +133,57 @@ struct KBField: View {
     }
     
     var body: some View {
-        TextField(placeholder, text: $text)
+        textFieldView
             .textFieldStyle(.borderedStyle)
             .textContentType(contentType)
+    }
+    
+    var isSecure: Bool = false
+    
+    @ViewBuilder
+    private var textFieldView: some View {
+        Group {
+            if isSecure {
+                SecureField(placeholder, text: $text)
+            } else {
+                TextField(placeholder, text: $text)
+            }
+        }
+    }
+}
+
+extension KBField {
+    func toSecureField() -> KBField {
+        var view = self
+        view.isSecure = true
+        return view
     }
 }
 
 #Preview {
     SignUpScreen(navPath: .constant([]))
+        .environmentObject(AuthenticationViewModel())
+}
+
+
+
+struct ActivityIndicator: View {
+    var isVisible: Bool
+    var interactive: Bool = true
+    var body: some View {
+        Group {
+            if !interactive {
+                Color.black.opacity(0.005)
+            }
+            if isVisible {
+                ProgressView()
+                    .padding(25)
+                    .background(.thinMaterial, in: .rect(cornerRadius: 15))
+                    .frame(maxWidth: .infinity, maxHeight: .infinity)
+            } else {
+                EmptyView()
+            }
+        }
+       
+    }
 }
