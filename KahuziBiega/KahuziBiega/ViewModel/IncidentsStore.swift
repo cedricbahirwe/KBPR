@@ -20,12 +20,13 @@ final class IncidentsStore: ObservableObject {
     init() { }
     
     func getIncidents() async {
+        isLoading = true
+
         do {
             isLoading = true
             let results: [KBIncident] = try await client.get(.getIncidents)
-            print("Some incidents", results.count)
-            allIncidents = results
-            
+            isLoading = false
+            allIncidents = results.sorted(by: { $0.createAt > $1.createAt })
         } catch {
             print("Error getting incidents: ", error)
             isLoading = false

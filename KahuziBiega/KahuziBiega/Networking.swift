@@ -186,6 +186,16 @@ class KBDecoder: JSONDecoder {
     override init() {
         super.init()
         // TODO: Fix Date formatting forever
-        self.dateDecodingStrategy = .iso8601
+        self.dateDecodingStrategy = .formatted(LocalDecoder.dateFormatter)
+//        self.dataDecodingStrategy = .
+//        self.dateDecodingStrategy = .iso8601
     }
+    
+    private var dateFormatter: DateFormatter = {
+        let dateFormatter = DateFormatter()
+        dateFormatter.locale = Locale(identifier: "en_US_POSIX") // Ensures consistent date parsing regardless of device's locale
+        dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'"
+        dateFormatter.timeZone = TimeZone(secondsFromGMT: 0) // UTC timezone
+        return dateFormatter
+    }()
 }
