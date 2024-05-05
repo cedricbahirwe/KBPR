@@ -111,11 +111,12 @@ struct SignUpScreen: View {
     private func performRegistration() {
         Task {
             print("Signing Up")
-           let success = await authVM.signup(signupModel)
-            print("Registration Result:", success)
-            if success {
-                recentScreen = .content
-                navPath = [.content]
+            do {
+                let user = try await authVM.signup(signupModel)
+                
+                let destination = AppRoute.verification(user: user)
+                recentScreen = destination
+                navPath = [destination]
             }
         }
     }

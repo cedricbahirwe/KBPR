@@ -31,7 +31,7 @@ enum LocalDecoder {
         let data = try Data(contentsOf: URL(fileURLWithPath: path), options: .mappedIfSafe)
         
         do {
-            let decoder = JSONDecoder()
+            let decoder = KBDecoder()
             decoder.dateDecodingStrategy = .formatted(dateFormatter) 
 
             let decodedData = try decoder.decode(T.self, from: data)

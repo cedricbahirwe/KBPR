@@ -9,15 +9,16 @@ import SwiftUI
 
 struct IncidentsListView: View {
     @Environment(\.dismiss) private var dismiss
-    @State private var incidents =  [KBIncident]()//KBIncident.incidents + KBIncident.recents
+    @EnvironmentObject private var incidentsStore: IncidentsStore
+    
     var body: some View {
         ScrollView {
             VStack(spacing: 8) {
-                ForEach(incidents) { incident in
+                ForEach(incidentsStore.allIncidents) { incident in
                     Group {
                         RecentReportRowView(incident: incident)
                         
-                        if (incidents.last?.id != incident.id) {
+                        if (incidentsStore.allIncidents.last?.id != incident.id) {
                             Divider()
                         }
                     }
@@ -46,18 +47,24 @@ struct IncidentsListView: View {
             .background(.ultraThinMaterial, ignoresSafeAreaEdges: .top)
         }
         .toolbar(.hidden, for: .navigationBar)
+        .loadingIndicator(isVisible: incidentsStore.isLoading)
         .task {
-            do {
-                let results: [KBIncident] = try LocalDecoder.decodeAs()
-                incidents = results
-                
-            } catch {
-                print("Error: ", error)
-            }
+            await incidentsStore.getIncidents()
         }
     }
 }
 
 #Preview {
     IncidentsListView()
+        .environmentObject(IncidentsStore())
+}
+
+
+extension View {
+    func loadingIndicator(isVisible: Bool, interactive: Bool = true) -> some View {
+        ZStack {
+            self
+            ActivityIndicator(isVisible: isVisible, interactive: interactive)
+        }
+    }
 }

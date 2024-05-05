@@ -92,11 +92,14 @@ struct SignInScreen: View {
         Task {
             print("Signing In")
             
-            let success = await authStore.login(model: loginModel)
-            print("Login Result:", success)
-            if success {
-                recentScreen = .content
-                navPath = [.content]
+            do {
+                let user = try await authStore.login(model: loginModel)
+                
+                let destination = AppRoute.verification(user: user)
+                recentScreen = destination                
+                navPath = [destination]
+            } catch {
+                
             }
         }
     }

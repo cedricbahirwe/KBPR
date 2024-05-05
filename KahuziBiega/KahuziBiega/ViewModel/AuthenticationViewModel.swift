@@ -16,26 +16,26 @@ final class AuthenticationViewModel: ObservableObject {
 //    @Published var isLoggedIn = false
     
     
-    func login(model: SignInScreen.LoginModel) async -> Bool {
+    func login(model: SignInScreen.LoginModel) async throws -> KBUser {
         isLoading = true
         do {
             let response: KBUserData = try await NetworkClient.shared.post(.login, content: model)
             
             isLoading = false
             print("Login success", response.data.username)
-            return true
+            return response.data
         } catch let error as APIError {
             isLoading = false
             print("Failed to login, Internal Error:", error.message)
-            return false
+            throw error
         } catch {
             isLoading = false
             print("Failed to login", error.localizedDescription)
-            return false
+            throw error
         }
     }
     
-    func signup(_ model: SignUpModel) async -> Bool {
+    func signup(_ model: SignUpModel) async throws -> KBUser {
         // TODO: Do some minor validation
         isLoading = true
         do {
@@ -43,15 +43,37 @@ final class AuthenticationViewModel: ObservableObject {
             
             isLoading = false
             print("Register success", response.data.username)
-            return true
+            return response.data
         } catch let error as APIError {
             isLoading = false
             print("Failed to register, Internal Error:", error.message)
-            return false
+            throw error
         } catch {
             isLoading = false
             print("Failed to register", error.localizedDescription)
-            return false
+            throw error
+        }
+    }
+    
+    func checkUserStatus(_ user: KBUser) async throws -> KBUser.KBAccountStatus {
+        guard  user.status != .Approved else {
+            return .Approved
+        }
+        isLoading = true
+        do {
+            let response: KBUserData = try await NetworkClient.shared.get(.getuser(id: user.id))
+            
+            isLoading = false
+            print("Check Status success", response.data.username)
+            return response.data.status
+        } catch let error as APIError {
+            isLoading = false
+            print("Failed to check user status, Internal Error:", error.message)
+            throw error
+        } catch {
+            isLoading = false
+            print("Failed to check user status", error.localizedDescription)
+            throw error
         }
     }
 }

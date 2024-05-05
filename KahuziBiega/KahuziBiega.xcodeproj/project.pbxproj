@@ -14,6 +14,10 @@
 		CB2A65BA2BE7BC2A0072027B /* AuthenticationViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB2A65B92BE7BC2A0072027B /* AuthenticationViewModel.swift */; };
 		CB2A65BC2BE7C7770072027B /* AdminDashboardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB2A65BB2BE7C7770072027B /* AdminDashboardView.swift */; };
 		CB2A65C02BE7C7F10072027B /* WaitingApprovalView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB2A65BF2BE7C7F10072027B /* WaitingApprovalView.swift */; };
+		CB2A65C42BE7DC5B0072027B /* AppRoute.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB2A65C32BE7DC5B0072027B /* AppRoute.swift */; };
+		CB2A65C62BE7DFDC0072027B /* ContentWrapperView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB2A65C52BE7DFDC0072027B /* ContentWrapperView.swift */; };
+		CB2A65C82BE7E0160072027B /* LocalStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB2A65C72BE7E0160072027B /* LocalStorage.swift */; };
+		CB2A65CE2BE7E2300072027B /* IncidentsStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB2A65CD2BE7E2300072027B /* IncidentsStore.swift */; };
 		CB4515492BD50A870025AEB8 /* Button.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB4515482BD50A870025AEB8 /* Button.swift */; };
 		CB45154B2BD511A20025AEB8 /* SplashScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB45154A2BD511A20025AEB8 /* SplashScreen.swift */; };
 		CB45154D2BD5125A0025AEB8 /* SignInScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB45154C2BD5125A0025AEB8 /* SignInScreen.swift */; };
@@ -69,6 +73,10 @@
 		CB2A65B92BE7BC2A0072027B /* AuthenticationViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthenticationViewModel.swift; sourceTree = "<group>"; };
 		CB2A65BB2BE7C7770072027B /* AdminDashboardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdminDashboardView.swift; sourceTree = "<group>"; };
 		CB2A65BF2BE7C7F10072027B /* WaitingApprovalView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WaitingApprovalView.swift; sourceTree = "<group>"; };
+		CB2A65C32BE7DC5B0072027B /* AppRoute.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppRoute.swift; sourceTree = "<group>"; };
+		CB2A65C52BE7DFDC0072027B /* ContentWrapperView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentWrapperView.swift; sourceTree = "<group>"; };
+		CB2A65C72BE7E0160072027B /* LocalStorage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalStorage.swift; sourceTree = "<group>"; };
+		CB2A65CD2BE7E2300072027B /* IncidentsStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IncidentsStore.swift; sourceTree = "<group>"; };
 		CB4515482BD50A870025AEB8 /* Button.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Button.swift; sourceTree = "<group>"; };
 		CB45154A2BD511A20025AEB8 /* SplashScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SplashScreen.swift; sourceTree = "<group>"; };
 		CB45154C2BD5125A0025AEB8 /* SignInScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInScreen.swift; sourceTree = "<group>"; };
@@ -132,6 +140,7 @@
 			isa = PBXGroup;
 			children = (
 				CB1F81392BD64B04006A2908 /* LocationViewModel.swift */,
+				CB2A65CD2BE7E2300072027B /* IncidentsStore.swift */,
 				CB2A65B92BE7BC2A0072027B /* AuthenticationViewModel.swift */,
 			);
 			path = ViewModel;
@@ -157,6 +166,7 @@
 			isa = PBXGroup;
 			children = (
 				CB71A2C22BD4507C008AD154 /* Item.swift */,
+				CB2A65C32BE7DC5B0072027B /* AppRoute.swift */,
 				CB58D56B2BDE663500F822A7 /* KBUser.swift */,
 				CB58D56D2BDEDB5600F822A7 /* KBIncident.swift */,
 			);
@@ -175,6 +185,7 @@
 			isa = PBXGroup;
 			children = (
 				CB4515532BD51FF40025AEB8 /* LocalStoreKey.swift */,
+				CB2A65C72BE7E0160072027B /* LocalStorage.swift */,
 			);
 			path = LocalStorage;
 			sourceTree = "<group>";
@@ -183,6 +194,7 @@
 			isa = PBXGroup;
 			children = (
 				CB45155C2BD536280025AEB8 /* ContentTabView.swift */,
+				CB2A65C52BE7DFDC0072027B /* ContentWrapperView.swift */,
 				CB4515502BD51AE30025AEB8 /* HomeScreen.swift */,
 				CB4515552BD535950025AEB8 /* ReportScreen.swift */,
 				CB4515572BD535AE0025AEB8 /* ChatsScreen.swift */,
@@ -413,6 +425,7 @@
 				CB1F81372BD64AC9006A2908 /* MapScreen.swift in Sources */,
 				CB1F81402BD65340006A2908 /* ViewExtensions.swift in Sources */,
 				CB2A65C02BE7C7F10072027B /* WaitingApprovalView.swift in Sources */,
+				CB2A65C62BE7DFDC0072027B /* ContentWrapperView.swift in Sources */,
 				CB45154B2BD511A20025AEB8 /* SplashScreen.swift in Sources */,
 				CB58D5702BDEFC5C00F822A7 /* Networking.swift in Sources */,
 				CB4515492BD50A870025AEB8 /* Button.swift in Sources */,
@@ -420,11 +433,13 @@
 				CB71A2C12BD4507C008AD154 /* ContentView.swift in Sources */,
 				CB4515542BD51FF40025AEB8 /* LocalStoreKey.swift in Sources */,
 				CB4515562BD535950025AEB8 /* ReportScreen.swift in Sources */,
+				CB2A65C82BE7E0160072027B /* LocalStorage.swift in Sources */,
 				CB45154F2BD519090025AEB8 /* TodoList.swift in Sources */,
 				CB2A65BC2BE7C7770072027B /* AdminDashboardView.swift in Sources */,
 				CB45155A2BD535C10025AEB8 /* AnalyticsScreen.swift in Sources */,
 				CB45154D2BD5125A0025AEB8 /* SignInScreen.swift in Sources */,
 				CB1F813D2BD64BF8006A2908 /* LocationAnnotationView.swift in Sources */,
+				CB2A65C42BE7DC5B0072027B /* AppRoute.swift in Sources */,
 				CB4515582BD535AE0025AEB8 /* ChatsScreen.swift in Sources */,
 				CB58D56E2BDEDB5600F822A7 /* KBIncident.swift in Sources */,
 				CB4515512BD51AE30025AEB8 /* HomeScreen.swift in Sources */,
@@ -437,6 +452,7 @@
 				CB71A2C32BD4507C008AD154 /* Item.swift in Sources */,
 				CB71A2BF2BD4507C008AD154 /* KahuziBiegaApp.swift in Sources */,
 				CB71A2EF2BD45376008AD154 /* SignUpScreen.swift in Sources */,
+				CB2A65CE2BE7E2300072027B /* IncidentsStore.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -7,12 +7,13 @@
 
 import SwiftUI
 
+enum LocalStoreKey: String {
+    case recentScreen = "app_recentScreen"
+    
+    case user = "app_user"
+}
+
 extension AppStorage {
-    
-    enum LocalStoreKey: String {
-        case recentScreen = "app_recentScreen"
-    }
-    
     
     // MARK: - Int
     

@@ -10,7 +10,11 @@ import MapKit
 
 struct HomeScreen: View {
     @Binding var navPath: [AppRoute]
-    private let incidents = KBIncident.incidents
+//    private let incidents = KBIncident.incidents
+    @EnvironmentObject private var incidentsStore: IncidentsStore
+    private var incidents: [KBIncident] {
+        incidentsStore.allIncidents
+    }
     
     var body: some View {
         VStack {
@@ -73,6 +77,10 @@ struct HomeScreen: View {
         .safeAreaInset(edge: .top) {
             topBarView
                 .background(.ultraThinMaterial, ignoresSafeAreaEdges: .top)
+        }
+        .loadingIndicator(isVisible: incidentsStore.isLoading)
+        .task {
+            await incidentsStore.getIncidents()
         }
     }
 }

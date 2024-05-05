@@ -53,6 +53,7 @@ class NetworkClient {
         
         case register
         case login
+        case getuser(id: UUID)
         
         var path: String {
             switch self {
@@ -64,18 +65,17 @@ class NetworkClient {
                 "/api/register"
             case .login:
                 "/api/login"
+            case .getuser(let id):
+                "/api/users/\(id)"
             }
         }
         
-        static let postPaths: [Endpoint] = [
-            .login, .register
-        ]
-        
         var method: HTTPMethod {
             switch self {
-            case let endpoint where Endpoint.postPaths.contains(endpoint) :
+            case .login, .register:
                 return .post
-            default: return .get
+            case .getUsers, .getIncidents,
+                    .getuser: return .get
             }
         }
     }
@@ -117,12 +117,8 @@ class NetworkClient {
             
             try debugResponse(data)
                         
-            let decoder = JSONDecoder()
-            // TODO: Fix Date formatting forever
-            decoder.dateDecodingStrategy = .iso8601
-
             do {
-                return try decoder.decode(R.self, from: data)
+                return try KBDecoder().decode(R.self, from: data)
             } catch {
                 throw APIError.unableToDecodeResponse(error)
             }
@@ -141,9 +137,7 @@ class NetworkClient {
             
 //            try debugResponse(data)
             
-            let decoder = JSONDecoder()
-            // TODO: Fix Date formatting forever
-            decoder.dateDecodingStrategy = .iso8601
+            let decoder = KBDecoder()
             
             let users = try decoder.decode(R.self, from: data)
             return users
@@ -183,4 +177,15 @@ struct ValidationError: Decodable, Error {
     let message: String
     let expected: String?
     let received: String?
+}
+
+
+class KBDecoder: JSONDecoder {
+//    override var dataDecodingStrategy: JSONDecoder.DataDecodingStrategy
+    
+    override init() {
+        super.init()
+        // TODO: Fix Date formatting forever
+        self.dateDecodingStrategy = .iso8601
+    }
 }
