@@ -11,10 +11,28 @@ enum LocalStoreKey: String {
     case recentScreen = "app_recentScreen"
     
     case user = "app_user"
+    
+    case userToken
+    
+    
+    // Admin
+    case allUsers
+}
+
+protocol LocalStorageSetter {
+    associatedtype Key = LocalStoreKey
+    static func setString(_ value: String, for key: Key)
+    static func setBool(_ value: Bool, for key: Key)
+}
+
+protocol LocalStorageGetter {
+    associatedtype Key = LocalStoreKey
+    static func getString(_ key: Key) -> String?
+    static func getBool(_ key: Key) -> Bool
 }
 
 extension AppStorage {
-    
+  
     // MARK: - Int
     
     init<R>(_ key: LocalStoreKey, store: UserDefaults? = nil) where Value == R?, R : RawRepresentable, R.RawValue == Int {

@@ -46,6 +46,7 @@
 		CB71A2DF2BD4507F008AD154 /* KahuziBiegaUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB71A2DE2BD4507F008AD154 /* KahuziBiegaUITestsLaunchTests.swift */; };
 		CB71A2EF2BD45376008AD154 /* SignUpScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB71A2EE2BD45376008AD154 /* SignUpScreen.swift */; };
 		CB71A2F12BD453BA008AD154 /* Colors.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CB71A2F02BD453BA008AD154 /* Colors.xcassets */; };
+		CBB554E42BF2487C008663A8 /* AdminDashboard.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBB554E32BF2487C008663A8 /* AdminDashboard.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -109,6 +110,7 @@
 		CB71A2DE2BD4507F008AD154 /* KahuziBiegaUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KahuziBiegaUITestsLaunchTests.swift; sourceTree = "<group>"; };
 		CB71A2EE2BD45376008AD154 /* SignUpScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpScreen.swift; sourceTree = "<group>"; };
 		CB71A2F02BD453BA008AD154 /* Colors.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Colors.xcassets; sourceTree = "<group>"; };
+		CBB554E32BF2487C008663A8 /* AdminDashboard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdminDashboard.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -277,6 +279,7 @@
 		CB71A2EB2BD4535D008AD154 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				CBB554E22BF24871008663A8 /* Admin */,
 				CB1F813B2BD64BEF006A2908 /* Custom */,
 				CB71A2EE2BD45376008AD154 /* SignUpScreen.swift */,
 				CB45154C2BD5125A0025AEB8 /* SignInScreen.swift */,
@@ -287,6 +290,14 @@
 				CB45154E2BD519090025AEB8 /* TodoList.swift */,
 			);
 			path = Views;
+			sourceTree = "<group>";
+		};
+		CBB554E22BF24871008663A8 /* Admin */ = {
+			isa = PBXGroup;
+			children = (
+				CBB554E32BF2487C008663A8 /* AdminDashboard.swift */,
+			);
+			path = Admin;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -453,6 +464,7 @@
 				CB71A2BF2BD4507C008AD154 /* KahuziBiegaApp.swift in Sources */,
 				CB71A2EF2BD45376008AD154 /* SignUpScreen.swift in Sources */,
 				CB2A65CE2BE7E2300072027B /* IncidentsStore.swift in Sources */,
+				CBB554E42BF2487C008663A8 /* AdminDashboard.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

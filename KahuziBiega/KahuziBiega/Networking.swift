@@ -32,14 +32,19 @@ enum APIError: Error {
     }
 }
 
-class NetworkClient {
-    
-    let baseURL = URL(string: "https://c004-102-22-141-31.ngrok-free.app")!
-    let authorizationHeader = "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImQ3Y2NjMGNhLTdlYWItNGU0My1iYzRmLTAxM2I3Y2JhZDI3YiIsInVzZXJuYW1lIjoiZHJpb3NtYW4iLCJ0aW1lIjoxNzE0OTEyODExNDk2LCJleHAiOjE3MTQ5NDE2MTEsImlhdCI6MTcxNDkxMjgxMSwibmJmIjoxNzE0OTEyODExfQ.Q78gLv_AVEx4iEbVNeUtD8cIgTjQ0Y38cn48pVvX91Q"
+class NetworkClient: NSObject {
+    private let baseURL = URL(string: "https://cc3a-102-22-141-31.ngrok-free.app")!
+    private static let defaultToken = """
+    Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjU4ZTY0OTI4LWI3N2MtNDUxNy05YTllLWRlODcyMjdhZjIwOSIsImVtYWlsIjoiZHJpb3NtYW4iLCJ0aW1lIjoxNzE1NjAzNzcxMjA4LCJleHAiOjE3MTU2MzI1NzEsImlhdCI6MTcxNTYwMzc3MSwibmJmIjoxNzE1NjAzNzcxfQ.KIn0yjK2sSATR8H-jeCErhva7yl72oEhbxvM5yz4_IU
+"""
+    private var authorizationHeader: String {
+        LocalStorage.getString(.userToken) ??
+        NetworkClient.defaultToken
+    }
     
     static let shared = NetworkClient()
     
-    private init() { }
+    private override init() { }
     
     enum HTTPMethod: String {
         case get, post
@@ -51,13 +56,15 @@ class NetworkClient {
         case getUsers
         case getIncidents
         
+        case allUsers
+        
         case register
         case login
         case getuser(id: UUID)
         
         var path: String {
             switch self {
-            case .getUsers:
+            case .getUsers, .allUsers:
                 "/api/users"
             case .getIncidents:
                 "/api/incidents"
@@ -75,15 +82,12 @@ class NetworkClient {
             case .login, .register:
                 return .post
             case .getUsers, .getIncidents,
-                    .getuser: return .get
+                    .getuser, .allUsers: return .get
             }
         }
     }
     
-    func getUserData() async throws -> [KBUser] {
-        try await get(.getUsers)
-    }
-    
+ 
     private func makeRequestFor(_ endpoint: Endpoint) throws -> URLRequest {
         // Construct the request URL
         guard let url = URL(string: endpoint.path, relativeTo: baseURL) else {
@@ -104,13 +108,20 @@ class NetworkClient {
         let encodedData = try JSONEncoder().encode(content)
         // Perform the request
         do {
-            print("First")
-            let (data, response) = try await URLSession.shared.upload(for: request, from: encodedData)
+            print("Start Upload")
+            let (data, response) = try await URLSession.shared.upload(
+                for: request,
+                from: encodedData,
+                delegate: self
+            )
             
+            print("Finish Upload")
             
             guard let response = response as? HTTPURLResponse else {
                 throw APIError.invalidResponse
             }
+            
+            print("Received", response.statusCode)
             
             try decodeResponse(response: response)
             
@@ -198,4 +209,8 @@ class KBDecoder: JSONDecoder {
         dateFormatter.timeZone = TimeZone(secondsFromGMT: 0) // UTC timezone
         return dateFormatter
     }()
+}
+
+extension NetworkClient: URLSessionTaskDelegate {
+    
 }

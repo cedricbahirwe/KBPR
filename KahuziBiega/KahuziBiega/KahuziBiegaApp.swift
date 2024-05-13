@@ -25,12 +25,14 @@ struct KahuziBiegaApp: App {
     
     @StateObject private var authVM = AuthenticationViewModel()
     @StateObject private var incidentsStore = IncidentsStore()
+    @StateObject private var usersStore = UserStore()
 
     var body: some Scene {
         WindowGroup {
             ContentView()
                 .environmentObject(authVM)
                 .environmentObject(incidentsStore)
+                .environmentObject(usersStore)
         }
         .modelContainer(sharedModelContainer)
     }

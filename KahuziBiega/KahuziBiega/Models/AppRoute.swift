@@ -24,32 +24,30 @@ enum AppRoute: RawRepresentable, Hashable {
         case .signIn:
             return "signin"
         case .verification(let user):
-            return "verification-\(String(describing: user.stringify()))"
+            return "verification-\(user.id)"
         case .content:
             return "content"
         }
     }
     
     // Implement the initializer from raw value
-       init?(rawValue: RawValue) {
-           switch rawValue {
-           case "signup":
-               self = .signUp
-           case "signin":
-               self = .signIn
-           case let rawValue where rawValue.hasPrefix("verification-"):
-               // Extracting the username from the rawValue
-               let stringUser = String(rawValue.dropFirst("verification-".count))
-               let user = KBUser.object(from: stringUser)
-               if let user {
-                   self = .verification(user: user)
-               } else {
-                   return nil
-               }
-           case "content":
-               self = .content
-           default:
-               return nil
-           }
-       }
+    init?(rawValue: RawValue) {
+        switch rawValue {
+        case "signup":
+            self = .signUp
+        case "signin":
+            self = .signIn
+        case let rawValue where rawValue.hasPrefix("verification-"):
+            if let stringUserID = UUID(uuidString: String(rawValue.dropFirst("verification-".count))),
+               let user = KBUser.object(from: stringUserID) {
+                self = .verification(user: user)
+            } else {
+                return nil
+            }
+        case "content":
+            self = .content
+        default:
+            return nil
+        }
+    }
 }

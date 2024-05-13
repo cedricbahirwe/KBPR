@@ -82,12 +82,12 @@ struct ReportScreen: View {
     }
     
     private func getRecentReports() {
-        do {
-            let result: [KBIncident] = try LocalDecoder.decodeAs()
-            self.reports = result + KBIncident.recents
-        } catch {
-            print("Error incidents: ", error)
-        }
+//        do {
+//            let result: [KBIncident] = try LocalDecoder.decodeAs()
+//            self.reports = result + KBIncident.recents
+//        } catch {
+//            print("Error incidents: ", error)
+//        }
     }
 }
 

@@ -19,24 +19,26 @@ struct HomeScreen: View {
     var body: some View {
         VStack {
             ScrollView {
-                VStack {
-                    ForEach(incidents) { incident in
-                        Group {
-                            ReportRowView(incident: incident)
-                            
-                            if (incidents.last?.id != incident.id) {
-                                Divider()
+                if !incidents.isEmpty {
+                    VStack {
+                        ForEach(incidents) { incident in
+                            Group {
+                                ReportRowView(incident: incident)
+                                
+                                if (incidents.last?.id != incident.id) {
+                                    Divider()
+                                }
                             }
                         }
                     }
+                    .padding()
+                    .background(
+                        .background
+                            .shadow(.inner(color: Color.black.opacity(0.25), radius: 4, x: 0, y: 4))
+                        , in: .rect(cornerRadius: 15)
+                    )
+                    .padding()
                 }
-                .padding()
-                .background(
-                    .background
-                        .shadow(.inner(color: Color.black.opacity(0.25), radius: 4, x: 0, y: 4))
-                    , in: .rect(cornerRadius: 15)
-                )
-                .padding()
                 
                 VStack(alignment: .leading, spacing: 0) {
                     Text("Park Statistics").bold()

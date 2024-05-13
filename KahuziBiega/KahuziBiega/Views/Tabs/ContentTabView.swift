@@ -28,6 +28,9 @@ struct ContentTabView: View {
             AnalyticsScreen()
                 .tabItem { Image(systemName: "chart.bar.xaxis") }
                 .tag(4)
+            AdminDashboard()
+                .tabItem { Image(systemName: "gear") }
+                .tag(5)
         }
         .toolbar(.hidden, for: .navigationBar)
     }

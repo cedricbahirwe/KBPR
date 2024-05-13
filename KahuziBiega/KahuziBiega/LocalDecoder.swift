@@ -37,7 +37,8 @@ enum LocalDecoder {
             let decodedData = try decoder.decode(T.self, from: data)
             return decodedData
         } catch {
-            print("Error decoding JSON:", error)
+            
+            print("Decoding \(T.self) as JSON Error:", error)
             throw error
         }
     }

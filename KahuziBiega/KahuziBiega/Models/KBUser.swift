@@ -17,7 +17,7 @@ struct KBUserData: Decodable {
     let data: KBUser
 }
 
-struct KBUser: Codable {
+struct KBUser: Identifiable, Codable {
     var id: UUID
     var username: String
     var firstName: String
@@ -27,6 +27,13 @@ struct KBUser: Codable {
     var badgeNumber: String
     var role: KBUserRole
     var status: KBAccountStatus
+    
+    var createdAt: Date
+    
+    
+    // Computed
+    
+    var fullName: String { firstName + " " + lastName }
     
     enum KBUserRole: String, Codable {
         case User, Admin, SuperAdmin
@@ -51,40 +58,8 @@ extension KBUser {
     )
 }
 
-extension KBUser: Stringifiable {
-    func stringify() -> String? {
-        let encoder = JSONEncoder()
-//        encoder.outputFormatting = .prettyPrinted // Optional: for pretty printed JSON
-        do {
-            let jsonData = try encoder.encode(self)
-            if let jsonString = String(data: jsonData, encoding: .utf8) {
-                return jsonString
-            }
-        } catch {
-            print("Error encoding object to JSON: \(error)")
-        }
-        return nil
-    }
-    
-    static func object(from jsonString: String) -> KBUser? {
-        print("The js is", jsonString)
-        guard let jsonData = jsonString.data(using: .utf8) else {
-            return nil
-        }
-        
-        if let jsonObject = try? JSONSerialization.jsonObject(with: jsonData, options: []) as? [String: Any]{
-            print("Response JSON:", jsonObject)
-        } else {
-            print("Failed to parse JSON")
-        }
-        
-        let decoder = KBDecoder()
-        do {
-            let object = try decoder.decode(KBUser.self, from: jsonData)
-            return object
-        } catch {
-            print("Error decoding User to object: \(error)")
-            return nil
-        }
+extension KBUser {
+    static func object(from userID: KBUser.ID) -> KBUser? {
+        LocalStorage.getAUser(for: userID)
     }
 }
