@@ -8,11 +8,13 @@
 import SwiftUI
 
 enum LocalStoreKey: String {
-    case recentScreen = "app_recentScreen"
+    case authRecentScreen = "app_authRecentScreen"
     
     case user = "app_user"
     
     case userToken
+    
+    case isLoggedIn
     
     
     // Admin
@@ -50,6 +52,17 @@ extension AppStorage {
     }
     
     init(wrappedValue: Value, _ key: LocalStoreKey, store: UserDefaults? = nil) where Value : RawRepresentable, Value.RawValue == String {
+        self.init(wrappedValue: wrappedValue, key.rawValue, store: store)
+    }
+    
+    // MARK: - Boolean
+//    init<R>(_ key: LocalStoreKey, store: UserDefaults? = nil) where Value == R?, R : RawRepresentable, R.RawValue == Bool {
+////    init<R>(_ key: LocalStoreKey, store: UserDefaults? = nil) where Value == R?, R : RawRepresentable, R.RawValue == String {
+//        self.init(key.rawValue, store: store)
+//    }
+//    
+    init(wrappedValue: Value, _ key: LocalStoreKey, store: UserDefaults? = nil) where Value == Bool {
+//    init(wrappedValue: Value, _ key: LocalStoreKey, store: UserDefaults? = nil) where Value : RawRepresentable, Value.RawValue == String {
         self.init(wrappedValue: wrappedValue, key.rawValue, store: store)
     }
 }

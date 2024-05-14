@@ -20,12 +20,12 @@ struct SignUpModel: Encodable {
 }
 
 struct SignUpScreen: View {
-    @Binding var navPath: [AppRoute]
-    @AppStorage(.recentScreen) private var recentScreen: AppRoute?
+    @Binding var navPath: [AuthRoute]
+    @AppStorage(.authRecentScreen) private var authRecentScreen: AuthRoute?
     
     @EnvironmentObject var authVM: AuthenticationViewModel
     
-    @State private var signupModel = SignUpModel.example
+    @State private var registerModel = SignUpModel.example
     @State private var isSignUp = false
     
     var body: some View {
@@ -45,34 +45,7 @@ struct SignUpScreen: View {
                     .hidden()
                 
                 
-                VStack(spacing: 12) {
-                    
-                    KBField("Username", text: $signupModel.username)
-                    
-                    KBField("Email", text: $signupModel.email)
-                    
-                    KBField("Password", text: $signupModel.password)
-                    
-                    HStack {
-                        KBField("First Name", text: $signupModel.firstName)
-                        
-                        KBField("Last Name", text: $signupModel.firstName)
-                        
-                    }
-                    
-                    KBField("Badge Number", text: $signupModel.email)
-                    
-                    KBField(
-                        "Phone Number",
-                        text: Binding(get: {
-                            signupModel.phoneNumber ?? ""
-                        }, set: { newValue in
-                            let cleanNumber = newValue.trimmingCharacters(in: .whitespacesAndNewlines)
-                            signupModel.phoneNumber = cleanNumber.isEmpty ? nil : cleanNumber
-                        })
-                    )
-                    
-                }
+                NewUserFormView(registerModel: $registerModel)
                 .padding()
                 .background(.background)
                 
@@ -89,7 +62,7 @@ struct SignUpScreen: View {
             }
             .frame(maxWidth: .infinity, maxHeight: .infinity)
             
-       
+            
             ActivityIndicator(isVisible: authVM.isLoading)
         }
         .safeAreaInset(edge: .bottom) {
@@ -112,52 +85,13 @@ struct SignUpScreen: View {
         Task {
             print("Signing Up")
             do {
-                let user = try await authVM.signup(signupModel)
+                let user = try await authVM.registerNewUser(registerModel)
                 
-                let destination = AppRoute.verification(user: user)
-                recentScreen = destination
+                let destination = AuthRoute.verification(user: user)
+                authRecentScreen = destination
                 navPath = [destination]
             }
         }
-    }
-}
-
-struct KBField: View {
-    let placeholder: LocalizedStringKey
-    @Binding var text: String
-    let contentType: UITextContentType?
-    
-    init(_ placeholder: LocalizedStringKey, text: Binding<String>, contentType: UITextContentType? = .none) {
-        self.placeholder = placeholder
-        self._text = text
-        self.contentType = contentType
-    }
-    
-    var body: some View {
-        textFieldView
-            .textFieldStyle(.borderedStyle)
-            .textContentType(contentType)
-    }
-    
-    var isSecure: Bool = false
-    
-    @ViewBuilder
-    private var textFieldView: some View {
-        Group {
-            if isSecure {
-                SecureField(placeholder, text: $text)
-            } else {
-                TextField(placeholder, text: $text)
-            }
-        }
-    }
-}
-
-extension KBField {
-    func toSecureField() -> KBField {
-        var view = self
-        view.isSecure = true
-        return view
     }
 }
 
@@ -185,6 +119,40 @@ struct ActivityIndicator: View {
                 EmptyView()
             }
         }
-       
+        
+    }
+}
+
+struct NewUserFormView: View {
+    @Binding var registerModel: SignUpModel
+    var body: some View {
+        VStack(spacing: 12) {
+            
+            KBField("Username", text: $registerModel.username)
+            
+            KBField("Email", text: $registerModel.email)
+            
+            KBField("Password", text: $registerModel.password)
+            
+            HStack {
+                KBField("First Name", text: $registerModel.firstName)
+                
+                KBField("Last Name", text: $registerModel.firstName)
+                
+            }
+            
+            KBField("Badge Number", text: $registerModel.email)
+            
+            KBField(
+                "Phone Number",
+                text: Binding(get: {
+                    registerModel.phoneNumber ?? ""
+                }, set: { newValue in
+                    let cleanNumber = newValue.trimmingCharacters(in: .whitespacesAndNewlines)
+                    registerModel.phoneNumber = cleanNumber.isEmpty ? nil : cleanNumber
+                })
+            )
+            
+        }
     }
 }

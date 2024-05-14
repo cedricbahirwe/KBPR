@@ -9,8 +9,6 @@ import SwiftUI
 import MapKit
 
 struct HomeScreen: View {
-    @Binding var navPath: [AppRoute]
-//    private let incidents = KBIncident.incidents
     @EnvironmentObject private var incidentsStore: IncidentsStore
     private var incidents: [KBIncident] {
         incidentsStore.allIncidents
@@ -88,7 +86,7 @@ struct HomeScreen: View {
 }
 
 #Preview {
-    HomeScreen(navPath: .constant([]))
+    HomeScreen()
         .embedInNavigation()
 }
 
@@ -124,69 +122,6 @@ private extension HomeScreen {
         .padding()
     }
 }
-
-
-//struct Incident:Identifiable {
-//    let id: UUID = UUID()
-//    var report: Incident.Report
-//    var status: Incident.Status
-//    
-//    struct Report: Identifiable {
-//        let id: UUID = UUID()
-//        var title: String
-//        var description: String
-//        var date: Date = .now
-//        var area: ParkArea
-//        
-//        static let report1 = Report(
-//            title: "Illegal hunting activity near the Visitor Center Area",
-//            description: "On the morning patrol, encountered a group of visitors near the Eastern Trail Area who had an unexpected ..",
-//            area: .example
-//        )
-//        
-//        static let report2 = Report(
-//            title: "Another Incident XYZ",
-//            description: "Something happened in the night and should check this and that before or access....",
-//            area: .example1
-//        )
-//        
-//        static let report3 = Report(
-//            title: "Encounter with juvenile mountain gorilla",
-//            description: "On the morning patrol, encountered a group of visitors near the Eastern Trail Area who had an unexpected close encounter with a juvenile mountain gorilla.",
-//            area: .example1
-//        )
-//        
-//        static let report4 = Report(
-//            title: "Illegal hunting activity near the Visitor Center Area.",
-//            description: "Upon investigation, discovered evidence of poaching, including animal traps and remains of a hunted antelope. The perpetrators had already fled the scene before ...",
-//            area: .example1
-//        )
-//    }
-//    
-//    enum Status: String {
-//        case inReview, resolved, pending
-//        var rawValue: String {
-//            switch self {
-//            case .inReview:
-//                "In Review"
-//            case .resolved:
-//                "Resolved"
-//            case .pending:
-//                "Pending"
-//            }
-//        }
-//    }
-//    
-//    static let incidents = [
-//        Incident(report: .report1, status: .inReview),
-//        Incident(report: .report2, status: .inReview)
-//    ]
-//    
-//    static let recents = [
-//        Incident(report: .report3, status: .inReview),
-//        Incident(report: .report4, status: .resolved),
-//    ]
-//}
 
 struct ReportRowView: View {
     let incident: KBIncident

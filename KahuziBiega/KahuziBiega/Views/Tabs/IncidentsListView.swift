@@ -58,13 +58,3 @@ struct IncidentsListView: View {
     IncidentsListView()
         .environmentObject(IncidentsStore())
 }
-
-
-extension View {
-    func loadingIndicator(isVisible: Bool, interactive: Bool = true) -> some View {
-        ZStack {
-            self
-            ActivityIndicator(isVisible: isVisible, interactive: interactive)
-        }
-    }
-}

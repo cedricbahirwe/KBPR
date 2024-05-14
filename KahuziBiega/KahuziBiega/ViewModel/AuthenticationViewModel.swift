@@ -35,7 +35,7 @@ final class AuthenticationViewModel: ObservableObject {
         }
     }
     
-    func signup(_ model: SignUpModel) async throws -> KBUser {
+    func registerNewUser(_ model: SignUpModel) async throws -> KBUser {
         // TODO: Do some minor validation
         isLoading = true
         do {

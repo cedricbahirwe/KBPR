@@ -9,8 +9,8 @@ import SwiftUI
 
 struct SignInScreen: View {
     
-    @Binding var navPath: [AppRoute]
-    @AppStorage(.recentScreen) private var recentScreen: AppRoute?
+    @Binding var navPath: [AuthRoute]
+    @AppStorage(.authRecentScreen) private var authRecentScreen: AuthRoute?
     @EnvironmentObject private var authStore: AuthenticationViewModel
     
     @State private var loginModel = LoginModel.example
@@ -95,8 +95,8 @@ struct SignInScreen: View {
             do {
                 let user = try await authStore.login(model: loginModel)
                 
-                let destination = AppRoute.verification(user: user)
-                recentScreen = destination                
+                let destination = AuthRoute.verification(user: user)
+                authRecentScreen = destination                
                 navPath = [destination]
             } catch {
                 

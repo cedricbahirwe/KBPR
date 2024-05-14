@@ -133,13 +133,6 @@ struct RecentReportRowView: View {
     }
     
     var statusColors: Color {
-        switch incident.status {
-        case .pending:
-                .blue
-        case .inReview:
-                .yellow
-        case .resolved:
-                .green
-        }
+        incident.status.color
     }
 }

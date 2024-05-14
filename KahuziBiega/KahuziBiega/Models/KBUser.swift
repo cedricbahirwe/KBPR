@@ -29,17 +29,23 @@ struct KBUser: Identifiable, Codable {
     var status: KBAccountStatus
     
     var createdAt: Date
+    var profilePic: URL?
     
     
     // Computed
     
     var fullName: String { firstName + " " + lastName }
     
-    enum KBUserRole: String, Codable {
+    enum KBUserRole: String, Codable, CaseIterable, Comparable {
+        static func < (lhs: KBUser.KBUserRole, rhs: KBUser.KBUserRole) -> Bool {
+            // Best Approach is to use switch, but I'm using rawValue for demo purpose
+            lhs.rawValue.count < rhs.rawValue.count
+        }
+        
         case User, Admin, SuperAdmin
     }
     
-    enum KBAccountStatus: String, Codable {
+    enum KBAccountStatus: String, CaseIterable, Codable {
         case Pending, Approved, Suspended, Banned
     }
 }
@@ -54,7 +60,21 @@ extension KBUser {
         phoneNumber: "1234567890",
         badgeNumber: "A1234",
         role: .User,
-        status: .Pending
+        status: .Pending,
+        createdAt: .now
+    )
+    
+    static let admin = KBUser(
+        id: UUID(),
+        username: "driosman",
+        firstName: "Drios",
+        lastName: "Man",
+        email: "drios.man@example.com",
+        phoneNumber: "099018009812",
+        badgeNumber: "AD002",
+        role: .SuperAdmin,
+        status: .Approved,
+        createdAt: .now
     )
 }
 

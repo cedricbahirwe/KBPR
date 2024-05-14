@@ -9,12 +9,10 @@ import SwiftUI
 
 struct ContentTabView: View {
     @AppStorage("tab_selection") private var selection = 1
-    @Binding var navPath: [AppRoute]
-    @AppStorage(.recentScreen) private var recentScreen: AppRoute?
     
     var body: some View {
         TabView(selection: $selection) {
-            HomeScreen(navPath: $navPath)
+            HomeScreen()
                 .tabItem { Image(systemName: "house") }
                 .tag(1)
             ReportScreen()
@@ -28,7 +26,9 @@ struct ContentTabView: View {
             AnalyticsScreen()
                 .tabItem { Image(systemName: "chart.bar.xaxis") }
                 .tag(4)
-            AdminDashboard()
+            
+            // this tab should be added only for admin user
+            AdminDashboardView()
                 .tabItem { Image(systemName: "gear") }
                 .tag(5)
         }
@@ -37,5 +37,5 @@ struct ContentTabView: View {
 }
 
 #Preview {
-    ContentTabView(navPath: .constant([]))
+    ContentTabView()
 }

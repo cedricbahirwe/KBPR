@@ -69,9 +69,9 @@ enum LocalStorage {
         }
     }
     
-    static func isLoggedIn()  -> Bool {
-        getUser() != nil
-    }
+//    static func isLoggedIn()  -> Bool {
+//        getUser() != nil
+//    }
     
     static func saveAUser(_ user: KBUser) throws {
         let data = try JSONEncoder().encode(user)
@@ -89,6 +89,13 @@ enum LocalStorage {
         }
     }
     
+    
+    static func clear() {
+        // Remove all data stored in UserDefaults
+        if let bundleIdentifier = Bundle.main.bundleIdentifier {
+            defaults.removePersistentDomain(forName: bundleIdentifier)
+        }
+    }
     
 }
 

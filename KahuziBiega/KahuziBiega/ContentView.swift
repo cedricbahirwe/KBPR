@@ -8,29 +8,48 @@
 import SwiftUI
 
 struct ContentView: View {
-    @State private var navPath: [AppRoute] = []
-    @AppStorage(.recentScreen) private var recentScreen: AppRoute = .signUp
-        
+    @State private var authPath: [AuthRoute] = []
+    @AppStorage(.authRecentScreen) private var authRecentScreen: AuthRoute = .signUp
+    @AppStorage(.isLoggedIn) private var isLoggedIn: Bool = false
+    @State private var isShowingSplashScreen = true
+    
     var body: some View {
-        NavigationStack(path: $navPath) {
-            SplashScreen()
-                .onAppear() {
-                    DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
-                        navPath = [recentScreen]// [.signIn] //[recentScreen]
-                    }
+        if isLoggedIn {
+            
+            ContentTabView()
+                .opacity(isShowingSplashScreen ? 0 : 1)
+                .overlay {
+                    SplashScreen()
+                        .opacity(isShowingSplashScreen ? 1 : 0)
+                        .onAppear() {
+                            withAnimation(.easeInOut(duration: 1.0)) {
+                                isShowingSplashScreen = false
+                            }
+                        }
                 }
-                .navigationDestination(for: AppRoute.self) { route in
-                    switch route {
-                    case .signUp:
-                        SignUpScreen(navPath: $navPath)
-                    case .signIn:
-                        SignInScreen(navPath: $navPath)
-                    case .content:
-                        ContentTabView(navPath: $navPath)
-                    case .verification(let user):
-                        WaitingApprovalView(user: user, navPath: $navPath)
-                    }
+                .onReceive(NotificationCenter.default.publisher(for: .unauthorizedRequest)) { _ in
+                    LocalStorage.clear()
+                    isLoggedIn = false
                 }
+        } else {
+            NavigationStack(path: $authPath) {
+                SplashScreen()
+                    .onAppear() {
+                        DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
+                            authPath = [authRecentScreen]
+                        }
+                    }
+                    .navigationDestination(for: AuthRoute.self) { route in
+                        switch route {
+                        case .signUp:
+                            SignUpScreen(navPath: $authPath)
+                        case .signIn:
+                            SignInScreen(navPath: $authPath)
+                        case .verification(let user):
+                            WaitingApprovalView(user: user, navPath: $authPath)
+                        }
+                    }
+            }
         }
     }
 }

@@ -64,12 +64,14 @@ struct KBIncident: Identifiable, Decodable {
     enum Status: String, Codable {
         case pending = "Pending",
              inReview = "InReview",
+             inProgress = "InProgress",
              resolved = "Resolved"
         
         var formatted: String {
             switch self {
             case .pending: "Pending"
             case .inReview: "In Review"
+            case .inProgress: "In Progress"
             case .resolved: "Resolved"
             }
         }
@@ -162,4 +164,17 @@ extension KBIncident.Report {
         area: .example1,
         reporter: .example
     )
+}
+
+import SwiftUI
+
+extension KBIncident.Status {
+    var color: Color {
+        switch self {
+        case .pending: .pending
+        case .inReview: .inReview
+        case .inProgress: .inProgress
+        case .resolved: .resolved
+        }
+    }
 }

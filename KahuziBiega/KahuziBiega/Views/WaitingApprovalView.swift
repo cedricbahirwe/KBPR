@@ -9,10 +9,11 @@ import SwiftUI
 
 struct WaitingApprovalView: View {
     @State var user: KBUser
-    @Binding var navPath: [AppRoute]
-    @AppStorage(.recentScreen) private var recentScreen: AppRoute?
-
+    @Binding var navPath: [AuthRoute]
+    @AppStorage(.authRecentScreen) private var authRecentScreen: AuthRoute?
+    @AppStorage(.isLoggedIn) private var isLoggedIn: Bool = false
     @EnvironmentObject private var authStore: AuthenticationViewModel
+    
     var body: some View {
         ZStack {
             VStack(alignment: .leading) {
@@ -68,9 +69,7 @@ struct WaitingApprovalView: View {
     }
     
     private func goToContent() {
-        let destination = AppRoute.content
-        recentScreen = destination
-        navPath = [destination]
+        isLoggedIn = true        
     }
 }
 

@@ -7,14 +7,13 @@
 
 import Foundation
 
-enum AppRoute: RawRepresentable, Hashable {
+enum AuthRoute: RawRepresentable, Hashable {
     // Define the raw value type for the enum
     typealias RawValue = String
     
     case signUp
     case signIn
     case verification(user: KBUser)
-    case content
     
     // Implement the rawValue property
     var rawValue: RawValue {
@@ -25,8 +24,6 @@ enum AppRoute: RawRepresentable, Hashable {
             return "signin"
         case .verification(let user):
             return "verification-\(user.id)"
-        case .content:
-            return "content"
         }
     }
     
@@ -44,8 +41,6 @@ enum AppRoute: RawRepresentable, Hashable {
             } else {
                 return nil
             }
-        case "content":
-            self = .content
         default:
             return nil
         }
