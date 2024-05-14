@@ -39,6 +39,17 @@ final class UserStore: ObservableObject {
             return nil
         }
     }
+    
+    func refreshSessionUser() async {
+//        do {
+//            let updatedUser: KBUser = try await NetworkClient.shared.get(.getuser(id: sessionUser.id))
+//            LocalStorage.saveUser()
+//            return updatedUser
+//        } catch {
+//            print("Error update status: ", error.localizedDescription)
+//            return nil
+//        }
+    }
 }
 
 struct Cacher<T: Codable>: Codable {

@@ -114,7 +114,9 @@ private extension HomeScreen {
                     Image(.radioTower)
                 }
                 
-                Button(action: {}) {
+                Button(action: {
+                    NotificationCenter.default.post(name: .unauthorizedRequest, object: nil)
+                }) {
                     Image(.avatarImg)
                 }
             }

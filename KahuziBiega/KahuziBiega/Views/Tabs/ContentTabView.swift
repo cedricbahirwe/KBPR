@@ -9,9 +9,9 @@ import SwiftUI
 
 struct ContentTabView: View {
     @AppStorage("tab_selection") private var selection = 1
-    private var loggedInUser = LocalStorage.getUser()
+    private var loggedInUser = LocalStorage.getSessionUser()
     private var isAdminUser: Bool {
-        loggedInUser?.role == .Admin ||
+        return loggedInUser?.role == .Admin ||
         loggedInUser?.role == .SuperAdmin
     }
     var body: some View {

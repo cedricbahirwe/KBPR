@@ -64,6 +64,11 @@ final class AuthenticationViewModel: ObservableObject {
             let response: KBUser = try await NetworkClient.shared.get(.getuser(id: user.id))
             
             isLoading = false
+            
+            if response.status == .Approved {
+                try LocalStorage.saveSessionUser(response)
+            }
+            
             print("Check Status success", response.username)
             return response.status
         } catch let error as APIError {

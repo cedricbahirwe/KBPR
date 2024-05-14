@@ -196,7 +196,6 @@ eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjU4ZTY0OTI4LWI3N2MtNDUxNy05YTllLWR
     func decodeResponse(response: HTTPURLResponse) throws {
         let statusCode = response.statusCode
         if statusCode == 401 {
-            print("Got here", LocalStorage.getString(.userToken))
             DispatchQueue.main.async {
                 NotificationCenter.default.post(name: .unauthorizedRequest, object: nil)
             }

@@ -9,18 +9,19 @@ import Foundation
 
 enum LocalStorage {
     private static let defaults = UserDefaults.standard
-    static func saveUser(_ user: KBUser) throws {
+    static func saveSessionUser(_ user: KBUser) throws {
         let data = try JSONEncoder().encode(user)
         
         defaults.setValue(data, forKey: LocalStoreKey.user.rawValue)
     }
     
-    static func getUser() -> KBUser? {
+    static func getSessionUser() -> KBUser? {
         guard let data = defaults.data(forKey: LocalStoreKey.user.rawValue) else { return nil }
         do {
-            return try KBDecoder().decode(KBUser.self, from: data)
+            return try JSONDecoder().decode(KBUser.self, from: data)
         } catch {
-            defaults.setNilValueForKey(LocalStoreKey.user.rawValue)
+            print("Can't decode session user", error.localizedDescription)
+            defaults.removeObject(forKey: LocalStoreKey.user.rawValue)
             return nil
         }
     }

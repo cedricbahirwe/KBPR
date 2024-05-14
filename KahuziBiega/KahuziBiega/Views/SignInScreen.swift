@@ -12,8 +12,9 @@ struct SignInScreen: View {
     @Binding var navPath: [AuthRoute]
     @AppStorage(.authRecentScreen) private var authRecentScreen: AuthRoute?
     @EnvironmentObject private var authStore: AuthenticationViewModel
-    
+    @AppStorage(.isLoggedIn) private var isLoggedIn: Bool = false
     @State private var loginModel = LoginModel.example
+    
     var body: some View {
         ZStack {
             VStack {
@@ -95,14 +96,24 @@ struct SignInScreen: View {
             
             do {
                 let user = try await authStore.login(model: loginModel)
-                try LocalStorage.saveAUser(user)
-                let destination = AuthRoute.verification(user: user)
-                authRecentScreen = destination                
-                navPath = [destination]
+                if user.status == .Approved {
+                    try LocalStorage.saveSessionUser(user)
+                    goToContent()
+                } else {
+                    try LocalStorage.saveAUser(user)
+                    let destination = AuthRoute.verification(user: user)
+                    authRecentScreen = destination
+                    navPath = [destination]
+                }
             } catch {
                 
             }
         }
+    }
+    
+    private func goToContent() {
+        isLoggedIn = true
+        authRecentScreen = nil
     }
 }
 

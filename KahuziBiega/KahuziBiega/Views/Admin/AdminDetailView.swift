@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct AdminDetailView: View {
-    var loggedInUser = LocalStorage.getUser()
+    var loggedInUser = LocalStorage.getSessionUser()
     @Binding var user: KBUser
     @EnvironmentObject private var userStore: UserStore
     
