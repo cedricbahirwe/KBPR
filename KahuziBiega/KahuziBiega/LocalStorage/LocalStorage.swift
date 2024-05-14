@@ -82,9 +82,10 @@ enum LocalStorage {
     static func getAUser(for userID: KBUser.ID) -> KBUser? {
         guard let data = defaults.data(forKey: userID.uuidString) else { return nil }
         do {
-            return try KBDecoder().decode(KBUser.self, from: data)
+            return try JSONDecoder().decode(KBUser.self, from: data)
         } catch {
-            defaults.removeObject(forKey: userID.uuidString)
+            print("Failed decoding")
+//            defaults.removeObject(forKey: userID.uuidString)
             return nil
         }
     }

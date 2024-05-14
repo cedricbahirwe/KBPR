@@ -30,6 +30,7 @@ struct SignInScreen: View {
                     
                     KBField("Email", text: $loginModel.email, contentType: .emailAddress)
                         .keyboardType(.emailAddress)
+                        .textInputAutocapitalization(.never)
                     
                     KBField("Password ", text: $loginModel.password)
                         .toSecureField()
@@ -64,7 +65,7 @@ struct SignInScreen: View {
                 Spacer()
             }
             
-            ActivityIndicator(isVisible: authStore.isLoading)
+            ActivityIndicator(isVisible: authStore.isLoading, interactive: true)
         }
         .background(
             Image(.authBackground)
@@ -94,7 +95,7 @@ struct SignInScreen: View {
             
             do {
                 let user = try await authStore.login(model: loginModel)
-                
+                try LocalStorage.saveAUser(user)
                 let destination = AuthRoute.verification(user: user)
                 authRecentScreen = destination                
                 navPath = [destination]

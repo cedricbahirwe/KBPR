@@ -13,7 +13,7 @@ import Foundation
 final class NetworkClient: NSObject {
     private let baseURL = URL(string: "https://ac4b-102-22-141-31.ngrok-free.app")!
     private static let defaultToken = """
-    Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjU4ZTY0OTI4LWI3N2MtNDUxNy05YTllLWRlODcyMjdhZjIwOSIsImVtYWlsIjoiZHJpb3NtYW4iLCJ0aW1lIjoxNzE1NjcwNTA2NTA1LCJleHAiOjE3MTU2OTkzMDYsImlhdCI6MTcxNTY3MDUwNiwibmJmIjoxNzE1NjcwNTA2fQ.0nQW7HxZkGBBwR7jR_MIy61FD-UkaVrPkB5cTcoeGd4
+eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjU4ZTY0OTI4LWI3N2MtNDUxNy05YTllLWRlODcyMjdhZjIwOSIsImVtYWlsIjoiZHJpb3NtYW4iLCJ0aW1lIjoxNzE1NjcwNTA2NTA1LCJleHAiOjE3MTU2OTkzMDYsImlhdCI6MTcxNTY3MDUwNiwibmJmIjoxNzE1NjcwNTA2fQ.0nQW7HxZkGBBwR7jR_MIy61FD-UkaVrPkB5cTcoeGd4
 """
     private var authorizationHeader: String {
         LocalStorage.getString(.userToken) ??
@@ -80,7 +80,7 @@ final class NetworkClient: NSObject {
         
         // Create the request
         var request = URLRequest(url: url)
-        request.addValue(authorizationHeader, forHTTPHeaderField: "Authorization")
+        request.addValue("Bearer \(authorizationHeader)", forHTTPHeaderField: "Authorization")
         request.httpMethod = endpoint.method.name
         return request
     }
@@ -166,9 +166,15 @@ final class NetworkClient: NSObject {
         
         // Perform the request
         do {
-            let (data, _) = try await URLSession.shared.data(for: request)
+            print("Start Getting")
+            let (data, response) = try await URLSession.shared.data(for: request)
             
-//            try debugResponse(data)
+            guard let response = response as? HTTPURLResponse else {
+                throw APIError.invalidResponse
+            }
+            
+            print("Start finish getting")
+            try decodeResponse(response: response)
             
             let decoder = KBDecoder()
             
@@ -190,7 +196,11 @@ final class NetworkClient: NSObject {
     func decodeResponse(response: HTTPURLResponse) throws {
         let statusCode = response.statusCode
         if statusCode == 401 {
-            NotificationCenter.default.post(name: .unauthorizedRequest, object: nil)
+            print("Got here", LocalStorage.getString(.userToken))
+            DispatchQueue.main.async {
+                NotificationCenter.default.post(name: .unauthorizedRequest, object: nil)
+            }
+            return
         }
         
         switch statusCode {

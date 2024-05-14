@@ -21,7 +21,8 @@ final class UserStore: ObservableObject {
     func getAllUsers(forced: Bool = false) async {
         guard forced || allUsers.isEmpty else { return }
         do {
-            self.allUsers = try await NetworkClient.shared.get(.allUsers)
+            let users: [KBUser] = try await NetworkClient.shared.get(.allUsers)
+            self.allUsers = users.sorted { $0.createdAt > $1.createdAt }
             Cacher.cache(self.allUsers, for: .allUsers)
         } catch {
             print("Error getting all users", error.localizedDescription)

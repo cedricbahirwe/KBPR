@@ -9,14 +9,16 @@ import SwiftUI
 
 struct AdminNewUserView: View {
     @Environment(\.dismiss) private var dismiss
-    @State private var registerModel = SignUpModel.example
+    @State private var registerModel = SignUpModel()
     @EnvironmentObject var authVM: AuthenticationViewModel
-    
+//    @State private var isLoading = false
+    var onCreateNewUser: (Bool) -> Void
     
     var body: some View {
         NavigationStack {
             ScrollView {
                 NewUserFormView(registerModel: $registerModel)
+                    .padding(.top)
             }
             .padding(.horizontal)
             .navigationTitle("Add New Uer")
@@ -29,7 +31,7 @@ struct AdminNewUserView: View {
             .safeAreaInset(edge: .bottom) {
                 VStack {
                     Button("Add user") {
-                        dismiss()
+                        addNewUser()
                     }
                     .buttonStyle(.borderedProminent)
                     .buttonBorderShape(.capsule)
@@ -38,11 +40,23 @@ struct AdminNewUserView: View {
                 .frame(maxWidth: .infinity)
                 .background(.regularMaterial)
             }
+            .loadingIndicator(isVisible: authVM.isLoading, interactive: false)
+        }
+    }
+    
+    private func addNewUser() {
+        Task {
+            do {
+                let newUser = try await authVM.registerNewUser(registerModel)
+                onCreateNewUser(true)
+                dismiss()
+            }
         }
     }
 }
 
 #Preview {
-    AdminNewUserView()
+    AdminNewUserView(onCreateNewUser: { _ in })
         .embedInNavigation(large: false)
+        .environmentObject(AuthenticationViewModel())
 }

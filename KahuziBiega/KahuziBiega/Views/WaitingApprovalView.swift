@@ -36,7 +36,9 @@ struct WaitingApprovalView: View {
                         .foregroundStyle(.white.opacity(0.6))
                     
                     Button("Refresh") {
-                        // refresh status
+                        Task {
+                            await performVerification()
+                        }
                     }
                     .buttonBorderShape(.capsule)
                     .buttonStyle(.bordered)
@@ -50,7 +52,7 @@ struct WaitingApprovalView: View {
             .padding(25)
             .background(.black)
             
-            ActivityIndicator(isVisible: authStore.isLoading)
+            ActivityIndicator(isVisible: authStore.isLoading, interactive: true)
         }
         .foregroundStyle(.regularMaterial)
         .fontDesign(.rounded)
@@ -69,7 +71,8 @@ struct WaitingApprovalView: View {
     }
     
     private func goToContent() {
-        isLoggedIn = true        
+        isLoggedIn = true
+        authRecentScreen = nil
     }
 }
 

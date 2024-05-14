@@ -28,6 +28,7 @@ struct ContentView: View {
                         }
                 }
                 .onReceive(NotificationCenter.default.publisher(for: .unauthorizedRequest)) { _ in
+                    print("Request log our")
                     LocalStorage.clear()
                     isLoggedIn = false
                 }

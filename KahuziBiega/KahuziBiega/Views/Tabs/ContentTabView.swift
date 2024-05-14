@@ -9,7 +9,11 @@ import SwiftUI
 
 struct ContentTabView: View {
     @AppStorage("tab_selection") private var selection = 1
-    
+    private var loggedInUser = LocalStorage.getUser()
+    private var isAdminUser: Bool {
+        loggedInUser?.role == .Admin ||
+        loggedInUser?.role == .SuperAdmin
+    }
     var body: some View {
         TabView(selection: $selection) {
             HomeScreen()
@@ -27,10 +31,11 @@ struct ContentTabView: View {
                 .tabItem { Image(systemName: "chart.bar.xaxis") }
                 .tag(4)
             
-            // this tab should be added only for admin user
-            AdminDashboardView()
-                .tabItem { Image(systemName: "gear") }
-                .tag(5)
+            if isAdminUser {
+                AdminDashboardView()
+                    .tabItem { Image(systemName: "gear") }
+                    .tag(5)
+            }
         }
         .toolbar(.hidden, for: .navigationBar)
     }

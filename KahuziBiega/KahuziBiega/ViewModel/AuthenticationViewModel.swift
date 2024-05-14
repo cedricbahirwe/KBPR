@@ -20,7 +20,7 @@ final class AuthenticationViewModel: ObservableObject {
         isLoading = true
         do {
             let response: KBUserData = try await NetworkClient.shared.post(.login, content: model)
-            
+            LocalStorage.setString(response.token, for: .userToken) 
             isLoading = false
             print("Login success", response.data.username)
             return response.data
@@ -61,11 +61,11 @@ final class AuthenticationViewModel: ObservableObject {
         }
         isLoading = true
         do {
-            let response: KBUserData = try await NetworkClient.shared.get(.getuser(id: user.id))
+            let response: KBUser = try await NetworkClient.shared.get(.getuser(id: user.id))
             
             isLoading = false
-            print("Check Status success", response.data.username)
-            return response.data.status
+            print("Check Status success", response.username)
+            return response.status
         } catch let error as APIError {
             isLoading = false
             print("Failed to check user status, Internal Error:", error.message)

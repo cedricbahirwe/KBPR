@@ -63,7 +63,7 @@ struct SignUpScreen: View {
             .frame(maxWidth: .infinity, maxHeight: .infinity)
             
             
-            ActivityIndicator(isVisible: authVM.isLoading)
+            ActivityIndicator(isVisible: authVM.isLoading, interactive: true)
         }
         .safeAreaInset(edge: .bottom) {
             HStack {
@@ -87,6 +87,7 @@ struct SignUpScreen: View {
             do {
                 let user = try await authVM.registerNewUser(registerModel)
                 
+                try LocalStorage.saveAUser(user)
                 let destination = AuthRoute.verification(user: user)
                 authRecentScreen = destination
                 navPath = [destination]
@@ -104,10 +105,10 @@ struct SignUpScreen: View {
 
 struct ActivityIndicator: View {
     var isVisible: Bool
-    var interactive: Bool = true
+    var interactive: Bool
     var body: some View {
         Group {
-            if !interactive {
+            if isVisible && !interactive {
                 Color.black.opacity(0.005)
             }
             if isVisible {
@@ -125,23 +126,40 @@ struct ActivityIndicator: View {
 
 struct NewUserFormView: View {
     @Binding var registerModel: SignUpModel
+    @FocusState var focusField: FieldFocus?
+    
+    enum FieldFocus: Int {
+        case username, email, password, firstName, lastName, badgeNumber, phoneNumber
+        
+        func next() -> FieldFocus? {
+            FieldFocus(rawValue: rawValue + 1)
+        }
+    }
     var body: some View {
         VStack(spacing: 12) {
             
             KBField("Username", text: $registerModel.username)
+                .focused($focusField, equals: .username)
             
             KBField("Email", text: $registerModel.email)
+                .keyboardType(.emailAddress)
+                .textInputAutocapitalization(.never)
+                .focused($focusField, equals: .email)
             
             KBField("Password", text: $registerModel.password)
+                .focused($focusField, equals: .password)
             
             HStack {
                 KBField("First Name", text: $registerModel.firstName)
+                    .focused($focusField, equals: .firstName)
                 
-                KBField("Last Name", text: $registerModel.firstName)
+                KBField("Last Name", text: $registerModel.lastName)
+                    .focused($focusField, equals: .lastName)
                 
             }
             
-            KBField("Badge Number", text: $registerModel.email)
+            KBField("Badge Number", text: $registerModel.badgeNumber)
+                .focused($focusField, equals: .badgeNumber)
             
             KBField(
                 "Phone Number",
@@ -152,7 +170,12 @@ struct NewUserFormView: View {
                     registerModel.phoneNumber = cleanNumber.isEmpty ? nil : cleanNumber
                 })
             )
-            
+            .keyboardType(.phonePad)
+            .focused($focusField, equals: .phoneNumber)
+        }
+        .submitLabel(focusField == .phoneNumber ? .done : .next)
+        .onSubmit {
+            focusField = focusField?.next()
         }
     }
 }

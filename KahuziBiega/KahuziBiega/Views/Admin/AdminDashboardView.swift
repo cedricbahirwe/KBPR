@@ -42,7 +42,7 @@ struct AdminDashboardView: View {
                 )
             )
             .refreshable {
-                await loadContent(forced: true)
+                loadContent(forced: true)
             }
             .overlay {
                 if isLoading { ProgressView()}
@@ -54,19 +54,25 @@ struct AdminDashboardView: View {
                 }
             }
             .fullScreenCover(isPresented: $showSheet) {
-                AdminNewUserView()
+                AdminNewUserView { hasCreacted in
+                    if hasCreacted {
+                        loadContent(forced: true)
+                    }
+                }
             }
             .task {
-                await loadContent(forced: false)
+                loadContent(forced: false)
             }
         }
     }
     
        
-    private func loadContent(forced: Bool) async {
-        isLoading = true
-        await userStore.getAllUsers(forced: forced)
-        isLoading = false
+    private func loadContent(forced: Bool) {
+        Task {
+            isLoading = true
+            await userStore.getAllUsers(forced: forced)
+            isLoading = false
+        }
     }
 }
 
