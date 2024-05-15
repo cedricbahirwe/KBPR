@@ -51,6 +51,8 @@
 		CBB554EE2BF39BA9008663A8 /* AdminNewUserView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBB554ED2BF39BA9008663A8 /* AdminNewUserView.swift */; };
 		CBB554F02BF39C06008663A8 /* KBField.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBB554EF2BF39C06008663A8 /* KBField.swift */; };
 		CBB554F32BF4B755008663A8 /* incidents.json in Resources */ = {isa = PBXBuildFile; fileRef = CBB554F22BF4B755008663A8 /* incidents.json */; };
+		CBB554F72BF4C67E008663A8 /* IncidentCreationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBB554F62BF4C67E008663A8 /* IncidentCreationView.swift */; };
+		CBB554F92BF4C691008663A8 /* IncidentDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBB554F82BF4C691008663A8 /* IncidentDetailView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -119,6 +121,8 @@
 		CBB554ED2BF39BA9008663A8 /* AdminNewUserView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdminNewUserView.swift; sourceTree = "<group>"; };
 		CBB554EF2BF39C06008663A8 /* KBField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KBField.swift; sourceTree = "<group>"; };
 		CBB554F22BF4B755008663A8 /* incidents.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = incidents.json; sourceTree = "<group>"; };
+		CBB554F62BF4C67E008663A8 /* IncidentCreationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IncidentCreationView.swift; sourceTree = "<group>"; };
+		CBB554F82BF4C691008663A8 /* IncidentDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IncidentDetailView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -298,6 +302,7 @@
 				CB45154A2BD511A20025AEB8 /* SplashScreen.swift */,
 				CB45155B2BD535C50025AEB8 /* Tabs */,
 				CB45154E2BD519090025AEB8 /* TodoList.swift */,
+				CBB554F52BF4C678008663A8 /* Incidents */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -318,6 +323,15 @@
 				CBB554F22BF4B755008663A8 /* incidents.json */,
 			);
 			path = Resources;
+			sourceTree = "<group>";
+		};
+		CBB554F52BF4C678008663A8 /* Incidents */ = {
+			isa = PBXGroup;
+			children = (
+				CBB554F62BF4C67E008663A8 /* IncidentCreationView.swift */,
+				CBB554F82BF4C691008663A8 /* IncidentDetailView.swift */,
+			);
+			path = Incidents;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -456,12 +470,14 @@
 				CB2A65BA2BE7BC2A0072027B /* AuthenticationViewModel.swift in Sources */,
 				CB1F81372BD64AC9006A2908 /* MapScreen.swift in Sources */,
 				CB1F81402BD65340006A2908 /* ViewExtensions.swift in Sources */,
+				CBB554F92BF4C691008663A8 /* IncidentDetailView.swift in Sources */,
 				CB2A65C02BE7C7F10072027B /* WaitingApprovalView.swift in Sources */,
 				CB2A65C62BE7DFDC0072027B /* ContentWrapperView.swift in Sources */,
 				CB45154B2BD511A20025AEB8 /* SplashScreen.swift in Sources */,
 				CB58D5702BDEFC5C00F822A7 /* Networking.swift in Sources */,
 				CBB554EE2BF39BA9008663A8 /* AdminNewUserView.swift in Sources */,
 				CB4515492BD50A870025AEB8 /* Button.swift in Sources */,
+				CBB554F72BF4C67E008663A8 /* IncidentCreationView.swift in Sources */,
 				CB1F813A2BD64B04006A2908 /* LocationViewModel.swift in Sources */,
 				CB71A2C12BD4507C008AD154 /* ContentView.swift in Sources */,
 				CB4515542BD51FF40025AEB8 /* LocalStoreKey.swift in Sources */,

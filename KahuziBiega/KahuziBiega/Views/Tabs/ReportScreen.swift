@@ -38,11 +38,16 @@ struct ReportScreen: View {
                     Text("Recent Reports")
                         .font(.title.bold())
                     
-                    ForEach(recentIncidentReports) { report in
+                    ForEach(recentIncidentReports) { incident in
                         Group {
-                            RecentReportRowView(incident: report)
+                            NavigationLink {
+                                IncidentDetailView(incident: incident)
+                            } label: {
+                                RecentReportRowView(incident: incident)
+                            }
+                            .buttonStyle(.plain)
                             
-                            if (recentIncidentReports.last?.id != report.id) {
+                            if (recentIncidentReports.last?.id != incident.id) {
                                 Divider()
                             }
                         }
@@ -97,11 +102,14 @@ struct RecentReportRowView: View {
     
     var body: some View {
         VStack(alignment: .leading) {
-            Text(report.title)
-                .fontWeight(.medium)
-            
-            Text(report.description)
-                .fontWeight(.light)
+            Group {
+                Text(report.title)
+                    .fontWeight(.medium)
+                
+                Text(report.description)
+                    .fontWeight(.light)
+            }
+            .multilineTextAlignment(.leading)
             
             HStack {
                 

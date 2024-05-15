@@ -10,13 +10,19 @@ import SwiftUI
 struct IncidentsListView: View {
     @Environment(\.dismiss) private var dismiss
     @EnvironmentObject private var incidentsStore: IncidentsStore
+    @State private var showSheet = false
     
     var body: some View {
         ScrollView {
             VStack(spacing: 8) {
                 ForEach(incidentsStore.allIncidents) { incident in
                     Group {
-                        RecentReportRowView(incident: incident)
+                        NavigationLink {
+                            IncidentDetailView(incident: incident)
+                        } label: {
+                            RecentReportRowView(incident: incident)
+                        }
+                        .buttonStyle(.plain)
                         
                         if (incidentsStore.allIncidents.last?.id != incident.id) {
                             Divider()
@@ -39,15 +45,22 @@ struct IncidentsListView: View {
                 Text("List of Incidents")
                     .bold()
                 Spacer()
-                Button(action: {}) {
-                    Image(.more)
-                }.hidden()
+                Button(action: {
+                    showSheet.toggle()
+                }) {
+                    Label("Add new", systemImage: "plus.circle")
+                        .labelStyle(.iconOnly)
+                }
+//                .hidden()
             }
             .padding()
             .background(.ultraThinMaterial, ignoresSafeAreaEdges: .top)
         }
         .toolbar(.hidden, for: .navigationBar)
         .loadingIndicator(isVisible: incidentsStore.isLoading)
+        .fullScreenCover(isPresented: $showSheet) {
+            IncidentCreationView()
+        }
     }
 }
 
@@ -57,5 +70,6 @@ struct IncidentsListView: View {
         .task {
             await mock.getIncidents()
         }
+        .embedInNavigation()
         .environmentObject(mock)
 }
