@@ -41,20 +41,21 @@ struct IncidentsListView: View {
                 Spacer()
                 Button(action: {}) {
                     Image(.more)
-                }
+                }.hidden()
             }
             .padding()
             .background(.ultraThinMaterial, ignoresSafeAreaEdges: .top)
         }
         .toolbar(.hidden, for: .navigationBar)
         .loadingIndicator(isVisible: incidentsStore.isLoading)
-        .task {
-            await incidentsStore.getIncidents()
-        }
     }
 }
 
 #Preview {
-    IncidentsListView()
-        .environmentObject(IncidentsStore())
+    let mock = IncidentsStore(client: IncidentsClientMock())
+    return IncidentsListView()
+        .task {
+            await mock.getIncidents()
+        }
+        .environmentObject(mock)
 }

@@ -50,6 +50,7 @@
 		CBB554E82BF35499008663A8 /* UserStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBB554E72BF35499008663A8 /* UserStore.swift */; };
 		CBB554EE2BF39BA9008663A8 /* AdminNewUserView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBB554ED2BF39BA9008663A8 /* AdminNewUserView.swift */; };
 		CBB554F02BF39C06008663A8 /* KBField.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBB554EF2BF39C06008663A8 /* KBField.swift */; };
+		CBB554F32BF4B755008663A8 /* incidents.json in Resources */ = {isa = PBXBuildFile; fileRef = CBB554F22BF4B755008663A8 /* incidents.json */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -117,6 +118,7 @@
 		CBB554E72BF35499008663A8 /* UserStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserStore.swift; sourceTree = "<group>"; };
 		CBB554ED2BF39BA9008663A8 /* AdminNewUserView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdminNewUserView.swift; sourceTree = "<group>"; };
 		CBB554EF2BF39C06008663A8 /* KBField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KBField.swift; sourceTree = "<group>"; };
+		CBB554F22BF4B755008663A8 /* incidents.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = incidents.json; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -252,6 +254,7 @@
 				CB4515472BD50A7D0025AEB8 /* Style */,
 				CB71A2EB2BD4535D008AD154 /* Views */,
 				CB71A2C42BD4507E008AD154 /* Assets.xcassets */,
+				CBB554F12BF4B733008663A8 /* Resources */,
 				CB71A2F02BD453BA008AD154 /* Colors.xcassets */,
 				CB71A2C62BD4507E008AD154 /* KahuziBiega.entitlements */,
 				CB71A2C72BD4507E008AD154 /* Preview Content */,
@@ -307,6 +310,14 @@
 				CBB554ED2BF39BA9008663A8 /* AdminNewUserView.swift */,
 			);
 			path = Admin;
+			sourceTree = "<group>";
+		};
+		CBB554F12BF4B733008663A8 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				CBB554F22BF4B755008663A8 /* incidents.json */,
+			);
+			path = Resources;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -417,6 +428,7 @@
 				CB71A2F12BD453BA008AD154 /* Colors.xcassets in Resources */,
 				CB71A2C92BD4507E008AD154 /* Preview Assets.xcassets in Resources */,
 				CB71A2C52BD4507E008AD154 /* Assets.xcassets in Resources */,
+				CBB554F32BF4B755008663A8 /* incidents.json in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

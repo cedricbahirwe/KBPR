@@ -1,0 +1,41 @@
+[
+    {
+        "id": "e73bd0da-ba45-4dee-a95e-dfa306b22205",
+        "priority": "High",
+        "status": "Pending",
+        "category": "Hunting",
+        "createAt": "2024-05-05T14:58:43.511Z",
+        "updatedAt": "2024-05-05T14:58:43.511Z",
+        "resolvedAt": null,
+        "reportId": "36447a78-2758-4a30-9de3-1196f297bc60",
+        "report": {
+            "id": "36447a78-2758-4a30-9de3-1196f297bc60",
+            "title": "Illegal hunting activity near the Visitor Center Area",
+            "description": "On the morning patrol, encountered a group of visitors near the Eastern Trail Area who had an unexpected",
+            "comments": null,
+            "areaId": 1,
+            "reporterId": "177bdda2-6077-4373-8d76-3b05324b5daf",
+            "area": {
+                "id": 1,
+                "name": "Visitor Center Area",
+                "latitude": 0.0032123,
+                "longitude": -1.2141241
+            },
+            "reporter": {
+                "id": "177bdda2-6077-4373-8d76-3b05324b5daf",
+                "createdAt": "2024-05-05T14:58:43.511Z",
+                "updatedAt": "2024-05-14T12:53:32.562Z",
+                "username": "reporter",
+                "password": "$2b$10$s08v.XIxZ7UnmIqGEXC2duO4VhvEqqqEuFrwdGkbv1lakEAjKBRga",
+                "email": "reporter@gmail.com",
+                "firstName": "Reporter",
+                "lastName": "User",
+                "badgeNumber": "000000",
+                "phoneNumber": null,
+                "profilePic": null,
+                "role": "User",
+                "status": "Approved"
+            }
+        }
+    }
+]

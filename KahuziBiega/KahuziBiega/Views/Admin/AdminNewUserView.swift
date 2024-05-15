@@ -11,7 +11,6 @@ struct AdminNewUserView: View {
     @Environment(\.dismiss) private var dismiss
     @State private var registerModel = SignUpModel()
     @EnvironmentObject var authVM: AuthenticationViewModel
-//    @State private var isLoading = false
     var onCreateNewUser: (Bool) -> Void
     
     var body: some View {
@@ -47,7 +46,7 @@ struct AdminNewUserView: View {
     private func addNewUser() {
         Task {
             do {
-                let newUser = try await authVM.registerNewUser(registerModel)
+                _ = try await authVM.registerNewUser(registerModel)
                 onCreateNewUser(true)
                 dismiss()
             }

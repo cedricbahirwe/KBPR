@@ -22,8 +22,9 @@ enum LocalDecoder {
         return dateFormatter
     }()
     
-    static func decodeAs<T: Decodable>() throws -> T {
-        guard let path = Bundle.main.path(forResource: "response", ofType: "json") else
+    enum JSONFile: String { case response, incidents }
+    static func decodeAs<T: Decodable>(from file: LocalDecoder.JSONFile) throws -> T {
+        guard let path = Bundle.main.path(forResource: file.rawValue, ofType: "json") else
         {
             throw JSONParseError.fileNotFound
         }

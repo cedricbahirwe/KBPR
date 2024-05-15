@@ -19,7 +19,7 @@ struct ContentTabView: View {
             HomeScreen()
                 .tabItem { Image(systemName: "house") }
                 .tag(1)
-            ReportScreen()
+            ReportScreen().embedInNavigation()
                 .tabItem { Image(systemName: "doc.text") }
                 .tag(2)
             

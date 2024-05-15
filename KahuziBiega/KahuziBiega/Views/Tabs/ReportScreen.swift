@@ -8,8 +8,11 @@
 import SwiftUI
 
 struct ReportScreen: View {
-    @State private var reports: [KBIncident] = []
+    @EnvironmentObject private var incidentsStore: IncidentsStore
     
+    private var recentIncidentReports: [KBIncident] {
+        incidentsStore.getRecents()
+    }
     var body: some View {
         ScrollView {
             
@@ -35,11 +38,11 @@ struct ReportScreen: View {
                     Text("Recent Reports")
                         .font(.title.bold())
                     
-                    ForEach(reports) { report in
+                    ForEach(recentIncidentReports) { report in
                         Group {
                             RecentReportRowView(incident: report)
                             
-                            if (reports.last?.id != report.id) {
+                            if (recentIncidentReports.last?.id != report.id) {
                                 Divider()
                             }
                         }
@@ -55,44 +58,31 @@ struct ReportScreen: View {
             HStack {
                 Button(action: {}) {
                     Image(.menuLines)
-                }
+                }.hidden()
                 
                 Spacer()
+                
                 Text("Reporting").bold()
                 
                 Spacer()
+                
                 Button(action: {}) {
                     Image(.more)
-                }
+                }.hidden()
             }
             .padding()
             .background(.ultraThinMaterial, ignoresSafeAreaEdges: .top)
         }
         .task {
-//            do {
-//                let userData = try await NetworkClient.shared.getUserData()
-//                
-//            } catch {
-//                // Handle errors
-//                print("Error found: ", error)
-//            }
-            
-            getRecentReports()
+            await incidentsStore.getIncidents()
         }
-    }
-    
-    private func getRecentReports() {
-//        do {
-//            let result: [KBIncident] = try LocalDecoder.decodeAs()
-//            self.reports = result + KBIncident.recents
-//        } catch {
-//            print("Error incidents: ", error)
-//        }
     }
 }
 
 #Preview {
     ReportScreen()
+        .embedInNavigation()
+        .environmentObject(IncidentsStore(client: IncidentsClientMock()))
 }
 
 struct RecentReportRowView: View {

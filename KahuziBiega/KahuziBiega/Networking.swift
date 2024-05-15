@@ -32,7 +32,7 @@ eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjU4ZTY0OTI4LWI3N2MtNDUxNy05YTllLWR
     }
     enum Endpoint {
         case getUsers
-        case getIncidents
+        case allIncidents
         
         case allUsers
         
@@ -46,7 +46,7 @@ eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjU4ZTY0OTI4LWI3N2MtNDUxNy05YTllLWR
             switch self {
             case .getUsers, .allUsers:
                 "/api/users"
-            case .getIncidents:
+            case .allIncidents:
                 "/api/incidents"
             case .register:
                 "/api/register"
@@ -65,7 +65,7 @@ eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjU4ZTY0OTI4LWI3N2MtNDUxNy05YTllLWR
                 return .put
             case .login, .register:
                 return .post
-            case .getUsers, .getIncidents,
+            case .getUsers, .allIncidents,
                     .getuser, .allUsers: return .get
             }
         }
