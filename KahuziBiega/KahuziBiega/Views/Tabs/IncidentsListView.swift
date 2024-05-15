@@ -48,7 +48,8 @@ struct IncidentsListView: View {
                 Button(action: {
                     showSheet.toggle()
                 }) {
-                    Label("Add new", systemImage: "plus.circle")
+                    Label("Add new", systemImage: "plus")
+                        .imageScale(.large)
                         .labelStyle(.iconOnly)
                 }
 //                .hidden()

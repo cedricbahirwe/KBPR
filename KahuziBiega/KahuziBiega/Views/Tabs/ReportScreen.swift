@@ -9,16 +9,20 @@ import SwiftUI
 
 struct ReportScreen: View {
     @EnvironmentObject private var incidentsStore: IncidentsStore
-    
+    @State private var showSheet = false
+
     private var recentIncidentReports: [KBIncident] {
         incidentsStore.getRecents()
     }
+    
     var body: some View {
         ScrollView {
             
             VStack {
                 HStack(spacing: 25) {
-                    Button(action: {}) {
+                    Button(action: {
+                        showSheet.toggle()
+                    }) {
                         Image(.reportIncident)
                             .resizable()
                     }
@@ -80,6 +84,9 @@ struct ReportScreen: View {
         }
         .task {
             await incidentsStore.getIncidents()
+        }
+        .fullScreenCover(isPresented: $showSheet) {
+            IncidentCreationView()
         }
     }
 }

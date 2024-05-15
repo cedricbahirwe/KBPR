@@ -143,11 +143,12 @@ struct ReportRowView: View {
             Text(report.description)
                 .fontWeight(.light)
             
-            HStack {
-                Text("Location: \(Text(report.area.name).bold())")
-                    .foregroundStyle(.accent)
+            if let area = report.area {
+                HStack {
+                    Text("Location: \(Text(area.name).bold())")
+                        .foregroundStyle(.accent)
+                }
             }
-            
             HStack {
                 
                 Group {

@@ -38,16 +38,16 @@ struct AdminDetailView: View {
             VStack(alignment: .leading) {
                 HStack {
                     
-                    vStackField("First Name", value: user.firstName)
-                    vStackField("Last Name", value: user.lastName)
+                    vStackContent("First Name", value: user.firstName)
+                    vStackContent("Last Name", value: user.lastName)
                 }
 
-                vStackField("Email", value: user.email)
+                vStackContent("Email", value: user.email)
                 
-                vStackField("Badge", value: user.badgeNumber, .bold)
+                vStackContent("Badge", value: user.badgeNumber, .bold)
                 
                 if let phoneNumber = user.phoneNumber {
-                    vStackField("Phone Number", value: phoneNumber)
+                    vStackContent("Phone Number", value: phoneNumber)
                 }
                 
                 HStack {
@@ -155,7 +155,7 @@ struct AdminDetailView: View {
         }
     }
     
-    private func vStackField(_ title: String, value: String, _ valueWeight: Font.Weight? = nil) -> some View {
+    private func vStackContent(_ title: String, value: String, _ valueWeight: Font.Weight? = nil) -> some View {
         VStack(alignment: .leading, spacing: 10) {
             Text(title)
                 .fontWeight(.semibold)

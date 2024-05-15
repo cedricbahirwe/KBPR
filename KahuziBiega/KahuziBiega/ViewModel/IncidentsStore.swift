@@ -35,6 +35,21 @@ class IncidentsStore: ObservableObject {
         }
     }
     
+    func submitIncidentReport(_ report: IncidentModel) async {
+        isLoading = true
+
+        do {
+            isLoading = true
+            let result: KBIncident = try await client.reportIncident(report)
+            
+            print("Found result", result.report.reporter.username)
+            isLoading = false
+        } catch {
+            print("Error submitting: ", error)
+            isLoading = false
+        }
+    }
+    
     func getRecents(max: Int = 3) -> [KBIncident] {
         Array(allIncidents.prefix(max))
     }
@@ -46,6 +61,10 @@ class IncidentsClientMock: IncidentsClientProtocol {
     func getAll() async throws -> [KBIncident] {
         try LocalDecoder.decodeAs(from: .incidents)
     }
+    
+    func reportIncident(_ incident: IncidentModel) async throws -> KBIncident {
+        KBIncident.recents[0]
+    }
 }
 
 class IncidentsClient: IncidentsClientProtocol {
@@ -55,10 +74,16 @@ class IncidentsClient: IncidentsClientProtocol {
         self.networkClient = client
     }
     func getAll() async throws -> [KBIncident] {
-        try await NetworkClient.shared.get(.allIncidents)
+        try await networkClient.get(.allIncidents)
+    }
+    
+    func reportIncident(_ incident: IncidentModel) async throws -> KBIncident {
+        try await networkClient.post(.newIncident, content: incident)
     }
 }
 
 protocol IncidentsClientProtocol {
     func getAll() async throws -> [KBIncident]
+    
+    func reportIncident(_ incident: IncidentModel) async throws -> KBIncident
 }

@@ -36,6 +36,7 @@ struct BorderedTextFieldStyle: TextFieldStyle {
                 RoundedRectangle(cornerRadius: 8)
                     .strokeBorder()
             }
+        
     }
 }
 

@@ -32,9 +32,9 @@ eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjU4ZTY0OTI4LWI3N2MtNDUxNy05YTllLWR
     }
     enum Endpoint {
         case getUsers
-        case allIncidents
         
         case allUsers
+        
         
         case register
         case login
@@ -42,11 +42,16 @@ eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjU4ZTY0OTI4LWI3N2MtNDUxNy05YTllLWR
         
         case updateStatus(user: KBUser.ID)
         
+        // MARK: - Incidents:
+        case allIncidents
+        case newIncident
+
+        
         var path: String {
             switch self {
             case .getUsers, .allUsers:
                 "/api/users"
-            case .allIncidents:
+            case .allIncidents, .newIncident:
                 "/api/incidents"
             case .register:
                 "/api/register"
@@ -63,7 +68,7 @@ eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjU4ZTY0OTI4LWI3N2MtNDUxNy05YTllLWR
             switch self {
             case .updateStatus:
                 return .put
-            case .login, .register:
+            case .login, .register, .newIncident:
                 return .post
             case .getUsers, .allIncidents,
                     .getuser, .allUsers: return .get
@@ -107,11 +112,12 @@ eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjU4ZTY0OTI4LWI3N2MtNDUxNy05YTllLWR
             
             print("Received", response.statusCode)
             
+            try debugResponse(data)
+
+            
             try decodeResponse(response: response)
             
             
-//            try debugResponse(data)
-                        
             do {
                 return try KBDecoder().decode(R.self, from: data)
             } catch {
@@ -174,6 +180,7 @@ eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjU4ZTY0OTI4LWI3N2MtNDUxNy05YTllLWR
             }
             
             print("Start finish getting")
+            try debugResponse(data)
             try decodeResponse(response: response)
             
             let decoder = KBDecoder()
@@ -186,10 +193,11 @@ eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjU4ZTY0OTI4LWI3N2MtNDUxNy05YTllLWR
     }
     
     private func debugResponse(_ data: Data) throws {
-        if let jsonObject = try JSONSerialization.jsonObject(with: data, options: []) as? [[String: Any]] {
+        let content = try JSONSerialization.jsonObject(with: data, options: [])
+        if let jsonObject: Any = content as? [[String: Any]] ?? content as? [String: Any] {
             print("Response JSON:", jsonObject)
-        } else {
-            print("Failed to parse JSON: ", String(data: data, encoding: .utf8) as Any)
+        } else  {
+            print("Failed to print JSON: ", String(data: data, encoding: .utf8) as Any)
         }
     }
     

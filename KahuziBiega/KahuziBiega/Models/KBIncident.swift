@@ -46,7 +46,7 @@ struct KBIncident: Identifiable, Decodable {
         var title: String
         var description: String
         var comments: String?
-        var area: IncidentArea
+        var area: IncidentArea?
         var attachements: [AttachmentType]?
         var reporter: KBUser
         
@@ -77,14 +77,14 @@ struct KBIncident: Identifiable, Decodable {
         }
     }
     
-    enum Priority: String, Decodable {
+    enum Priority: String, Codable, CaseIterable {
         case low = "Low"
         case medium = "Medium"
         case high = "High"
         case highest = "Highest"
     }
     
-    enum Category: String, Decodable {
+    enum Category: String, Codable, CaseIterable {
         case poaching, parkDamage, hunting, medical, safety, environmental, other
         
         init(from decoder: Decoder) throws {
@@ -95,6 +95,20 @@ struct KBIncident: Identifiable, Decodable {
                 self = resolvedValue
             } else {
                 self = .other
+            }
+        }
+        
+        func encode(to encoder: any Encoder) throws {
+            var container = encoder.singleValueContainer()
+            try container.encode(rawValue.capitalized)
+        }
+        
+        var formatted: String {
+            switch self {
+            case .poaching, .environmental, .safety, .other: rawValue.capitalized
+            case .parkDamage: "Damage to Park"
+            case .hunting: "Illegal Hunting"
+            case .medical: "Medical Emergency"
             }
         }
     }
