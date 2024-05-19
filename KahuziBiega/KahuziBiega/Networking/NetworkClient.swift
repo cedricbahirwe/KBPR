@@ -8,7 +8,7 @@
 import Foundation
 
 enum Constants {
-    static let baseURL = URL(string: "https://ac4b-102-22-141-31.ngrok-free.app")!
+    static let baseURL = URL(string: "https://0b81-41-186-78-246.ngrok-free.app")!
     
     static let staticToken: String = """
     eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjU4ZTY0OTI4LWI3N2MtNDUxNy05YTllLWRlODcyMjdhZjIwOSIsImVtYWlsIjoiZHJpb3NtYW4iLCJ0aW1lIjoxNzE1NjcwNTA2NTA1LCJleHAiOjE3MTU2OTkzMDYsImlhdCI6MTcxNTY3MDUwNiwibmJmIjoxNzE1NjcwNTA2fQ.0nQW7HxZkGBBwR7jR_MIy61FD-UkaVrPkB5cTcoeGd4

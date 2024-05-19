@@ -13,7 +13,8 @@ struct AdminDashboardView: View {
     @State private var isLoading = false
     @State private var navPath: [ContentRoute] = []
     @State private var showSheet = false
-
+    @State private var url: URL?
+    @State private var imageData: Data?
     var body: some View {
         NavigationStack(path: $navPath) {
             List($userStore.allUsers) { $user in
@@ -46,6 +47,20 @@ struct AdminDashboardView: View {
             }
             .overlay {
                 if isLoading { ProgressView()}
+                VStack {
+                    if let url {
+                        AsyncImage(url: url)
+                            .background(.red)
+                            .frame(width: 50, height: 50)
+                    }
+                    
+                    if let data = imageData {
+                        Image(uiImage: UIImage(data: data) ?? .init())
+                            .resizable()
+                            .frame(width: 50, height: 50)
+                            .background(.green)
+                    }
+                }
             }
 //            .toolbar(.visible, for: .navigationBar)
             .toolbar {
@@ -61,6 +76,18 @@ struct AdminDashboardView: View {
                 }
             }
             .task {
+                let image = UIImage(resource: .img3)
+                do {
+                    let path = "incidents/489C0E53-7A9E-4CA4-B876-A91B3E3E3798.jpg"
+
+                    let url = await KBFBStorage.shared.getImageURL(path)
+                
+                    self.url = url
+                    
+                    let data = await KBFBStorage.shared.getImageData(path)
+                    self.imageData = data
+//                    try await KBFBStorage.shared.uploadImage(image, quality: 1.0)
+                } catch {}
                 loadContent(forced: false)
             }
         }
