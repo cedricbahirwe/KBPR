@@ -23,7 +23,7 @@ struct SignUpScreen: View {
     @Binding var navPath: [AuthRoute]
     @AppStorage(.authRecentScreen) private var authRecentScreen: AuthRoute?
     
-    @EnvironmentObject var authVM: AuthenticationViewModel
+    @EnvironmentObject var authVM: AuthenticationStore
     
     @State private var registerModel = SignUpModel.example
     @State private var isSignUp = false
@@ -98,7 +98,7 @@ struct SignUpScreen: View {
 
 #Preview {
     SignUpScreen(navPath: .constant([]))
-        .environmentObject(AuthenticationViewModel())
+        .environmentObject(AuthenticationStore())
 }
 
 

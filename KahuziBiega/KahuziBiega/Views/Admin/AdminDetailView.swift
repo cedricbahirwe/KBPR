@@ -51,7 +51,7 @@ struct AdminDetailView: View {
                 }
                 
                 HStack {
-                    hStackField("Role:") {
+                    hStackContent("Role:") {
                         Text(user.role.rawValue)
                             .foregroundStyle(.accent)
                             .fontWeight(.bold)
@@ -78,7 +78,7 @@ struct AdminDetailView: View {
                 Divider()
                 
                 HStack {
-                    hStackField("Status:") {
+                    hStackContent("Status:") {
                         Text(user.status.rawValue)
                             .fontWeight(.bold)
                             .foregroundStyle(getColorForUserStatus())
@@ -112,7 +112,7 @@ struct AdminDetailView: View {
                 
                 Divider()
 
-                hStackField("Joined on:") {
+                hStackContent("Joined on:") {
                     Text(user.createdAt.formatted(date: .long, time: .omitted))
                         .fontWeight(.bold)
                 }
@@ -154,26 +154,6 @@ struct AdminDetailView: View {
             isLoading = false
         }
     }
-    
-    private func vStackContent(_ title: String, value: String, _ valueWeight: Font.Weight? = nil) -> some View {
-        VStack(alignment: .leading, spacing: 10) {
-            Text(title)
-                .fontWeight(.semibold)
-            Text(value)
-                .fontWeight(valueWeight)
-            Divider()
-        }
-    }
-    
-    private func hStackField<T: View>(_ title: String, @ViewBuilder valueContent: () -> T) -> some View {
-        HStack(spacing: 10) {
-            Text(title)
-                .fontWeight(.semibold)
-            
-            valueContent()
-        }
-    }
-    
     
     private func canUpdateRoleTo(to role: KBUser.KBUserRole) -> Bool {
         guard let loggedInUser else { return false }

@@ -126,6 +126,7 @@ struct IncidentCreationView: View {
         }
         .safeAreaInset(edge: .bottom) {
             Button {
+                hideKeyboard()
                 submitReport()
             } label: {
                 Text("Submit New Report")
@@ -143,8 +144,14 @@ struct IncidentCreationView: View {
         .safeAreaInset(edge: .top) {
             Text("Report Incident")
                 .fontWeight(.bold)
-                .padding()
                 .frame(maxWidth: .infinity)
+                .overlay(alignment: .trailing) {
+                    Button("Cancel") {
+                        dismiss()
+                    }
+                }
+                .padding()
+                
                 .background(.ultraThinMaterial)
         }
         .alert(isPresented: $showAlert) {
@@ -157,26 +164,6 @@ struct IncidentCreationView: View {
         
     }
     
-    private func vStackField(_ title: String, text: Binding<String>) -> some View {
-        VStack(alignment: .leading, spacing: 10) {
-            Text(title)
-                .fontWeight(.semibold)
-            KBField("", text: text)
-        }
-        .foregroundStyle(.secondLabel)
-
-    }
-    
-    
-    private func vStackContent<T: View>(_ title: String, @ViewBuilder valueContent: () -> T) -> some View {
-        VStack(alignment: .leading, spacing: 10) {
-            Text(title)
-                .foregroundStyle(.secondLabel)
-                .fontWeight(.semibold)
-            valueContent()
-        }
-    }
-    
     private func submitReport() {
         Task {
             do {
@@ -184,9 +171,7 @@ struct IncidentCreationView: View {
                 try model.isValid()
                 print("✅ Ready to go")
                 await incidentsStore.submitIncidentReport(model)
-                // Go back to List of incidents
-                // additionally add the new element to the list of incidents (or do it from viewmodel)
-                // call backend
+                dismiss()
             } catch {
                 alertMessage = (error as? SubmissionValidation)?.message ?? error.localizedDescription
                 showAlert = true
@@ -210,17 +195,7 @@ struct IncidentPrioritySelector: View {
     var body: some View {
         HStack(spacing: 15) {
             ForEach(KBIncident.Priority.allCases, id: \.self) { priority in
-                let tintColor = colorForPriority(priority)
-                Text(priority.rawValue)
-                    .font(.system(size: 13))
-                    .foregroundStyle(priority == selection ? .white : tintColor)
-                    .frame(maxWidth: .infinity)
-                    .padding(.vertical, 8)
-                    .background(priority == selection ? tintColor : .clear, in: .capsule)
-                    .overlay(content: {
-                        Capsule()
-                            .strokeBorder(tintColor, lineWidth: 1.0)
-                    })
+                PriorityCapsuleView(priority: priority, isActive: selection == priority)
                     .contentShape(.capsule)
                     .onTapGesture {
                         withAnimation {
@@ -230,18 +205,23 @@ struct IncidentPrioritySelector: View {
             }
         }
     }
-    
-    func colorForPriority(_ priority: KBIncident.Priority) -> Color {
-        switch priority {
-        case .low:
-                .green
-        case .medium:
-                .teal
-        case .high:
-                .orange
-        case .highest:
-                .darkRed
-        }
+}
+
+struct PriorityCapsuleView: View {
+    let priority: KBIncident.Priority
+    let isActive: Bool
+    var body: some View {
+        let tintColor = priority.getColor()
+        Text(priority.rawValue)
+            .font(.system(size: 13))
+            .foregroundStyle(isActive ? .white : tintColor)
+            .frame(maxWidth: .infinity)
+            .padding(.vertical, 8)
+            .background(isActive ? tintColor : .clear, in: .capsule)
+            .overlay {
+                Capsule()
+                    .strokeBorder(tintColor, lineWidth: 1.0)
+            }
     }
 }
 

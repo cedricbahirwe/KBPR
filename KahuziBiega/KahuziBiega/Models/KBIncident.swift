@@ -61,7 +61,7 @@ struct KBIncident: Identifiable, Decodable {
         }
     }
     
-    enum Status: String, Codable {
+    enum Status: String, CaseIterable, Codable {
         case pending = "Pending",
              inReview = "InReview",
              inProgress = "InProgress",
@@ -189,6 +189,21 @@ extension KBIncident.Status {
         case .inReview: .inReview
         case .inProgress: .inProgress
         case .resolved: .resolved
+        }
+    }
+}
+
+extension KBIncident.Priority {
+    func getColor() -> Color {
+        switch self {
+        case .low:
+                .green
+        case .medium:
+                .teal
+        case .high:
+                .orange
+        case .highest:
+                .darkRed
         }
     }
 }

@@ -12,7 +12,7 @@ struct WaitingApprovalView: View {
     @Binding var navPath: [AuthRoute]
     @AppStorage(.authRecentScreen) private var authRecentScreen: AuthRoute?
     @AppStorage(.isLoggedIn) private var isLoggedIn: Bool = false
-    @EnvironmentObject private var authStore: AuthenticationViewModel
+    @EnvironmentObject private var authStore: AuthenticationStore
     
     var body: some View {
         ZStack {

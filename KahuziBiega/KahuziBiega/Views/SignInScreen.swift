@@ -11,9 +11,9 @@ struct SignInScreen: View {
     
     @Binding var navPath: [AuthRoute]
     @AppStorage(.authRecentScreen) private var authRecentScreen: AuthRoute?
-    @EnvironmentObject private var authStore: AuthenticationViewModel
+    @EnvironmentObject private var authStore: AuthenticationStore
     @AppStorage(.isLoggedIn) private var isLoggedIn: Bool = false
-    @State private var loginModel = LoginModel.example
+    @State private var loginModel = LoginModel.admin
     
     var body: some View {
         ZStack {
@@ -130,7 +130,10 @@ extension SignInScreen {
             email: "newone@gmail.com",
             password: "driosman"
         )
-        
+        static let admin = LoginModel(
+            email: "adminSuper@gmail.com",
+            password: "abc123"
+        )
         func getValidationError() -> String? {
             if email.count < 3 {
                 return "Username must be at least 3 characters long."

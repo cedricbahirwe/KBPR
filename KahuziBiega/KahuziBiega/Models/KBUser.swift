@@ -48,6 +48,10 @@ struct KBUser: Identifiable, Codable {
     enum KBAccountStatus: String, CaseIterable, Codable {
         case Pending, Approved, Suspended, Banned
     }
+    
+    var usernameFormatted: String {
+        "@\(username)"
+    }
 }
 
 extension KBUser {

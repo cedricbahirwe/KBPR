@@ -11,13 +11,18 @@
 		CB1F813A2BD64B04006A2908 /* LocationViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB1F81392BD64B04006A2908 /* LocationViewModel.swift */; };
 		CB1F813D2BD64BF8006A2908 /* LocationAnnotationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB1F813C2BD64BF8006A2908 /* LocationAnnotationView.swift */; };
 		CB1F81402BD65340006A2908 /* ViewExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB1F813F2BD65340006A2908 /* ViewExtensions.swift */; };
-		CB2A65BA2BE7BC2A0072027B /* AuthenticationViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB2A65B92BE7BC2A0072027B /* AuthenticationViewModel.swift */; };
+		CB2A65BA2BE7BC2A0072027B /* AuthenticationStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB2A65B92BE7BC2A0072027B /* AuthenticationStore.swift */; };
 		CB2A65BC2BE7C7770072027B /* AdminDashboardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB2A65BB2BE7C7770072027B /* AdminDashboardView.swift */; };
 		CB2A65C02BE7C7F10072027B /* WaitingApprovalView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB2A65BF2BE7C7F10072027B /* WaitingApprovalView.swift */; };
 		CB2A65C42BE7DC5B0072027B /* AuthRoute.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB2A65C32BE7DC5B0072027B /* AuthRoute.swift */; };
 		CB2A65C62BE7DFDC0072027B /* ContentWrapperView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB2A65C52BE7DFDC0072027B /* ContentWrapperView.swift */; };
 		CB2A65C82BE7E0160072027B /* LocalStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB2A65C72BE7E0160072027B /* LocalStorage.swift */; };
 		CB2A65CE2BE7E2300072027B /* IncidentsStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB2A65CD2BE7E2300072027B /* IncidentsStore.swift */; };
+		CB4102502BF607B900FE2D1E /* Endpoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB41024F2BF607B900FE2D1E /* Endpoint.swift */; };
+		CB4102522BF607C000FE2D1E /* HTTPMethod.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB4102512BF607C000FE2D1E /* HTTPMethod.swift */; };
+		CB4102542BF608B200FE2D1E /* APIError.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB4102532BF608B200FE2D1E /* APIError.swift */; };
+		CB4102562BF608CB00FE2D1E /* NotificationExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB4102552BF608CB00FE2D1E /* NotificationExtensions.swift */; };
+		CB4102582BF608DE00FE2D1E /* KBDecoder.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB4102572BF608DE00FE2D1E /* KBDecoder.swift */; };
 		CB4515492BD50A870025AEB8 /* Button.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB4515482BD50A870025AEB8 /* Button.swift */; };
 		CB45154B2BD511A20025AEB8 /* SplashScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB45154A2BD511A20025AEB8 /* SplashScreen.swift */; };
 		CB45154D2BD5125A0025AEB8 /* SignInScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB45154C2BD5125A0025AEB8 /* SignInScreen.swift */; };
@@ -33,7 +38,7 @@
 		CB4515652BD5AD9D0025AEB8 /* ChatDetailScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB4515642BD5AD9D0025AEB8 /* ChatDetailScreen.swift */; };
 		CB58D56C2BDE663500F822A7 /* KBUser.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB58D56B2BDE663500F822A7 /* KBUser.swift */; };
 		CB58D56E2BDEDB5600F822A7 /* KBIncident.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB58D56D2BDEDB5600F822A7 /* KBIncident.swift */; };
-		CB58D5702BDEFC5C00F822A7 /* Networking.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB58D56F2BDEFC5C00F822A7 /* Networking.swift */; };
+		CB58D5702BDEFC5C00F822A7 /* NetworkClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB58D56F2BDEFC5C00F822A7 /* NetworkClient.swift */; };
 		CB58D5722BDF9B2C00F822A7 /* response.json in Resources */ = {isa = PBXBuildFile; fileRef = CB58D5712BDF9B2C00F822A7 /* response.json */; };
 		CB58D5742BDF9B4500F822A7 /* LocalDecoder.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB58D5732BDF9B4500F822A7 /* LocalDecoder.swift */; };
 		CB71A2BF2BD4507C008AD154 /* KahuziBiegaApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB71A2BE2BD4507C008AD154 /* KahuziBiegaApp.swift */; };
@@ -77,13 +82,18 @@
 		CB1F81392BD64B04006A2908 /* LocationViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationViewModel.swift; sourceTree = "<group>"; };
 		CB1F813C2BD64BF8006A2908 /* LocationAnnotationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationAnnotationView.swift; sourceTree = "<group>"; };
 		CB1F813F2BD65340006A2908 /* ViewExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewExtensions.swift; sourceTree = "<group>"; };
-		CB2A65B92BE7BC2A0072027B /* AuthenticationViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthenticationViewModel.swift; sourceTree = "<group>"; };
+		CB2A65B92BE7BC2A0072027B /* AuthenticationStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthenticationStore.swift; sourceTree = "<group>"; };
 		CB2A65BB2BE7C7770072027B /* AdminDashboardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdminDashboardView.swift; sourceTree = "<group>"; };
 		CB2A65BF2BE7C7F10072027B /* WaitingApprovalView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WaitingApprovalView.swift; sourceTree = "<group>"; };
 		CB2A65C32BE7DC5B0072027B /* AuthRoute.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthRoute.swift; sourceTree = "<group>"; };
 		CB2A65C52BE7DFDC0072027B /* ContentWrapperView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentWrapperView.swift; sourceTree = "<group>"; };
 		CB2A65C72BE7E0160072027B /* LocalStorage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalStorage.swift; sourceTree = "<group>"; };
 		CB2A65CD2BE7E2300072027B /* IncidentsStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IncidentsStore.swift; sourceTree = "<group>"; };
+		CB41024F2BF607B900FE2D1E /* Endpoint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Endpoint.swift; sourceTree = "<group>"; };
+		CB4102512BF607C000FE2D1E /* HTTPMethod.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HTTPMethod.swift; sourceTree = "<group>"; };
+		CB4102532BF608B200FE2D1E /* APIError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIError.swift; sourceTree = "<group>"; };
+		CB4102552BF608CB00FE2D1E /* NotificationExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationExtensions.swift; sourceTree = "<group>"; };
+		CB4102572BF608DE00FE2D1E /* KBDecoder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KBDecoder.swift; sourceTree = "<group>"; };
 		CB4515482BD50A870025AEB8 /* Button.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Button.swift; sourceTree = "<group>"; };
 		CB45154A2BD511A20025AEB8 /* SplashScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SplashScreen.swift; sourceTree = "<group>"; };
 		CB45154C2BD5125A0025AEB8 /* SignInScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInScreen.swift; sourceTree = "<group>"; };
@@ -99,7 +109,7 @@
 		CB4515642BD5AD9D0025AEB8 /* ChatDetailScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatDetailScreen.swift; sourceTree = "<group>"; };
 		CB58D56B2BDE663500F822A7 /* KBUser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KBUser.swift; sourceTree = "<group>"; };
 		CB58D56D2BDEDB5600F822A7 /* KBIncident.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KBIncident.swift; sourceTree = "<group>"; };
-		CB58D56F2BDEFC5C00F822A7 /* Networking.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Networking.swift; sourceTree = "<group>"; };
+		CB58D56F2BDEFC5C00F822A7 /* NetworkClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkClient.swift; sourceTree = "<group>"; };
 		CB58D5712BDF9B2C00F822A7 /* response.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = response.json; sourceTree = "<group>"; };
 		CB58D5732BDF9B4500F822A7 /* LocalDecoder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalDecoder.swift; sourceTree = "<group>"; };
 		CB71A2BB2BD4507C008AD154 /* KahuziBiega.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = KahuziBiega.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -155,7 +165,7 @@
 			children = (
 				CB1F81392BD64B04006A2908 /* LocationViewModel.swift */,
 				CB2A65CD2BE7E2300072027B /* IncidentsStore.swift */,
-				CB2A65B92BE7BC2A0072027B /* AuthenticationViewModel.swift */,
+				CB2A65B92BE7BC2A0072027B /* AuthenticationStore.swift */,
 				CBB554E72BF35499008663A8 /* UserStore.swift */,
 			);
 			path = ViewModel;
@@ -174,6 +184,7 @@
 			isa = PBXGroup;
 			children = (
 				CB1F813F2BD65340006A2908 /* ViewExtensions.swift */,
+				CB4102552BF608CB00FE2D1E /* NotificationExtensions.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -187,6 +198,18 @@
 				CB58D56D2BDEDB5600F822A7 /* KBIncident.swift */,
 			);
 			path = Models;
+			sourceTree = "<group>";
+		};
+		CB41024E2BF6079000FE2D1E /* Networking */ = {
+			isa = PBXGroup;
+			children = (
+				CB58D56F2BDEFC5C00F822A7 /* NetworkClient.swift */,
+				CB4102572BF608DE00FE2D1E /* KBDecoder.swift */,
+				CB41024F2BF607B900FE2D1E /* Endpoint.swift */,
+				CB4102512BF607C000FE2D1E /* HTTPMethod.swift */,
+				CB4102532BF608B200FE2D1E /* APIError.swift */,
+			);
+			path = Networking;
 			sourceTree = "<group>";
 		};
 		CB4515472BD50A7D0025AEB8 /* Style */ = {
@@ -248,7 +271,7 @@
 			children = (
 				CB71A2BE2BD4507C008AD154 /* KahuziBiegaApp.swift */,
 				CB71A2C02BD4507C008AD154 /* ContentView.swift */,
-				CB58D56F2BDEFC5C00F822A7 /* Networking.swift */,
+				CB41024E2BF6079000FE2D1E /* Networking */,
 				CB58D5712BDF9B2C00F822A7 /* response.json */,
 				CB58D5732BDF9B4500F822A7 /* LocalDecoder.swift */,
 				CB1F81412BD6536D006A2908 /* Models */,
@@ -467,14 +490,15 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				CB2A65BA2BE7BC2A0072027B /* AuthenticationViewModel.swift in Sources */,
+				CB2A65BA2BE7BC2A0072027B /* AuthenticationStore.swift in Sources */,
 				CB1F81372BD64AC9006A2908 /* MapScreen.swift in Sources */,
 				CB1F81402BD65340006A2908 /* ViewExtensions.swift in Sources */,
 				CBB554F92BF4C691008663A8 /* IncidentDetailView.swift in Sources */,
+				CB4102562BF608CB00FE2D1E /* NotificationExtensions.swift in Sources */,
 				CB2A65C02BE7C7F10072027B /* WaitingApprovalView.swift in Sources */,
 				CB2A65C62BE7DFDC0072027B /* ContentWrapperView.swift in Sources */,
 				CB45154B2BD511A20025AEB8 /* SplashScreen.swift in Sources */,
-				CB58D5702BDEFC5C00F822A7 /* Networking.swift in Sources */,
+				CB58D5702BDEFC5C00F822A7 /* NetworkClient.swift in Sources */,
 				CBB554EE2BF39BA9008663A8 /* AdminNewUserView.swift in Sources */,
 				CB4515492BD50A870025AEB8 /* Button.swift in Sources */,
 				CBB554F72BF4C67E008663A8 /* IncidentCreationView.swift in Sources */,
@@ -483,6 +507,7 @@
 				CB4515542BD51FF40025AEB8 /* LocalStoreKey.swift in Sources */,
 				CB4515562BD535950025AEB8 /* ReportScreen.swift in Sources */,
 				CBB554F02BF39C06008663A8 /* KBField.swift in Sources */,
+				CB4102502BF607B900FE2D1E /* Endpoint.swift in Sources */,
 				CB2A65C82BE7E0160072027B /* LocalStorage.swift in Sources */,
 				CB45154F2BD519090025AEB8 /* TodoList.swift in Sources */,
 				CB2A65BC2BE7C7770072027B /* AdminDashboardView.swift in Sources */,
@@ -492,8 +517,10 @@
 				CB2A65C42BE7DC5B0072027B /* AuthRoute.swift in Sources */,
 				CB4515582BD535AE0025AEB8 /* ChatsScreen.swift in Sources */,
 				CB58D56E2BDEDB5600F822A7 /* KBIncident.swift in Sources */,
+				CB4102542BF608B200FE2D1E /* APIError.swift in Sources */,
 				CB4515512BD51AE30025AEB8 /* HomeScreen.swift in Sources */,
 				CB58D5742BDF9B4500F822A7 /* LocalDecoder.swift in Sources */,
+				CB4102522BF607C000FE2D1E /* HTTPMethod.swift in Sources */,
 				CB45155D2BD536280025AEB8 /* ContentTabView.swift in Sources */,
 				CB45155F2BD549D30025AEB8 /* IncidentsListView.swift in Sources */,
 				CB4515652BD5AD9D0025AEB8 /* ChatDetailScreen.swift in Sources */,
@@ -504,6 +531,7 @@
 				CBB554E82BF35499008663A8 /* UserStore.swift in Sources */,
 				CB71A2BF2BD4507C008AD154 /* KahuziBiegaApp.swift in Sources */,
 				CB71A2EF2BD45376008AD154 /* SignUpScreen.swift in Sources */,
+				CB4102582BF608DE00FE2D1E /* KBDecoder.swift in Sources */,
 				CB2A65CE2BE7E2300072027B /* IncidentsStore.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

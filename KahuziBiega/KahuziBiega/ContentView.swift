@@ -57,4 +57,7 @@ struct ContentView: View {
 
 #Preview {
     ContentView()
+        .environmentObject(AuthenticationStore())
+        .environmentObject(IncidentsStore())
+        .environmentObject(UserStore())
 }

@@ -10,7 +10,7 @@ import SwiftUI
 struct AdminNewUserView: View {
     @Environment(\.dismiss) private var dismiss
     @State private var registerModel = SignUpModel()
-    @EnvironmentObject var authVM: AuthenticationViewModel
+    @EnvironmentObject var authVM: AuthenticationStore
     var onCreateNewUser: (Bool) -> Void
     
     var body: some View {
@@ -57,5 +57,5 @@ struct AdminNewUserView: View {
 #Preview {
     AdminNewUserView(onCreateNewUser: { _ in })
         .embedInNavigation(large: false)
-        .environmentObject(AuthenticationViewModel())
+        .environmentObject(AuthenticationStore())
 }

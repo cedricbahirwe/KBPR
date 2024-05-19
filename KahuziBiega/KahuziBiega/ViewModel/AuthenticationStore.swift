@@ -1,5 +1,5 @@
 //
-//  AuthenticationViewModel.swift
+//  AuthenticationStore.swift
 //  KahuziBiega
 //
 //  Created by Cédric Bahirwe on 05/05/2024.
@@ -11,7 +11,7 @@ import Foundation
 // TODO: - Improve printing to be helpful fast
 
 @MainActor
-final class AuthenticationViewModel: ObservableObject {
+final class AuthenticationStore: ObservableObject {
     @Published var isLoading = false
 //    @Published var isLoggedIn = false
     

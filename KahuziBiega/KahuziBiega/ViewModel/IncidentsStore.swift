@@ -40,14 +40,17 @@ class IncidentsStore: ObservableObject {
 
         do {
             isLoading = true
-            let result: KBIncident = try await client.reportIncident(report)
-            
-            print("Found result", result.report.reporter.username)
+            let newIncident: KBIncident = try await client.reportIncident(report)
+            self.prependIncident(newIncident)
             isLoading = false
         } catch {
             print("Error submitting: ", error)
             isLoading = false
         }
+    }
+    
+    func prependIncident(_ incident: KBIncident) {
+        self.allIncidents.insert(incident, at: 0)
     }
     
     func getRecents(max: Int = 3) -> [KBIncident] {

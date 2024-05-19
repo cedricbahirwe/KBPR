@@ -23,7 +23,7 @@ struct KahuziBiegaApp: App {
         }
     }()
     
-    @StateObject private var authVM = AuthenticationViewModel()
+    @StateObject private var authVM = AuthenticationStore()
     @StateObject private var incidentsStore = IncidentsStore()
     @StateObject private var usersStore = UserStore()
 
