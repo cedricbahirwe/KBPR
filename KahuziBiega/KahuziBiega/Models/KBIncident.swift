@@ -47,16 +47,16 @@ struct KBIncident: Identifiable, Decodable {
         var description: String
         var comments: String?
         var area: IncidentArea?
-        var attachements: [AttachmentType]?
+        var attachments: [Attachment]?
         var reporter: KBUser
         
-        init(id: UUID = UUID(), title: String, description: String, comments: String? = nil, area: IncidentArea, attachements: [AttachmentType] = [], reporter: KBUser) {
+        init(id: UUID = UUID(), title: String, description: String, comments: String? = nil, area: IncidentArea, attachments: [Attachment] = [], reporter: KBUser) {
             self.id = id
             self.title = title
             self.description = description
             self.comments = comments
             self.area = area
-            self.attachements = attachements
+            self.attachments = attachments
             self.reporter = reporter
         }
     }
@@ -123,9 +123,12 @@ struct KBIncident: Identifiable, Decodable {
     }
     
     
-    enum AttachmentType: Decodable {
-        case photo(URL)
-        case video(URL)
+    struct Attachment: Codable {
+        let type: AttachmentType
+        let url: String
+    }
+    enum AttachmentType: String, Codable {
+        case Photo, Video
     }
     
     struct Resolution: Codable {

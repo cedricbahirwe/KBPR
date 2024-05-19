@@ -76,18 +76,6 @@ struct AdminDashboardView: View {
                 }
             }
             .task {
-                let image = UIImage(resource: .img3)
-                do {
-                    let path = "incidents/489C0E53-7A9E-4CA4-B876-A91B3E3E3798.jpg"
-
-                    let url = await KBFBStorage.shared.getImageURL(path)
-                
-                    self.url = url
-                    
-                    let data = await KBFBStorage.shared.getImageData(path)
-                    self.imageData = data
-//                    try await KBFBStorage.shared.uploadImage(image, quality: 1.0)
-                } catch {}
                 loadContent(forced: false)
             }
         }

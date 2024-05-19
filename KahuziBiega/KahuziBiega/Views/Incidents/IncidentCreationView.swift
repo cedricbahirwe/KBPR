@@ -42,13 +42,20 @@ struct ReportModel: Encodable {
     var title = ""
     var description = ""
     var comments = ""
-    var actionTaken = " asf asf asf,asf asf asf asf asfjkasf iuoahsf oiasfas "
+    var actionTaken = ""
     
 //    var area:
+    
+    var attachments: [Attachment] = []
     
     var reporterId: KBUser.ID!
     
     
+    
+    struct Attachment: Encodable {
+        let type: KBIncident.AttachmentType
+        let url: String
+    }
     
 }
 

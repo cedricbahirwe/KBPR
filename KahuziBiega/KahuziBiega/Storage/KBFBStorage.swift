@@ -32,7 +32,7 @@ final class KBFBStorage {
     
     func uploadImage(_ image: UIImage, quality: CGFloat = 0.75) async throws -> ImageStoragePath {
         let imagPath = "images/\(randomID).jpg"
-        let uploadRef = storage.reference().storage.reference(withPath: imagPath)
+        let uploadRef = storage.reference(withPath: imagPath)
         
         guard let imageData = image.jpegData(compressionQuality: quality) else {
             throw UploadError.unableTogetJPEGData
@@ -62,7 +62,7 @@ final class KBFBStorage {
     }
     
     func getImageURL(_ imagePath: ImageStoragePath) async -> URL? {
-        let storageRef = storage.reference().storage.reference(withPath: imagePath)
+        let storageRef = storage.reference(withPath: imagePath)
         
         do {
             let url = try await storageRef.downloadURL()
@@ -75,7 +75,7 @@ final class KBFBStorage {
     }
     
     func getImageData(_ imagePath: ImageStoragePath, maxSize: Int64 = 4 * 1020 * 1024) async -> Data? {
-        let storageRef = storage.reference().storage.reference(withPath: imagePath)
+        let storageRef = storage.reference(withPath: imagePath)
         
         do {
             return try await withCheckedThrowingContinuation { continuation in
@@ -123,7 +123,7 @@ final class KBFBStorage {
         
         let localFile = documentDir.appendingPathComponent("downloadedMovie.mox")
         
-        let storageRef = storage.reference().storage.reference(withPath: moviePath)
+        let storageRef = storage.reference(withPath: moviePath)
 
         
         
