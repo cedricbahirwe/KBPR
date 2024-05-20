@@ -6,20 +6,19 @@
 //
 
 import SwiftUI
-//import MapKit
 
 struct HomeScreen: View {
     @EnvironmentObject private var incidentsStore: IncidentsStore
-   
+    @State private var showSheet = false
+
     private var recentIncidentReports: [KBIncident] {
         incidentsStore.getRecents(max: 6)
     }
     
-    @State private var showSheet = false
-        
     var body: some View {
-        VStack {
-            ScrollView {
+        
+        ScrollView {
+            VStack(spacing: 0) {
                 HStack(spacing: 25) {
                     Button(action: {
                         showSheet.toggle()
@@ -41,41 +40,77 @@ struct HomeScreen: View {
                 
                 
                 if !recentIncidentReports.isEmpty {
-                    VStack(alignment: .leading) {
-                        Text("Recent Reports")
-                            .font(.title.bold())
-                        
-                        VStack(alignment: .leading) {
-                            ForEach(recentIncidentReports) { incident in
-                                NavigationLink {
-                                    IncidentDetailView(incident: incident)
-                                } label: {
-                                    //                                    ReportRowView(incident: incident)
-                                    RecentReportRowView(incident: incident)
-                                }
-                                .buttonStyle(.plain)
-                                
-                                if (recentIncidentReports.last?.id != incident.id) {
-                                    Divider()
+                    LazyVStack(alignment: .leading, pinnedViews: .sectionHeaders) {
+                        Section {
+                            VStack(alignment: .leading) {
+                                ForEach(recentIncidentReports) { incident in
+                                    NavigationLink {
+                                        IncidentDetailView(incident: incident)
+                                    } label: {
+                                        //                                    ReportRowView(incident: incident)
+                                        RecentReportRowView(incident: incident)
+                                    }
+                                    .buttonStyle(.plain)
+                                    
+                                    if (recentIncidentReports.last?.id != incident.id) {
+                                        Divider()
+                                    }
                                 }
                             }
+                            .padding()
+                            .background(
+                                .background
+                                    .shadow(.inner(color: Color.black.opacity(0.25), radius: 4, x: 0, y: 4))
+                                , in: .rect(cornerRadius: 15)
+                            )
+                        } header: {
+                            Text("Recent Reports")
+                                .font(.title.bold())
+                                .padding(10)
+                                .frame(maxWidth: .infinity, alignment: .leading)
+                                .background(.background.opacity(0.9))
                         }
-                        .padding()
-                        .background(
-                            .background
-                                .shadow(.inner(color: Color.black.opacity(0.25), radius: 4, x: 0, y: 4))
-                            , in: .rect(cornerRadius: 15)
-                        )
                     }
-                    .padding()
+                    .padding(.horizontal)
                 }
-           
-                
             }
         }
-        .safeAreaInset(edge: .top) {
-            topBarView
-                .background(.ultraThinMaterial, ignoresSafeAreaEdges: .top)
+        .navigationTitle("Kauzi Biega Park")
+        .toolbarTitleDisplayMode(.inline)
+        .toolbar {
+            
+            ToolbarItem(placement: .topBarLeading) {
+                HStack(spacing: 16) {
+                    NavigationLink {
+                        MapScreen()
+                    } label: {
+                        Image(.mapMarker)
+                    }
+                    
+                    Button(action: {}) {
+                        Image(.siren)
+                    }
+                }
+            }
+            
+            ToolbarItemGroup(placement: .topBarTrailing) {
+                Button(action: {}) {
+                    Image(.radioTower)
+                }
+                
+                Button(action: {
+                    NotificationCenter.default.post(name: .unauthorizedRequest, object: nil)
+                }) {
+                    
+                    KBImage(LocalStorage.getSessionUser()?.profilePic) {
+                        Image(systemName: "person.circle.fill")
+                            .resizable()
+                    }
+                    .frame(width: 35, height: 35)
+                    .background(.regularMaterial)
+                    .clipShape(.circle)
+                }
+            }
         }
         .loadingIndicator(isVisible: incidentsStore.isLoading)
         .task {
@@ -91,48 +126,6 @@ struct HomeScreen: View {
     HomeScreen()
         .embedInNavigation()
         .environmentObject(IncidentsStore(client: IncidentsClientMock()))
-}
-
-private extension HomeScreen {
-    var topBarView: some View {
-        HStack {
-            HStack(spacing: 16) {
-                NavigationLink {
-                    MapScreen()
-                } label: {
-                    Image(.mapMarker)
-                }
-                
-                Button(action: {}) {
-                    Image(.siren)
-                }
-            }
-            
-            Text("Kauzi Biega Park")
-                .bold()
-                .frame(maxWidth: .infinity)
-            
-            HStack(spacing: 16) {
-                Button(action: {}) {
-                    Image(.radioTower)
-                }
-                
-                Button(action: {
-                    NotificationCenter.default.post(name: .unauthorizedRequest, object: nil)
-                }) {
-                    
-                    KBImage(LocalStorage.getSessionUser()?.profilePic) {
-                        Image(systemName: "person.circle.fill")
-                            .resizable()
-                    }
-                    .frame(width: 42, height: 42)
-                    .background(.regularMaterial)
-                    .clipShape(.circle)
-                }
-            }
-        }
-        .padding()
-    }
 }
 
 struct ReportRowView: View {

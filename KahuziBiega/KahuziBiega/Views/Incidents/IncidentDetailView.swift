@@ -17,15 +17,16 @@ struct IncidentDetailView: View {
     var body: some View {
         ScrollView {
             VStack(alignment: .leading) {
-                                
-                KBImage(incidentImg) {
-                    EmptyView()
+                         
+                if let incidentImg {
+                    KBImage(incidentImg) {
+                        EmptyView()
+                    }
+                    .frame(maxWidth: .infinity)
+                    .frame(height: 250)
+                    .background(.gray)
+                    .clipped()
                 }
-                .frame(maxWidth: .infinity)
-                .frame(height: 250)
-                .background(.gray)
-                .clipped()
-                
                 
                 Text(incident.report.title)
                     .font(.title)
@@ -138,7 +139,7 @@ struct IncidentDetailView: View {
             }
             .padding()
         }
-        .navigationTitle(incident.report.reporter.usernameFormatted)
+        .navigationTitle("By " + incident.report.reporter.usernameFormatted)
         .navigationBarTitleDisplayMode(.inline)
     }
     
