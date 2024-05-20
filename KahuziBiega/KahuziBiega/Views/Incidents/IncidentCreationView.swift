@@ -6,58 +6,8 @@
 //
 
 import SwiftUI
+import PhotosUI
 
-private enum SubmissionValidation: Error {
-    case missingPriority
-    case missingCategory
-    case missingReporter
-    
-    var message: String {
-        switch self {
-        case .missingPriority:
-            return "Priority is missing."
-        case .missingCategory:
-            return "Category is missing."
-        case .missingReporter:
-            return "Reporter information is missing."
-        }
-    }
-}
-struct IncidentModel: Encodable {
-   
-    var priority: KBIncident.Priority?
-    var category: KBIncident.Category?
-    
-    var report = ReportModel()
-    
-    
-    func isValid() throws {
-        guard priority != nil else { throw SubmissionValidation.missingPriority }
-        guard category != nil else { throw SubmissionValidation.missingCategory }
-        guard report.reporterId != nil else { throw SubmissionValidation.missingReporter }
-    }
-}
-
-struct ReportModel: Encodable {
-    var title = ""
-    var description = ""
-    var comments = ""
-    var actionTaken = ""
-    
-//    var area:
-    
-    var attachments: [Attachment] = []
-    
-    var reporterId: KBUser.ID!
-    
-    
-    
-    struct Attachment: Encodable {
-        let type: KBIncident.AttachmentType
-        let url: String
-    }
-    
-}
 
 struct IncidentCreationView: View {
     @Environment(\.dismiss) private var dismiss
@@ -67,7 +17,12 @@ struct IncidentCreationView: View {
     @EnvironmentObject private var incidentsStore: IncidentsStore
     
     @State private var showAlert = false
-       @State private var alertMessage = ""
+    @State private var alertMessage = ""
+    
+    @State private var selectedItems = [PhotosPickerItem]()
+    @State private var selectedImages = [Image]()
+    
+    @State private var previewedImage: Image?
     
     var body: some View {
         ScrollView {
@@ -84,30 +39,72 @@ struct IncidentCreationView: View {
                         .lineLimit(2...4)
                 }
                 
+                
                 vStackField("Additional Notes", text: report.comments)
                 
+
                 
-//                vStackContent("Add Attachments") {
-//                    HStack(spacing: 15) {
-//                        Group {
-//                            Image(systemName: "photo.fill")
-//                                .resizable()
-//                            Image(systemName: "camera.fill")
-//                                .resizable()
-//                            Image(systemName: "film.stack")
-//                                .resizable()
-//                        }
-//                        .scaledToFit()
-//                        .padding()
-//                        .foregroundStyle(.tint)
-//                    }
-//                    .padding(10.0)
-//                    
-//                    .overlay {
-//                        RoundedRectangle(cornerRadius: 8)
-//                            .strokeBorder(.secondLabel)
-//                    }
-//                }
+                vStackContent("Add Attachments") {
+                    PhotosPicker(selection: $selectedItems) {
+                        if selectedItems.isEmpty {
+                            HStack(spacing: 15) {
+                                Group {
+                                    Image(systemName: "photo.fill")
+                                        .resizable()
+                                    Image(systemName: "camera.fill")
+                                        .resizable()
+                                    Image(systemName: "film.stack")
+                                        .resizable()
+                                }
+                                .scaledToFit()
+                                .padding()
+                                .foregroundStyle(.tint)
+                            }
+                            .padding(10.0)
+                            .overlay {
+                                RoundedRectangle(cornerRadius: 8)
+                                    .strokeBorder(.secondLabel)
+                            }
+                        } else {
+                            PhotosPicker(
+                                "Add more attachements",
+                                selection: $selectedItems,
+                                matching: .any(of: [.images, .videos])
+                            )
+                        }
+                    }
+                  
+                    
+                    ScrollView(.horizontal) {
+                        LazyHStack {
+                            ForEach(0..<selectedImages.count, id: \.self) { i in
+                                selectedImages[i]
+                                    .resizable()
+                                    .scaledToFill()
+                                    .frame(width: 300, height: 225)
+                                    .clipped()
+                                    .onTapGesture {
+                                        withAnimation {
+                                            previewedImage = selectedImages[i]
+                                        }
+                                    }
+                            }
+                        }
+                    }
+                    
+                    
+                }
+                .onChange(of: selectedItems) {
+                    Task {
+                        selectedImages.removeAll()
+                        
+                        for item in selectedItems {
+                            if let image = try? await item.loadTransferable(type: Image.self) {
+                                selectedImages.append(image)
+                            }
+                        }
+                    }
+                }
                 
                 vStackContent("Incident Category") {
                     IncidentCategorySelector(selection: $model.category)
@@ -160,6 +157,35 @@ struct IncidentCreationView: View {
                 .padding()
                 
                 .background(.ultraThinMaterial)
+        }
+        .overlay {
+            if let previewedImage {
+                ZStack {
+                    Color.black.opacity(0.75)
+                        .ignoresSafeArea()
+                        .onTapGesture {
+                            withAnimation {
+                                self.previewedImage = nil
+                            }
+                        }
+                    VStack(spacing: 20) {
+                        previewedImage
+                            .resizable()
+                            .scaledToFit()
+                            .frame(maxWidth: .infinity)
+                        
+                        Button("Dismiss", role: .destructive) {
+                            withAnimation {
+                                self.previewedImage = nil
+                            }
+                        }
+                        .buttonStyle(.borderedProminent)
+                        .buttonBorderShape(.capsule)
+                        
+                    }
+                    .padding()
+                }
+            }
         }
         .alert(isPresented: $showAlert) {
             Alert(
@@ -288,4 +314,55 @@ struct IncidentCategorySelector: View {
             }
         }
     }
+}
+private enum SubmissionValidation: Error {
+    case missingPriority
+    case missingCategory
+    case missingReporter
+    
+    var message: String {
+        switch self {
+        case .missingPriority:
+            return "Priority is missing."
+        case .missingCategory:
+            return "Category is missing."
+        case .missingReporter:
+            return "Reporter information is missing."
+        }
+    }
+}
+struct IncidentModel: Encodable {
+   
+    var priority: KBIncident.Priority?
+    var category: KBIncident.Category?
+    
+    var report = ReportModel()
+    
+    
+    func isValid() throws {
+        guard priority != nil else { throw SubmissionValidation.missingPriority }
+        guard category != nil else { throw SubmissionValidation.missingCategory }
+        guard report.reporterId != nil else { throw SubmissionValidation.missingReporter }
+    }
+}
+
+struct ReportModel: Encodable {
+    var title = ""
+    var description = ""
+    var comments = ""
+    var actionTaken = ""
+    
+//    var area:
+    
+    var attachments: [Attachment] = []
+    
+    var reporterId: KBUser.ID!
+    
+    
+    
+    struct Attachment: Encodable {
+        let type: KBIncident.AttachmentType
+        let url: String
+    }
+    
 }
