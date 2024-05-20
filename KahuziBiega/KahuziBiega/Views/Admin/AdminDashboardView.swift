@@ -13,8 +13,7 @@ struct AdminDashboardView: View {
     @State private var isLoading = false
     @State private var navPath: [ContentRoute] = []
     @State private var showSheet = false
-    @State private var url: URL?
-    @State private var imageData: Data?
+    
     var body: some View {
         NavigationStack(path: $navPath) {
             List($userStore.allUsers) { $user in
@@ -46,21 +45,7 @@ struct AdminDashboardView: View {
                 loadContent(forced: true)
             }
             .overlay {
-                if isLoading { ProgressView()}
-                VStack {
-                    if let url {
-                        AsyncImage(url: url)
-                            .background(.red)
-                            .frame(width: 50, height: 50)
-                    }
-                    
-                    if let data = imageData {
-                        Image(uiImage: UIImage(data: data) ?? .init())
-                            .resizable()
-                            .frame(width: 50, height: 50)
-                            .background(.green)
-                    }
-                }
+                if isLoading { ProgressView() }
             }
 //            .toolbar(.visible, for: .navigationBar)
             .toolbar {

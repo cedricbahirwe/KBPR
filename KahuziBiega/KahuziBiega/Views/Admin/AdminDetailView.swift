@@ -14,21 +14,13 @@ struct AdminDetailView: View {
     
     @State private var isLoading = false
     
-    @State private var imageData: Data?
     var body: some View {
         ScrollView {
             
             VStack {
-                
-                ZStack {
-                    if let imageData {
-                        Image(uiImage: UIImage(data: imageData) ?? .init())
-                            .resizable()
-                            .scaledToFill()
-                    } else {
-                        Image(systemName: "person.circle.fill")
-                            .resizable()
-                    }
+                KBImage(user.profilePic) {
+                    Image(systemName: "person.circle.fill")
+                        .resizable()
                 }
                 .frame(width: 100, height: 100)
                 .background(.regularMaterial)
@@ -130,11 +122,6 @@ struct AdminDetailView: View {
         )
         .navigationBarTitleDisplayMode(.inline)
         .loadingIndicator(isVisible: isLoading)
-        .task {
-            if let imagePath = user.profilePic {
-                self.imageData = await KBFBStorage.shared.getImageData(imagePath)
-            }
-        }
     }
     
     private func getColorForUserStatus() -> Color {

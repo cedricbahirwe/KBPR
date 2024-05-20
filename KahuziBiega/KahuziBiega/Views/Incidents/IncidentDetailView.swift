@@ -7,31 +7,23 @@
 
 import SwiftUI
 
-import SDWebImageSwiftUI
-
 struct IncidentDetailView: View {
-    
-    @State private var imageData: Data?
     let incident: KBIncident
+    
+    private var incidentImg: String? {
+        incident.report.attachments?.first(where: { $0.type == .Photo })?.url
+    }
     
     var body: some View {
         ScrollView {
             VStack(alignment: .leading) {
-                
-                ZStack {
-                    Color.gray
-                    
-                    if let imageData {
-                        Image(uiImage: UIImage(data: imageData) ?? .init())
-                            .resizable()
-                            .scaledToFill()
-                        
-                    } else {
-                        ProgressView()
-                    }
+                                
+                KBImage(incidentImg) {
+                    EmptyView()
                 }
                 .frame(maxWidth: .infinity)
                 .frame(height: 250)
+                .background(.gray)
                 .clipped()
                 
                 
@@ -148,11 +140,6 @@ struct IncidentDetailView: View {
         }
         .navigationTitle(incident.report.reporter.usernameFormatted)
         .navigationBarTitleDisplayMode(.inline)
-        .task {
-            if let imagePath = incident.report.attachments?.first(where: { $0.type == .Photo })?.url {
-                self.imageData = await KBFBStorage.shared.getImageData(imagePath)
-            }
-        }
     }
     
     private func updateCategory(_ category: KBIncident.Category) {

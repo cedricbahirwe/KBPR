@@ -92,7 +92,6 @@ final class KBFBStorage {
             return retrievedData
         }
         
-        print("Reaching")
         let storageRef = storage.reference(withPath: imagePath)
         
         do {
