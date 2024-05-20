@@ -100,6 +100,7 @@ struct IncidentCreationView: View {
                         
                         for item in selectedItems {
                             if let image = try? await item.loadTransferable(type: Image.self) {
+                                
                                 selectedImages.append(image)
                             }
                         }
