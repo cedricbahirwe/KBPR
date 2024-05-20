@@ -21,22 +21,18 @@ struct ContentTabView: View {
                 .tabItem { Image(systemName: "house") }
                 .tag(1)
             
-            ReportScreen().embedInNavigation()
-                .tabItem { Image(systemName: "doc.text") }
-                .tag(2)
-            
             ChatsScreen()
                 .tabItem { Image(systemName: "bubble.left.and.text.bubble.right") }
-                .tag(3)
+                .tag(2)
             
             AnalyticsScreen()
                 .tabItem { Image(systemName: "chart.bar.xaxis") }
-                .tag(4)
+                .tag(3)
             
             if isAdminUser {
                 AdminDashboardView()
                     .tabItem { Image(systemName: "gear") }
-                    .tag(5)
+                    .tag(4)
             }
         }
         .toolbar(.hidden, for: .navigationBar)
