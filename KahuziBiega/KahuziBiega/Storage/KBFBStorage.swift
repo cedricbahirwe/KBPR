@@ -90,11 +90,11 @@ final class KBFBStorage {
     }
     
     func uploadMovie(_ localMovieURL: URL) async throws -> VideoStoragePath {
-        let videoPath = "/movies/\(randomID).mov"
+        let videoPath = "/movies/\(randomID).mp4"
         let uploadRef = storage.reference(withPath: videoPath)
         
         let uploadMetadata = StorageMetadata()
-        uploadMetadata.contentType = "video/quicktime"
+        uploadMetadata.contentType = "video/mp4"
         
         do {
             
@@ -143,8 +143,7 @@ final class KBFBStorage {
     }
     
     func getMovieLink(_ moviePath: VideoStoragePath) async throws -> URL? {
-        let videoPath = "/movies/\(randomID).mov"
-        let storageRef = storage.reference(withPath: videoPath)
+        let storageRef = storage.reference(withPath: moviePath)
         
         do {
             let url = try await storageRef.downloadURL()

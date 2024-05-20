@@ -7,7 +7,13 @@
 
 import SwiftUI
 import PhotosUI
+import AVKit
 
+
+enum Media {
+    case image(Image)
+    case movie(Movie)
+}
 
 struct IncidentCreationView: View {
     @Environment(\.dismiss) private var dismiss
@@ -20,9 +26,18 @@ struct IncidentCreationView: View {
     @State private var alertMessage = ""
     
     @State private var selectedItems = [PhotosPickerItem]()
-    @State private var selectedImages = [Image]()
-    
+//    @State private var selectedImages = [Image]()
+    @State private var selectedMedias = [Media]()
     @State private var previewedImage: Image?
+    @State private var selectedMovie: Movie?
+
+    enum MovieLoadState {
+        case unknown, loading, loaded(Movie), failed
+    }
+    
+    @State private var selectedItem: PhotosPickerItem?
+    @State private var loadState = MovieLoadState.unknown
+
     
     var body: some View {
         ScrollView {
@@ -77,17 +92,36 @@ struct IncidentCreationView: View {
                     
                     ScrollView(.horizontal) {
                         LazyHStack {
-                            ForEach(0..<selectedImages.count, id: \.self) { i in
-                                selectedImages[i]
-                                    .resizable()
-                                    .scaledToFill()
-                                    .frame(width: 300, height: 225)
-                                    .clipped()
-                                    .onTapGesture {
-                                        withAnimation {
-                                            previewedImage = selectedImages[i]
+                            ForEach(0..<selectedMedias.count, id: \.self) { i in
+                                let media = selectedMedias[i]
+                                switch media {
+                                case .image(let img):
+                                    img
+                                        .resizable()
+                                        .scaledToFill()
+                                        .frame(width: 300, height: 225)
+                                        .clipped()
+                                        .onTapGesture {
+                                            withAnimation {
+                                                previewedImage = img
+                                            }
                                         }
-                                    }
+                                case .movie(let movie):
+                                    VideoPlayer(player: AVPlayer(url: movie.url))
+//                                        .allowsHitTesting(false)
+                                        .scaledToFill()
+                                        .frame(width: 300, height: 225)
+                                }
+//                                selectedImages[i]
+//                                    .resizable()
+//                                    .scaledToFill()
+//                                    .frame(width: 300, height: 225)
+//                                    .clipped()
+//                                    .onTapGesture {
+//                                        withAnimation {
+//                                            previewedImage = selectedImages[i]
+//                                        }
+//                                    }
                             }
                         }
                     }
@@ -96,12 +130,14 @@ struct IncidentCreationView: View {
                 }
                 .onChange(of: selectedItems) {
                     Task {
-                        selectedImages.removeAll()
+                        selectedMedias.removeAll()
                         
                         for item in selectedItems {
                             if let image = try? await item.loadTransferable(type: Image.self) {
-                                
-                                selectedImages.append(image)
+                                selectedMedias.append(.image(image))
+                            } else if let movie = try? await item.loadTransferable(type: Movie.self) {
+                                selectedMedias.append(.movie(movie))
+                                selectedMovie = movie
                             }
                         }
                     }
@@ -131,8 +167,13 @@ struct IncidentCreationView: View {
         }
         .safeAreaInset(edge: .bottom) {
             Button {
-                hideKeyboard()
-                submitReport()
+                Task {
+                    guard let selectedMovie else { return }
+                    let link = try await KBFBStorage.shared.uploadMovie(selectedMovie.url)
+                    print("Path", link)
+                }
+//                hideKeyboard()
+//                submitReport()
             } label: {
                 Text("Submit New Report")
                     .padding(5.0)
@@ -366,4 +407,23 @@ struct ReportModel: Encodable {
         let url: String
     }
     
+}
+
+struct Movie: Transferable {
+    let url: URL
+    
+    static var transferRepresentation: some TransferRepresentation {
+        FileRepresentation(contentType: .movie) { movie in
+            SentTransferredFile(movie.url)
+        } importing: { received in
+            let copy = URL.documentsDirectory.appending(path: "movie.mp4")
+            
+            if FileManager.default.fileExists(atPath: copy.path()) {
+                try FileManager.default.removeItem(at: copy)
+            }
+            
+            try FileManager.default.copyItem(at: received.file, to: copy)
+            return Self.init(url: copy)
+        }
+    }
 }
