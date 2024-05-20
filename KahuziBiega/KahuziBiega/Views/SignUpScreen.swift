@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import PhotosUI
 
 struct SignUpModel: Encodable {
     var username = ""
@@ -15,8 +16,11 @@ struct SignUpModel: Encodable {
     var lastName = ""
     var badgeNumber = ""
     var phoneNumber: String?
+    var profilePic: String?
     
     static let example = SignUpModel(username: "driosman", email: "newone@gmail.com", password: "driosman", firstName: "Drios", lastName: "Man", badgeNumber: "Drios1234", phoneNumber: "0782628000")
+    
+    static let example1 = SignUpModel(username: "intime", email: "intime@gmail.com", password: "intime", firstName: "Intime", lastName: "Innie", badgeNumber: "Innie123", phoneNumber: "0792828000")
 }
 
 struct SignUpScreen: View {
@@ -25,8 +29,14 @@ struct SignUpScreen: View {
     
     @EnvironmentObject var authVM: AuthenticationStore
     
-    @State private var registerModel = SignUpModel.example
+    @State private var registerModel = SignUpModel.example1
     @State private var isSignUp = false
+    
+    @State private var avatarItem: PhotosPickerItem?
+    @State private var avatarImage: UIImage?
+    
+    @State private var isUploadingPic = false
+    @State private var uploadProgress = 0.0
     
     var body: some View {
         ZStack(alignment: .top) {
@@ -45,9 +55,28 @@ struct SignUpScreen: View {
                     .hidden()
                 
                 
-                NewUserFormView(registerModel: $registerModel)
+                VStack(spacing: 20) {
+                    VStack {
+                        ZStack {
+                            if let avatarImage {
+                                Image(uiImage: avatarImage)
+                                    .resizable()
+                                    .scaledToFill()
+                            }
+                        }
+                        .frame(width: 80, height: 80)
+                        .background(.regularMaterial, in: .circle)
+                        .clipShape(.circle)
+                        
+                        
+                        PhotosPicker("Choose Picture", selection: $avatarItem, matching: .images)
+
+                    }
+                    
+                    NewUserFormView(registerModel: $registerModel)
+                }
                 .padding()
-                .background(.background)
+                
                 
                 Button(action: {
                     performRegistration()
@@ -61,9 +90,24 @@ struct SignUpScreen: View {
                 Spacer()
             }
             .frame(maxWidth: .infinity, maxHeight: .infinity)
-            
+           
             
             ActivityIndicator(isVisible: authVM.isLoading, interactive: true)
+            
+            if isUploadingPic {
+                VStack {
+                    Text("Uploading your profile picture")
+                    ProgressView.init("", value: uploadProgress, total: 1.0)
+                        .progressViewStyle(.linear)
+                }
+                .padding()
+                .background(.ultraThinMaterial, in: .rect(cornerRadius: 12))
+                .frame(maxHeight: .infinity)
+                .padding()
+            }
+        }
+        .background {
+            Color.white.onTapGesture(perform: hideKeyboard)
         }
         .safeAreaInset(edge: .bottom) {
             HStack {
@@ -79,11 +123,48 @@ struct SignUpScreen: View {
         }
         .ignoresSafeArea(edges: .bottom)
         .toolbar(.hidden, for: .navigationBar)
+        .onChange(of: avatarItem) {
+            Task {
+                if let loaded = try? await avatarItem?.loadTransferable(type: Data.self) {
+                    avatarImage = .init(data: loaded)
+                }
+            }
+        }
     }
+    
+//    private func uploadProfilePicture() {
+//        Task {
+//            guard let avatarImage else { return }
+//            isUploadingPic = true
+//            
+//            let imagePath = try await KBFBStorage.shared.uploadImage(avatarImage)
+//            
+//            isUploadingPic = false
+//        }
+//    }
     
     private func performRegistration() {
         Task {
-            print("Signing Up")
+            
+            do {
+                if let avatarImage  {
+                    isUploadingPic = true
+                    
+                    let imagePath = try await KBFBStorage.shared.uploadImage(avatarImage, path: .profiles, progressHandler: { progress in
+                        withAnimation {
+                            uploadProgress = progress.fractionCompleted
+                        }
+                    })
+                    
+                    registerModel.profilePic = imagePath
+                    
+                    isUploadingPic = false
+                }
+            } catch {
+                isUploadingPic = false
+                uploadProgress = 0.0
+            }
+            
             do {
                 let user = try await authVM.registerNewUser(registerModel)
                 
@@ -91,6 +172,9 @@ struct SignUpScreen: View {
                 let destination = AuthRoute.verification(user: user)
                 authRecentScreen = destination
                 navPath = [destination]
+            } catch {
+                print("Not User Registered")
+//                self.alerm
             }
         }
     }
@@ -158,20 +242,23 @@ struct NewUserFormView: View {
                 
             }
             
-            KBField("Badge Number", text: $registerModel.badgeNumber)
-                .focused($focusField, equals: .badgeNumber)
-            
-            KBField(
-                "Phone Number",
-                text: Binding(get: {
-                    registerModel.phoneNumber ?? ""
-                }, set: { newValue in
-                    let cleanNumber = newValue.trimmingCharacters(in: .whitespacesAndNewlines)
-                    registerModel.phoneNumber = cleanNumber.isEmpty ? nil : cleanNumber
-                })
-            )
-            .keyboardType(.phonePad)
-            .focused($focusField, equals: .phoneNumber)
+            HStack {
+                
+                KBField("Badge Number", text: $registerModel.badgeNumber)
+                    .focused($focusField, equals: .badgeNumber)
+                
+                KBField(
+                    "Phone Number",
+                    text: Binding(get: {
+                        registerModel.phoneNumber ?? ""
+                    }, set: { newValue in
+                        let cleanNumber = newValue.trimmingCharacters(in: .whitespacesAndNewlines)
+                        registerModel.phoneNumber = cleanNumber.isEmpty ? nil : cleanNumber
+                    })
+                )
+                .keyboardType(.phonePad)
+                .focused($focusField, equals: .phoneNumber)
+            }
         }
         .submitLabel(focusField == .phoneNumber ? .done : .next)
         .onSubmit {

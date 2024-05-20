@@ -13,21 +13,25 @@ struct AdminDetailView: View {
     @EnvironmentObject private var userStore: UserStore
     
     @State private var isLoading = false
+    
+    @State private var imageData: Data?
     var body: some View {
         ScrollView {
             
             VStack {
-                AsyncImage(url: user.profilePic) { img in
-                    img.resizable()
-                        .scaledToFit()
-                } placeholder: {
-                    Image("img-\(Int.random(in: 1...5))")
-                        .resizable().scaledToFit()
-                    
-                    
+                
+                ZStack {
+                    if let imageData {
+                        Image(uiImage: UIImage(data: imageData) ?? .init())
+                            .resizable()
+                            .scaledToFill()
+                    } else {
+                        Image(systemName: "person.circle.fill")
+                            .resizable()
+                    }
                 }
                 .frame(width: 100, height: 100)
-                .background(.black.opacity(0.5))
+                .background(.regularMaterial)
                 .clipShape(.circle)
                 
                 Text("@" + user.username)
@@ -126,6 +130,11 @@ struct AdminDetailView: View {
         )
         .navigationBarTitleDisplayMode(.inline)
         .loadingIndicator(isVisible: isLoading)
+        .task {
+            if let imagePath = user.profilePic {
+                self.imageData = await KBFBStorage.shared.getImageData(imagePath)
+            }
+        }
     }
     
     private func getColorForUserStatus() -> Color {
@@ -163,7 +172,7 @@ struct AdminDetailView: View {
 
 #Preview {
     var user = KBUser.example
-    user.profilePic = URL(string: "https://xsgames.co/randomusers/assets/avatars/male/72.jpg")
+    user.profilePic = "https://xsgames.co/randomusers/assets/avatars/male/72.jpg"
     return AdminDetailView(
         loggedInUser: .admin,
         user: .constant(user)

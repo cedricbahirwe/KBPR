@@ -13,25 +13,37 @@ import UIKit
 typealias ImageStoragePath = String
 typealias VideoStoragePath = String
 
+enum CacheKey: String {
+    case userData
+    case userProfilePic
+    // Add more cases as needed
+}
+
 @MainActor
 final class KBFBStorage {
     enum UploadError: Error {
         case unableTogetJPEGData
     }
     static let shared = KBFBStorage()
-    
-    var onUploadProgressChanged: ((Progress) -> Void)?
-    
-    private init() {
         
-    }
+    private init() {}
     
     private let storage = Storage.storage()
     
     var randomID: String { UUID().uuidString }
     
-    func uploadImage(_ image: UIImage, quality: CGFloat = 0.75) async throws -> ImageStoragePath {
-        let imagPath = "images/\(randomID).jpg"
+    
+    enum Path: String {
+        case images, movies, profiles
+    }
+    
+    func uploadImage(
+        _ image: UIImage,
+        path: KBFBStorage.Path = .images,
+        quality: CGFloat = 0.75,
+        progressHandler: ((Progress) -> Void)? = nil
+    ) async throws -> ImageStoragePath {
+        let imagPath = "\(path.rawValue)/\(randomID).jpg"
         let uploadRef = storage.reference(withPath: imagPath)
         
         guard let imageData = image.jpegData(compressionQuality: quality) else {
@@ -46,8 +58,7 @@ final class KBFBStorage {
             let downloadedMetadata = try await uploadRef.putDataAsync(imageData, metadata: uploadMetadata) { progress in
                 guard let progress else { return }
                 print("You are at \(progress.fractionCompleted)")
-                
-                self.onUploadProgressChanged?(progress)
+                progressHandler?(progress)
             }
             
             print("Put is complete and i got this back: \(downloadedMetadata)")
@@ -74,23 +85,37 @@ final class KBFBStorage {
         }
     }
     
+    private let imageCache = Cache<String, Data>()
+
     func getImageData(_ imagePath: ImageStoragePath, maxSize: Int64 = 4 * 1020 * 1024) async -> Data? {
+        if let retrievedData = imageCache[imagePath] {
+            return retrievedData
+        }
+        
+        print("Reaching")
         let storageRef = storage.reference(withPath: imagePath)
         
         do {
-            return try await withCheckedThrowingContinuation { continuation in
+            let data = try await withCheckedThrowingContinuation { continuation in
                 storageRef.getData(maxSize: maxSize) { (result) in
                     continuation.resume(with: result)
                 }
             }
+            
+            imageCache[imagePath] = data
+            return data
         } catch {
             print("Got an error image data: \(error.localizedDescription)")
             return nil
         }
     }
     
-    func uploadMovie(_ localMovieURL: URL) async throws -> VideoStoragePath {
-        let videoPath = "/movies/\(randomID).mp4"
+    func uploadMovie(
+        _ localMovieURL: URL,
+        path: KBFBStorage.Path = .movies,
+        progressHandler: ((Progress) -> Void)? = nil
+    ) async throws -> VideoStoragePath {
+        let videoPath = "/\(path.rawValue)/\(randomID).mp4"
         let uploadRef = storage.reference(withPath: videoPath)
         
         let uploadMetadata = StorageMetadata()
@@ -101,8 +126,7 @@ final class KBFBStorage {
             let downloadedMetadata = try await uploadRef.putFileAsync(from: localMovieURL, metadata: uploadMetadata) { progress in
                 guard let progress else { return }
                 print("Movie upload at \(progress.fractionCompleted)")
-                
-                self.onUploadProgressChanged?(progress)
+                progressHandler?(progress)
             }
             
             print("Put movie is complete and : \(downloadedMetadata)")
@@ -116,23 +140,22 @@ final class KBFBStorage {
         }
     }
     
-    func getMovie(_ moviePath: VideoStoragePath) async throws -> URL? {
+    func getMovie(
+        _ moviePath: VideoStoragePath,
+        progressHandler: ((Progress) -> Void)? = nil
+    ) async throws -> URL? {
         
         let fileManager = FileManager.default
         let documentDir = try fileManager.url(for: .documentDirectory, in: .userDomainMask, appropriateFor: nil, create: true)
-        
-        let localFile = documentDir.appendingPathComponent("downloadedMovie.mox")
+        let localFile = documentDir.appendingPathComponent("downloadedMovie.mp4")
         
         let storageRef = storage.reference(withPath: moviePath)
-
-        
         
         do {
             let fileURL = try await storageRef.writeAsync(toFile: localFile) { progress in
                 guard let progress else { return }
                 print("Movie download at at \(progress.fractionCompleted)")
-                
-                self.onUploadProgressChanged?(progress)
+                progressHandler?(progress)
             }
             
             return fileURL

@@ -21,7 +21,6 @@ struct WaitingApprovalView: View {
                     .font(.largeTitle)
                     .bold()
                     .fontDesign(.rounded)
-                    .padding(25)
                 
                 VStack(alignment: .leading, spacing: 25) {
                     Text("👋🏽")
@@ -45,6 +44,14 @@ struct WaitingApprovalView: View {
                     .foregroundStyle(.accent)
                     
                     Spacer()
+                    
+                    Button("Logout") {
+                        LocalStorage.clear()
+                        navPath = []
+                    }
+                    .buttonBorderShape(.capsule)
+                    .buttonStyle(.bordered)
+                    .foregroundStyle(.red)
                 }
                 .frame(maxHeight: .infinity)
             }
@@ -78,4 +85,5 @@ struct WaitingApprovalView: View {
 
 #Preview {
     WaitingApprovalView(user: .example, navPath: .constant([]))
+        .environmentObject(AuthenticationStore())
 }

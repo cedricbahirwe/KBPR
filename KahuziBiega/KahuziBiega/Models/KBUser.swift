@@ -29,7 +29,7 @@ struct KBUser: Identifiable, Codable {
     var status: KBAccountStatus
     
     var createdAt: Date
-    var profilePic: URL?
+    var profilePic: String?
     
     
     // Computed

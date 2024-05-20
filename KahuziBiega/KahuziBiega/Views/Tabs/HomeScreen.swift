@@ -14,6 +14,8 @@ struct HomeScreen: View {
         incidentsStore.allIncidents
     }
     
+    @State private var imageData: Data?
+    
     var body: some View {
         VStack {
             ScrollView {
@@ -82,12 +84,18 @@ struct HomeScreen: View {
         .task {
             await incidentsStore.getIncidents()
         }
+        .task {
+            if let imagePath = LocalStorage.getSessionUser()?.profilePic {
+                self.imageData = await KBFBStorage.shared.getImageData(imagePath)
+            }
+        }
     }
 }
 
 #Preview {
     HomeScreen()
         .embedInNavigation()
+        .environmentObject(IncidentsStore(client: IncidentsClientMock()))
 }
 
 private extension HomeScreen {
@@ -117,7 +125,19 @@ private extension HomeScreen {
                 Button(action: {
                     NotificationCenter.default.post(name: .unauthorizedRequest, object: nil)
                 }) {
-                    Image(.avatarImg)
+                    ZStack {
+                        if let imageData {
+                            Image(uiImage: UIImage(data: imageData) ?? .init())
+                                .resizable()
+                                .scaledToFill()
+                        } else {
+                            Image(systemName: "person.circle.fill")
+                                .resizable()
+                        }
+                    }
+                    .frame(width: 42, height: 42)
+                    .background(.regularMaterial)
+                    .clipShape(.circle)
                 }
             }
         }

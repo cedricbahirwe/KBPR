@@ -24,7 +24,7 @@ struct IncidentDetailView: View {
                     if let imageData {
                         Image(uiImage: UIImage(data: imageData) ?? .init())
                             .resizable()
-                            .scaledToFit()
+                            .scaledToFill()
                         
                     } else {
                         ProgressView()
@@ -32,6 +32,7 @@ struct IncidentDetailView: View {
                 }
                 .frame(maxWidth: .infinity)
                 .frame(height: 250)
+                .clipped()
                 
                 
                 Text(incident.report.title)
