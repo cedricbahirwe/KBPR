@@ -16,7 +16,7 @@ struct KBImage<PlaceholderView: View>: View {
     
     
     init(_ imagePath: ImageStoragePath?,
-         showIndicator: Bool = false
+         showIndicator: Bool = false,
          @ViewBuilder placeholder: @escaping () -> PlaceholderView) {
         self.imagePath = imagePath
         self.showIndicator = showIndicator

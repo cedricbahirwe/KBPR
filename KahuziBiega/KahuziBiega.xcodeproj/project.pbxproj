@@ -38,7 +38,6 @@
 		CB45154F2BD519090025AEB8 /* TodoList.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB45154E2BD519090025AEB8 /* TodoList.swift */; };
 		CB4515512BD51AE30025AEB8 /* HomeScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB4515502BD51AE30025AEB8 /* HomeScreen.swift */; };
 		CB4515542BD51FF40025AEB8 /* LocalStoreKey.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB4515532BD51FF40025AEB8 /* LocalStoreKey.swift */; };
-		CB4515562BD535950025AEB8 /* ReportScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB4515552BD535950025AEB8 /* ReportScreen.swift */; };
 		CB4515582BD535AE0025AEB8 /* ChatsScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB4515572BD535AE0025AEB8 /* ChatsScreen.swift */; };
 		CB45155A2BD535C10025AEB8 /* AnalyticsScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB4515592BD535C10025AEB8 /* AnalyticsScreen.swift */; };
 		CB45155D2BD536280025AEB8 /* ContentTabView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB45155C2BD536280025AEB8 /* ContentTabView.swift */; };
@@ -72,6 +71,7 @@
 		CB4635692BFB5735003D8AB1 /* Cacheable.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB46354E2BFB5734003D8AB1 /* Cacheable.swift */; };
 		CB46356A2BFB5735003D8AB1 /* CacheInitializable.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB46354F2BFB5734003D8AB1 /* CacheInitializable.swift */; };
 		CB46356C2BFB5BCD003D8AB1 /* KBImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB46356B2BFB5BCD003D8AB1 /* KBImage.swift */; };
+		CB46356E2BFB6A63003D8AB1 /* RecentReportRowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB46356D2BFB6A63003D8AB1 /* RecentReportRowView.swift */; };
 		CB58D56C2BDE663500F822A7 /* KBUser.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB58D56B2BDE663500F822A7 /* KBUser.swift */; };
 		CB58D56E2BDEDB5600F822A7 /* KBIncident.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB58D56D2BDEDB5600F822A7 /* KBIncident.swift */; };
 		CB58D5702BDEFC5C00F822A7 /* NetworkClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB58D56F2BDEFC5C00F822A7 /* NetworkClient.swift */; };
@@ -138,7 +138,6 @@
 		CB45154E2BD519090025AEB8 /* TodoList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoList.swift; sourceTree = "<group>"; };
 		CB4515502BD51AE30025AEB8 /* HomeScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeScreen.swift; sourceTree = "<group>"; };
 		CB4515532BD51FF40025AEB8 /* LocalStoreKey.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalStoreKey.swift; sourceTree = "<group>"; };
-		CB4515552BD535950025AEB8 /* ReportScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReportScreen.swift; sourceTree = "<group>"; };
 		CB4515572BD535AE0025AEB8 /* ChatsScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatsScreen.swift; sourceTree = "<group>"; };
 		CB4515592BD535C10025AEB8 /* AnalyticsScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnalyticsScreen.swift; sourceTree = "<group>"; };
 		CB45155C2BD536280025AEB8 /* ContentTabView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentTabView.swift; sourceTree = "<group>"; };
@@ -172,6 +171,7 @@
 		CB46354E2BFB5734003D8AB1 /* Cacheable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Cacheable.swift; sourceTree = "<group>"; };
 		CB46354F2BFB5734003D8AB1 /* CacheInitializable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CacheInitializable.swift; sourceTree = "<group>"; };
 		CB46356B2BFB5BCD003D8AB1 /* KBImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KBImage.swift; sourceTree = "<group>"; };
+		CB46356D2BFB6A63003D8AB1 /* RecentReportRowView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecentReportRowView.swift; sourceTree = "<group>"; };
 		CB58D56B2BDE663500F822A7 /* KBUser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KBUser.swift; sourceTree = "<group>"; };
 		CB58D56D2BDEDB5600F822A7 /* KBIncident.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KBIncident.swift; sourceTree = "<group>"; };
 		CB58D56F2BDEFC5C00F822A7 /* NetworkClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkClient.swift; sourceTree = "<group>"; };
@@ -323,7 +323,6 @@
 				CB45155C2BD536280025AEB8 /* ContentTabView.swift */,
 				CB2A65C52BE7DFDC0072027B /* ContentWrapperView.swift */,
 				CB4515502BD51AE30025AEB8 /* HomeScreen.swift */,
-				CB4515552BD535950025AEB8 /* ReportScreen.swift */,
 				CB4515572BD535AE0025AEB8 /* ChatsScreen.swift */,
 				CB4515642BD5AD9D0025AEB8 /* ChatDetailScreen.swift */,
 				CB4515592BD535C10025AEB8 /* AnalyticsScreen.swift */,
@@ -496,6 +495,7 @@
 				CB45154C2BD5125A0025AEB8 /* SignInScreen.swift */,
 				CB2A65BF2BE7C7F10072027B /* WaitingApprovalView.swift */,
 				CB45154A2BD511A20025AEB8 /* SplashScreen.swift */,
+				CB46356D2BFB6A63003D8AB1 /* RecentReportRowView.swift */,
 				CB45155B2BD535C50025AEB8 /* Tabs */,
 				CB45154E2BD519090025AEB8 /* TodoList.swift */,
 				CBB554F52BF4C678008663A8 /* Incidents */,
@@ -705,7 +705,7 @@
 				CB4635602BFB5735003D8AB1 /* Global+dependencies.swift in Sources */,
 				CB4635692BFB5735003D8AB1 /* Cacheable.swift in Sources */,
 				CB4635662BFB5735003D8AB1 /* Logging.swift in Sources */,
-				CB4515562BD535950025AEB8 /* ReportScreen.swift in Sources */,
+				CB46356E2BFB6A63003D8AB1 /* RecentReportRowView.swift in Sources */,
 				CB46356C2BFB5BCD003D8AB1 /* KBImage.swift in Sources */,
 				CBB554F02BF39C06008663A8 /* KBField.swift in Sources */,
 				CB4635552BFB5735003D8AB1 /* ExpiringCache.swift in Sources */,

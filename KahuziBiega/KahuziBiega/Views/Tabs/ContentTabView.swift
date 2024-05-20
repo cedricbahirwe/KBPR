@@ -17,8 +17,10 @@ struct ContentTabView: View {
     var body: some View {
         TabView(selection: $selection) {
             HomeScreen()
+                .embedInNavigation()
                 .tabItem { Image(systemName: "house") }
                 .tag(1)
+            
             ReportScreen().embedInNavigation()
                 .tabItem { Image(systemName: "doc.text") }
                 .tag(2)

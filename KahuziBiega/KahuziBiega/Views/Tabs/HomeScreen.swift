@@ -6,71 +6,70 @@
 //
 
 import SwiftUI
-import MapKit
+//import MapKit
 
 struct HomeScreen: View {
     @EnvironmentObject private var incidentsStore: IncidentsStore
-    private var incidents: [KBIncident] {
-        incidentsStore.allIncidents
+   
+    private var recentIncidentReports: [KBIncident] {
+        incidentsStore.getRecents(max: 6)
     }
+    
+    @State private var showSheet = false
         
     var body: some View {
         VStack {
             ScrollView {
-                if !incidents.isEmpty {
-                    VStack {
-                        ForEach(incidents) { incident in
-                            Group {
-                                ReportRowView(incident: incident)
+                HStack(spacing: 25) {
+                    Button(action: {
+                        showSheet.toggle()
+                    }) {
+                        Image(.reportIncident)
+                            .resizable()
+                    }
+                    
+                    NavigationLink {
+                        IncidentsListView()
+                    } label: {
+                        Image(.viewReport)
+                            .resizable()
+                    }
+                }
+                .scaledToFit()
+                .padding(20)
+                .background(.background, in: .rect(cornerRadius: 20.0))
+                
+                
+                if !recentIncidentReports.isEmpty {
+                    VStack(alignment: .leading) {
+                        Text("Recent Reports")
+                            .font(.title.bold())
+                        
+                        VStack(alignment: .leading) {
+                            ForEach(recentIncidentReports) { incident in
+                                NavigationLink {
+                                    IncidentDetailView(incident: incident)
+                                } label: {
+                                    //                                    ReportRowView(incident: incident)
+                                    RecentReportRowView(incident: incident)
+                                }
+                                .buttonStyle(.plain)
                                 
-                                if (incidents.last?.id != incident.id) {
+                                if (recentIncidentReports.last?.id != incident.id) {
                                     Divider()
                                 }
                             }
                         }
-                    }
-                    .padding()
-                    .background(
-                        .background
-                            .shadow(.inner(color: Color.black.opacity(0.25), radius: 4, x: 0, y: 4))
-                        , in: .rect(cornerRadius: 15)
-                    )
-                    .padding()
-                }
-                
-                VStack(alignment: .leading, spacing: 0) {
-                    Text("Park Statistics").bold()
                         .padding()
-                    
-                    VStack(alignment: .leading, spacing: 5) {
-                        Divider()
-                        Text("138 \(Text("Visitors today").font(.title3).foregroundStyle(.secondary).baselineOffset(5))")
-                            .font(.largeTitle.bold())
-                    }
-                    .padding(.horizontal)
-                    
-                    VStack(alignment: .leading, spacing: 5) {
-                        Divider()
-                        
-                        Text(
-                            "015 \(Text("Incidents reported today").font(.title3).foregroundStyle(.secondary).baselineOffset(5))"
+                        .background(
+                            .background
+                                .shadow(.inner(color: Color.black.opacity(0.25), radius: 4, x: 0, y: 4))
+                            , in: .rect(cornerRadius: 15)
                         )
-                        .font(.largeTitle.bold())
                     }
-                    .padding(.horizontal)
-                    
-//                    Map()
-                    Image(.heatMap)
-                        .frame(height: 200)
-                    
+                    .padding()
                 }
-                .clipShape(.rect(cornerRadius: 15.0))
-                .background(
-                    .background
-                        .shadow(.inner(color: Color.black.opacity(0.25), radius: 4, x: 0, y: 4))
-                    , in: .rect(cornerRadius: 15)
-                )
-                .padding()
+           
                 
             }
         }
@@ -81,6 +80,9 @@ struct HomeScreen: View {
         .loadingIndicator(isVisible: incidentsStore.isLoading)
         .task {
             await incidentsStore.getIncidents()
+        }
+        .fullScreenCover(isPresented: $showSheet) {
+            IncidentCreationView()
         }
     }
 }
@@ -180,3 +182,38 @@ struct ReportRowView: View {
         }
     }
 }
+
+
+//VStack(alignment: .leading, spacing: 0) {
+//    Text("Park Statistics").bold()
+//        .padding()
+//    
+//    VStack(alignment: .leading, spacing: 5) {
+//        Divider()
+//        Text("138 \(Text("Visitors today").font(.title3).foregroundStyle(.secondary).baselineOffset(5))")
+//            .font(.largeTitle.bold())
+//    }
+//    .padding(.horizontal)
+//    
+//    VStack(alignment: .leading, spacing: 5) {
+//        Divider()
+//        
+//        Text(
+//            "015 \(Text("Incidents reported today").font(.title3).foregroundStyle(.secondary).baselineOffset(5))"
+//        )
+//        .font(.largeTitle.bold())
+//    }
+//    .padding(.horizontal)
+//    
+////                    Map()
+//    Image(.heatMap)
+//        .frame(height: 200)
+//    
+//}
+//.clipShape(.rect(cornerRadius: 15.0))
+//.background(
+//    .background
+//        .shadow(.inner(color: Color.black.opacity(0.25), radius: 4, x: 0, y: 4))
+//    , in: .rect(cornerRadius: 15)
+//)
+//.padding()

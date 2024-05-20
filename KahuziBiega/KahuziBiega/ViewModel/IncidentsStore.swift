@@ -7,10 +7,7 @@
 
 import Foundation
 
-@MainActor
-class IncidentsStore: ObservableObject {
-    //    @State private var incidents =  [KBIncident]()//KBIncident.incidents + KBIncident.recents
-    
+@MainActor class IncidentsStore: ObservableObject {    
     @Published var allIncidents: [KBIncident] = []
     
     @Published var isLoading = false
@@ -22,10 +19,11 @@ class IncidentsStore: ObservableObject {
     }
     
     func getIncidents() async {
-        isLoading = true
 
         do {
-            isLoading = true
+            if allIncidents.isEmpty  {
+                isLoading = true
+            }
             let results: [KBIncident] = try await client.getAll()
             isLoading = false
             allIncidents = results.sorted(by: { $0.createAt > $1.createAt })
