@@ -32,6 +32,7 @@ struct KahuziBiegaApp: App {
 
     var body: some Scene {
         WindowGroup {
+//            MainMessagesView()
             ContentView()
                 .environmentObject(authVM)
                 .environmentObject(incidentsStore)
@@ -42,11 +43,10 @@ struct KahuziBiegaApp: App {
 }
 
 
-final
-class AppDelegate: NSObject, UIApplicationDelegate {
-  func application(_ application: UIApplication,
-                   didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey : Any]? = nil) -> Bool {
-      FirebaseApp.configure()
-    return true
-  }
+final class AppDelegate: NSObject, UIApplicationDelegate {
+    func application(_ application: UIApplication,
+                     didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey : Any]? = nil) -> Bool {
+        FirebaseApp.configure()
+        return true
+    }
 }

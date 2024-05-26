@@ -25,6 +25,10 @@ struct ContentTabView: View {
                 .tabItem { Image(systemName: "bubble.left.and.text.bubble.right") }
                 .tag(2)
             
+            MainMessagesView()
+                .tabItem { Image(systemName: "flame.circle") }
+                .tag(5)
+            
             AnalyticsScreen()
                 .tabItem { Image(systemName: "chart.bar.xaxis") }
                 .tag(3)
