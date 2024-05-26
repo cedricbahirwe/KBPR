@@ -22,6 +22,11 @@ struct KBImage<PlaceholderView: View>: View {
         self.showIndicator = showIndicator
         self.placeholder = placeholder
     }
+    
+    init(_ imagePath: ImageStoragePath) where PlaceholderView == Color {
+        self.init(imagePath, placeholder: { Color.gray })
+    }
+    
     var body: some View {
         ZStack {
             if let imageData,

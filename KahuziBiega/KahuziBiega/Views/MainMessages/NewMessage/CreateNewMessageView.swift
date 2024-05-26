@@ -6,7 +6,6 @@
 //
 
 import SwiftUI
-import SDWebImageSwiftUI
 
 class CreateNewMessageViewModel: ObservableObject {
     
@@ -30,9 +29,8 @@ class CreateNewMessageViewModel: ObservableObject {
                 
                 documentsSnapshot?.documents.forEach({ snapshot in
                     let user = try? snapshot.data(as: KBChatUser.self)
-                    print("Got some")
-                    if user?.uid != KBFBManager.shared.auth.currentUser?.uid {
-                        self.users.append(user!)
+                    if let user, user.uid != KBFBManager.shared.auth.currentUser?.uid {
+                        self.users.append(user)
                     }
                     
                 })
@@ -59,9 +57,7 @@ struct CreateNewMessageView: View {
                         didSelectNewUser(user)
                     } label: {
                         HStack(spacing: 16) {
-                            WebImage(url: URL(string: user.profileImageUrl))
-                                .resizable()
-                                .scaledToFill()
+                            KBImage(user.profilePic)
                                 .frame(width: 50, height: 50)
                                 .clipped()
                                 .cornerRadius(50)

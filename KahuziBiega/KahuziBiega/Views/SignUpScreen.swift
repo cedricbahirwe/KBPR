@@ -159,6 +159,7 @@ struct SignUpScreen: View {
                     registerModel.profilePic = imagePath
                     
                     isUploadingPic = false
+                    uploadProgress = 0.0
                 }
             } catch {
                 isUploadingPic = false

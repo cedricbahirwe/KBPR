@@ -9,7 +9,7 @@ import FirebaseFirestore
 
 struct KBChatUser: Codable, Identifiable {
     @DocumentID var id: String?
-    let uid, email, profileImageUrl: String
+    let uid, email, profilePic: String
     
-    let kbId: KBUser.ID
+    let kbId: String?
 }

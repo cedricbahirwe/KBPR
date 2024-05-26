@@ -6,7 +6,6 @@
 //
 
 import SwiftUI
-import SDWebImageSwiftUI
 import Firebase
 import FirebaseFirestore
 
@@ -123,16 +122,16 @@ struct MainMessagesView: View {
     private var customNavBar: some View {
         HStack(spacing: 16) {
             
-            WebImage(url: URL(string: vm.chatUser?.profileImageUrl ?? ""))
-                .resizable()
-                .scaledToFill()
-                .frame(width: 50, height: 50)
-                .clipped()
-                .cornerRadius(50)
-                .overlay(RoundedRectangle(cornerRadius: 44)
-                            .stroke(Color(.label), lineWidth: 1)
-                )
-                .shadow(radius: 5)
+            KBImage(vm.chatUser?.profilePic) {
+                Color.gray.opacity(0.3)
+            }
+            .frame(width: 50, height: 50)
+            .clipped()
+            .cornerRadius(50)
+            .overlay(RoundedRectangle(cornerRadius: 44)
+                .stroke(Color(.label), lineWidth: 1)
+            )
+            .shadow(radius: 5)
             
             
             VStack(alignment: .leading, spacing: 4) {
@@ -170,13 +169,13 @@ struct MainMessagesView: View {
                     .cancel()
             ])
         }
-        .fullScreenCover(isPresented: $vm.isUserCurrentlyLoggedOut, onDismiss: nil) {
-            LoginView(didCompleteLoginProcess: {
-                self.vm.isUserCurrentlyLoggedOut = false
-                self.vm.fetchCurrentUser()
-                self.vm.fetchRecentMessages()
-            })
-        }
+//        .fullScreenCover(isPresented: $vm.isUserCurrentlyLoggedOut, onDismiss: nil) {
+//            LoginView(didCompleteLoginProcess: {
+//                self.vm.isUserCurrentlyLoggedOut = false
+//                self.vm.fetchCurrentUser()
+//                self.vm.fetchRecentMessages()
+//            })
+//        }
     }
     
     private var messagesView: some View {
@@ -186,16 +185,14 @@ struct MainMessagesView: View {
                     Button {
                         let uid = KBFBManager.shared.auth.currentUser?.uid == recentMessage.fromId ? recentMessage.toId : recentMessage.fromId
                         
-                        self.chatUser = .init(id: uid, uid: uid, email: recentMessage.email, profileImageUrl: recentMessage.profileImageUrl)
+                        self.chatUser = .init(id: uid, uid: uid, email: recentMessage.email, profilePic: recentMessage.profilePic, kbId: recentMessage.kbId)
                         
                         self.chatLogViewModel.chatUser = self.chatUser
                         self.chatLogViewModel.fetchMessages()
                         self.shouldNavigateToChatLogView.toggle()
                     } label: {
                         HStack(spacing: 16) {
-                            WebImage(url: URL(string: recentMessage.profileImageUrl))
-                                .resizable()
-                                .scaledToFill()
+                            KBImage(recentMessage.profilePic)
                                 .frame(width: 64, height: 64)
                                 .clipped()
                                 .cornerRadius(64)

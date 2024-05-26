@@ -12,8 +12,9 @@ struct KBRecentMessage: Codable, Identifiable {
     @DocumentID var id: String?
     let text, email: String
     let fromId, toId: String
-    let profileImageUrl: String
+    let profilePic: String
     let timestamp: Date
+    let kbId: String?
     
     var username: String {
         email.components(separatedBy: "@").first ?? email
