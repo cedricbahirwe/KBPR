@@ -7,76 +7,76 @@
 
 import SwiftUI
 
-struct ChatDetailScreen: View {
-    @State private var message = ""
-    let preview: ChatPreview
-    var body: some View {
-        ScrollView {
-            
-            VStack(alignment: .leading, spacing: 16) {
-                ChatBubbleView(
-                    message: "Hi Samy, any progress on the task? We need an update for standup.",
-                    isSender: false
-                )
-                
-                ChatBubbleView(
-                    message: "Hi Ibi!\nYes, I just finished reviewing the area, I’m drafting the final report.",
-                    isSender: true
-                )
-                
-                ChatBubbleView(
-                    message: preview.subtitle,
-                    isSender: true
-                )
-                
-            }
-            .frame(maxWidth: .infinity)
-        }
-        
-        .toolbar {
-            ToolbarItem(placement: .principal) {
-                Text(preview.title)
-                    .fontWeight(.medium)
-            }
-            ToolbarItemGroup(placement: .topBarTrailing) {
-                Button(action: {}) {
-                    Image(systemName: "magnifyingglass")
-                }
-                
-                Button(action: {}) {
-                    Image(systemName: "phone.fill")
-                }
-            }
-        }
-        
-        .safeAreaInset(edge: .bottom) {
-            HStack(spacing: 16) {
-                Button(action: {}) {
-                    Image(systemName: "plus")
-                        .bold()
-                }
-                
-                TextField("", text: $message, axis: .vertical)
-                    .textFieldStyle(.borderedStyle)
-                
-                
-                Button(action: {}) {
-                    Image(systemName: "paperplane.fill")
-                        .bold()
-                }
-                .disabled(message.isEmpty)
-            }
-            .padding()
-            .background(.ultraThickMaterial)
-        }
-    }
-}
+//struct ChatDetailScreen: View {
+//    @State private var message = ""
+//    let preview: k
+//    var body: some View {
+//        ScrollView {
+//            
+//            VStack(alignment: .leading, spacing: 16) {
+//                ChatBubbleView(
+//                    message: "Hi Samy, any progress on the task? We need an update for standup.",
+//                    isSender: false
+//                )
+//                
+//                ChatBubbleView(
+//                    message: "Hi Ibi!\nYes, I just finished reviewing the area, I’m drafting the final report.",
+//                    isSender: true
+//                )
+//                
+//                ChatBubbleView(
+//                    message: preview.subtitle,
+//                    isSender: true
+//                )
+//                
+//            }
+//            .frame(maxWidth: .infinity)
+//        }
+//        
+//        .toolbar {
+//            ToolbarItem(placement: .principal) {
+//                Text(preview.title)
+//                    .fontWeight(.medium)
+//            }
+//            ToolbarItemGroup(placement: .topBarTrailing) {
+//                Button(action: {}) {
+//                    Image(systemName: "magnifyingglass")
+//                }
+//                
+//                Button(action: {}) {
+//                    Image(systemName: "phone.fill")
+//                }
+//            }
+//        }
+//        
+//        .safeAreaInset(edge: .bottom) {
+//            HStack(spacing: 16) {
+//                Button(action: {}) {
+//                    Image(systemName: "plus")
+//                        .bold()
+//                }
+//                
+//                TextField("", text: $message, axis: .vertical)
+//                    .textFieldStyle(.borderedStyle)
+//                
+//                
+//                Button(action: {}) {
+//                    Image(systemName: "paperplane.fill")
+//                        .bold()
+//                }
+//                .disabled(message.isEmpty)
+//            }
+//            .padding()
+//            .background(.ultraThickMaterial)
+//        }
+//    }
+//}
 
-#Preview {
-    NavigationStack {
-        ChatDetailScreen(preview: .examples[0])
-    }
-}
+//#Preview {
+//    NavigationStack {
+//        ChatDetailScreen(preview: .examples[0])
+//    }
+//}
 
 
 struct ChatBubbleView: View {

@@ -42,7 +42,7 @@ struct CreateNewMessageView: View {
     
     let didSelectNewUser: (KBChatUser) -> ()
     
-    @Environment(\.presentationMode) var presentationMode
+    @Environment(\.dismiss) var dismiss
     
     @ObservedObject var vm = CreateNewMessageViewModel()
     
@@ -53,17 +53,13 @@ struct CreateNewMessageView: View {
                 
                 ForEach(vm.users) { user in
                     Button {
-                        presentationMode.wrappedValue.dismiss()
+                        dismiss()
                         didSelectNewUser(user)
                     } label: {
                         HStack(spacing: 16) {
                             KBImage(user.profilePic)
                                 .frame(width: 50, height: 50)
-                                .clipped()
-                                .cornerRadius(50)
-                                .overlay(RoundedRectangle(cornerRadius: 50)
-                                            .stroke(Color(.label), lineWidth: 2)
-                                )
+                                .cornerRadius(25)
                             Text(user.email)
                                 .foregroundColor(Color(.label))
                             Spacer()
@@ -72,11 +68,13 @@ struct CreateNewMessageView: View {
                     Divider()
                         .padding(.vertical, 8)
                 }
-            }.navigationTitle("New Message")
+            }
+            .navigationTitle("New Chat")
+            .toolbarTitleDisplayMode(.inline)
                 .toolbar {
                     ToolbarItemGroup(placement: .navigationBarLeading) {
                         Button {
-                            presentationMode.wrappedValue.dismiss()
+                            dismiss()
                         } label: {
                             Text("Cancel")
                         }

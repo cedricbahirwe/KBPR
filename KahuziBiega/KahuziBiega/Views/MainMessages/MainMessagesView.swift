@@ -50,9 +50,7 @@ class MainMessagesViewModel: ObservableObject {
                 
                 querySnapshot?.documentChanges.forEach({ change in
                     let docId = change.document.documentID
-                    
-                    if let index = self.recentMessages.firstIndex(where: { rm in
-                        return rm.id == docId
+                    if let index = self.recentMessages.firstIndex(where: { $0.id == docId
                     }) {
                         self.recentMessages.remove(at: index)
                     }
