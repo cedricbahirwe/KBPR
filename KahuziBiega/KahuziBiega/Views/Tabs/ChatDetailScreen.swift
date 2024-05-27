@@ -9,51 +9,18 @@ import SwiftUI
 
 struct ChatDetailScreen: View {
     @ObservedObject var vm: ChatLogViewModel
-
     
     var body: some View {
-//        ScrollView {
-//            
-//            VStack(alignment: .leading, spacing: 16) {
-//                ChatBubbleView(
-//                    message: "Hi Samy, any progress on the task? We need an update for standup.",
-//                    isSender: false
-//                )
-//                
-//                ChatBubbleView(
-//                    message: "Hi Ibi!\nYes, I just finished reviewing the area, I’m drafting the final report.",
-//                    isSender: true
-//                )
-//                
-//                ChatBubbleView(
-//                    message: preview.subtitle,
-//                    isSender: true
-//                )
-//                
-//            }
-//            .frame(maxWidth: .infinity)
-//        }
         messagesView
-        .toolbar {
-            ToolbarItem(placement: .principal) {
-                Text(vm.chatUser?.email ?? "")
-                    .fontWeight(.medium)
+            .toolbar {
+                ToolbarItem(placement: .principal) {
+                    Text(vm.chatUser?.email ?? "")
+                        .fontWeight(.medium)
+                }
             }
-            
-            ToolbarItemGroup(placement: .topBarTrailing) {
-                Button(action: {}) {
-                    Image(systemName: "magnifyingglass")
-                }.hidden()
-                
-                Button(action: {}) {
-                    Image(systemName: "phone.fill")
-                }.hidden()
+            .onDisappear {
+                vm.firestoreListener?.remove()
             }
-            
-        }
-        .onDisappear {
-            vm.firestoreListener?.remove()
-        }
     }
     
     static let emptyScrollToString = "Empty"
@@ -64,7 +31,6 @@ struct ChatDetailScreen: View {
                 VStack {
                     ForEach(vm.chatMessages) { message in
                         ChatBubbleView(message: message)
-//                        MessageView(message: message)
                     }
                     
                     HStack{ Spacer() }
@@ -77,10 +43,8 @@ struct ChatDetailScreen: View {
                 }
             }
         }
-//        .background(Color(.init(white: 0.95, alpha: 1)))
         .safeAreaInset(edge: .bottom) {
             chatBottomBar
-//                .background(Color(.systemBackground).ignoresSafeArea())
         }
     }
     
@@ -127,18 +91,17 @@ struct ChatBubbleView: View {
     var body: some View {
         VStack(alignment: .leading, spacing: 2) {
             Text(message.cleanMessage)
-                .foregroundStyle(isSender ? .accent : .white)
+                .foregroundStyle(.foreground)
             
             Text(message.timestamp, format: .dateTime.hour().minute())
                 .font(.caption)
                 .hidden()
         }
-        .overlay(alignment: .bottomTrailing, content: {
+        .overlay(alignment: .bottomTrailing) {
             Text(message.timestamp, format: .dateTime.hour().minute())
                 .font(.caption)
                 .foregroundStyle(.secondary)
-                .frame(alignment: .trailing)
-        })
+        }
         .padding(8)
         .background(
             isSender ? Color(.secondarySystemBackground) : Color.accent.opacity(0.5),

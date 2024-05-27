@@ -32,7 +32,6 @@ struct KahuziBiegaApp: App {
 
     var body: some Scene {
         WindowGroup {
-//            MainMessagesView()
             ContentView()
                 .environmentObject(authVM)
                 .environmentObject(incidentsStore)

@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct ChatsScreen: View {
-    @ObservedObject private var vm = MainMessagesViewModel()
+    @ObservedObject private var vm = MessagesViewModel()
     private var chatLogViewModel = ChatLogViewModel(chatUser: nil)
     @State private var shouldNavigateToChatLogView = false
     @State private var shouldShowNewMessageScreen = false
@@ -36,7 +36,7 @@ struct ChatsScreen: View {
             }
             .toolbar(.hidden, for: .navigationBar)
             .fullScreenCover(isPresented: $shouldShowNewMessageScreen) {
-                CreateNewMessageView(didSelectNewUser: { user in
+                NewMessageSelectionView(didSelectNewUser: { user in
                     self.chatLogViewModel.chatUser = user
                     self.chatLogViewModel.fetchMessages()
                     self.shouldNavigateToChatLogView.toggle()

@@ -14,10 +14,9 @@
 		CB1851FC2C037BF2001C00E0 /* KBFBManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB1851FB2C037BF2001C00E0 /* KBFBManager.swift */; };
 		CB1851FE2C037CBA001C00E0 /* FirebaseConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB1851FD2C037CBA001C00E0 /* FirebaseConstants.swift */; };
 		CB1852052C037D03001C00E0 /* ChatLogView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB1851FF2C037D03001C00E0 /* ChatLogView.swift */; };
-		CB1852062C037D03001C00E0 /* CreateNewMessageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB1852012C037D03001C00E0 /* CreateNewMessageView.swift */; };
-		CB1852072C037D03001C00E0 /* MainMessagesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB1852032C037D03001C00E0 /* MainMessagesView.swift */; };
-		CB1852092C037DF9001C00E0 /* LoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB1852082C037DF9001C00E0 /* LoginView.swift */; };
-		CB18520B2C037F6B001C00E0 /* ImagePicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB18520A2C037F6B001C00E0 /* ImagePicker.swift */; };
+		CB18520F2C048806001C00E0 /* MessagesViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB18520E2C048806001C00E0 /* MessagesViewModel.swift */; };
+		CB1852112C0488FD001C00E0 /* NewMessageSelectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB1852102C0488FD001C00E0 /* NewMessageSelectionView.swift */; };
+		CB1852132C048938001C00E0 /* NewMessageViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB1852122C048938001C00E0 /* NewMessageViewModel.swift */; };
 		CB1F81372BD64AC9006A2908 /* MapScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB1F81362BD64AC9006A2908 /* MapScreen.swift */; };
 		CB1F813A2BD64B04006A2908 /* LocationViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB1F81392BD64B04006A2908 /* LocationViewModel.swift */; };
 		CB1F813D2BD64BF8006A2908 /* LocationAnnotationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB1F813C2BD64BF8006A2908 /* LocationAnnotationView.swift */; };
@@ -131,10 +130,9 @@
 		CB1851FB2C037BF2001C00E0 /* KBFBManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KBFBManager.swift; sourceTree = "<group>"; };
 		CB1851FD2C037CBA001C00E0 /* FirebaseConstants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseConstants.swift; sourceTree = "<group>"; };
 		CB1851FF2C037D03001C00E0 /* ChatLogView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChatLogView.swift; sourceTree = "<group>"; };
-		CB1852012C037D03001C00E0 /* CreateNewMessageView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CreateNewMessageView.swift; sourceTree = "<group>"; };
-		CB1852032C037D03001C00E0 /* MainMessagesView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainMessagesView.swift; sourceTree = "<group>"; };
-		CB1852082C037DF9001C00E0 /* LoginView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginView.swift; sourceTree = "<group>"; };
-		CB18520A2C037F6B001C00E0 /* ImagePicker.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImagePicker.swift; sourceTree = "<group>"; };
+		CB18520E2C048806001C00E0 /* MessagesViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessagesViewModel.swift; sourceTree = "<group>"; };
+		CB1852102C0488FD001C00E0 /* NewMessageSelectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewMessageSelectionView.swift; sourceTree = "<group>"; };
+		CB1852122C048938001C00E0 /* NewMessageViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewMessageViewModel.swift; sourceTree = "<group>"; };
 		CB1F81362BD64AC9006A2908 /* MapScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapScreen.swift; sourceTree = "<group>"; };
 		CB1F81392BD64B04006A2908 /* LocationViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationViewModel.swift; sourceTree = "<group>"; };
 		CB1F813C2BD64BF8006A2908 /* LocationAnnotationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationAnnotationView.swift; sourceTree = "<group>"; };
@@ -277,26 +275,15 @@
 			isa = PBXGroup;
 			children = (
 				CB1851FF2C037D03001C00E0 /* ChatLogView.swift */,
+				CB1852102C0488FD001C00E0 /* NewMessageSelectionView.swift */,
 			);
 			path = Chat;
-			sourceTree = "<group>";
-		};
-		CB1852022C037D03001C00E0 /* NewMessage */ = {
-			isa = PBXGroup;
-			children = (
-				CB1852012C037D03001C00E0 /* CreateNewMessageView.swift */,
-			);
-			path = NewMessage;
 			sourceTree = "<group>";
 		};
 		CB1852042C037D03001C00E0 /* MainMessages */ = {
 			isa = PBXGroup;
 			children = (
-				CB18520A2C037F6B001C00E0 /* ImagePicker.swift */,
-				CB1852082C037DF9001C00E0 /* LoginView.swift */,
 				CB1852002C037D03001C00E0 /* Chat */,
-				CB1852022C037D03001C00E0 /* NewMessage */,
-				CB1852032C037D03001C00E0 /* MainMessagesView.swift */,
 			);
 			path = MainMessages;
 			sourceTree = "<group>";
@@ -308,6 +295,8 @@
 				CB2A65CD2BE7E2300072027B /* IncidentsStore.swift */,
 				CB2A65B92BE7BC2A0072027B /* AuthenticationStore.swift */,
 				CBB554E72BF35499008663A8 /* UserStore.swift */,
+				CB18520E2C048806001C00E0 /* MessagesViewModel.swift */,
+				CB1852122C048938001C00E0 /* NewMessageViewModel.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -753,17 +742,16 @@
 				CB4635522BFB5735003D8AB1 /* Cache.swift in Sources */,
 				CB46355D2BFB5735003D8AB1 /* MissingRequiredKeysError.swift in Sources */,
 				CB2A65BA2BE7BC2A0072027B /* AuthenticationStore.swift in Sources */,
-				CB18520B2C037F6B001C00E0 /* ImagePicker.swift in Sources */,
 				CB1F81372BD64AC9006A2908 /* MapScreen.swift in Sources */,
 				CB4635572BFB5735003D8AB1 /* LRUCache.swift in Sources */,
 				CB1F81402BD65340006A2908 /* ViewExtensions.swift in Sources */,
 				CBB554F92BF4C691008663A8 /* IncidentDetailView.swift in Sources */,
 				CB4102562BF608CB00FE2D1E /* NotificationExtensions.swift in Sources */,
 				CB4635582BFB5735003D8AB1 /* PersistableCache.swift in Sources */,
-				CB1852062C037D03001C00E0 /* CreateNewMessageView.swift in Sources */,
 				CB2A65C02BE7C7F10072027B /* WaitingApprovalView.swift in Sources */,
 				CB3141C62BFA7BF5006FAEB2 /* KBFBStorage.swift in Sources */,
 				CB2A65C62BE7DFDC0072027B /* ContentWrapperView.swift in Sources */,
+				CB18520F2C048806001C00E0 /* MessagesViewModel.swift in Sources */,
 				CB45154B2BD511A20025AEB8 /* SplashScreen.swift in Sources */,
 				CB46355B2BFB5735003D8AB1 /* Dictionary+Cacheable.swift in Sources */,
 				CB58D5702BDEFC5C00F822A7 /* NetworkClient.swift in Sources */,
@@ -775,10 +763,12 @@
 				CB4635562BFB5735003D8AB1 /* ExpiringCache+subscript.swift in Sources */,
 				CB1F813A2BD64B04006A2908 /* LocationViewModel.swift in Sources */,
 				CB71A2C12BD4507C008AD154 /* ContentView.swift in Sources */,
+				CB1852132C048938001C00E0 /* NewMessageViewModel.swift in Sources */,
 				CB4515542BD51FF40025AEB8 /* LocalStoreKey.swift in Sources */,
 				CB1851FC2C037BF2001C00E0 /* KBFBManager.swift in Sources */,
 				CB4635532BFB5735003D8AB1 /* Cache+subscript.swift in Sources */,
 				CB4635602BFB5735003D8AB1 /* Global+dependencies.swift in Sources */,
+				CB1852112C0488FD001C00E0 /* NewMessageSelectionView.swift in Sources */,
 				CB4635692BFB5735003D8AB1 /* Cacheable.swift in Sources */,
 				CB4635662BFB5735003D8AB1 /* Logging.swift in Sources */,
 				CB46356E2BFB6A63003D8AB1 /* RecentReportRowView.swift in Sources */,
@@ -805,7 +795,6 @@
 				CB4515512BD51AE30025AEB8 /* HomeScreen.swift in Sources */,
 				CB58D5742BDF9B4500F822A7 /* LocalDecoder.swift in Sources */,
 				CB4102522BF607C000FE2D1E /* HTTPMethod.swift in Sources */,
-				CB1852072C037D03001C00E0 /* MainMessagesView.swift in Sources */,
 				CB46355F2BFB5735003D8AB1 /* Global+cache.swift in Sources */,
 				CB45155D2BD536280025AEB8 /* ContentTabView.swift in Sources */,
 				CB45155F2BD549D30025AEB8 /* IncidentsListView.swift in Sources */,
@@ -829,7 +818,6 @@
 				CB71A2EF2BD45376008AD154 /* SignUpScreen.swift in Sources */,
 				CB4102582BF608DE00FE2D1E /* KBDecoder.swift in Sources */,
 				CB2A65CE2BE7E2300072027B /* IncidentsStore.swift in Sources */,
-				CB1852092C037DF9001C00E0 /* LoginView.swift in Sources */,
 				CB1851F22C0227FC001C00E0 /* KBChatUser.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
