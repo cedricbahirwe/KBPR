@@ -11,6 +11,15 @@ import Firebase
 class ChatLogViewModel: ObservableObject {
     
     @Published var chatText = ""
+    
+    var cleanMessage: String {
+        chatText.trimmingCharacters(in: .whitespacesAndNewlines)
+    }
+    
+    var canSendMessage: Bool {
+        !cleanMessage.isEmpty
+    }
+    
     @Published var errorMessage = ""
     
     @Published var chatMessages = [KBChatMessage]()
@@ -62,6 +71,8 @@ class ChatLogViewModel: ObservableObject {
     
     func handleSend() {
         print(chatText)
+        
+        
         guard let fromId = KBFBManager.shared.auth.currentUser?.uid else { return }
         
         guard let toId = chatUser?.uid else { return }
@@ -71,7 +82,7 @@ class ChatLogViewModel: ObservableObject {
             .collection(toId)
             .document()
         
-        let msg = KBChatMessage(id: nil, fromId: fromId, toId: toId, text: chatText, timestamp: Date())
+        let msg = KBChatMessage(id: nil, fromId: fromId, toId: toId, text: cleanMessage, timestamp: Date())
         
         try? document.setData(from: msg) { error in
             if let error = error {

@@ -43,7 +43,7 @@ struct ChatsScreen: View {
                 })
             }
             .navigationDestination(isPresented: $shouldNavigateToChatLogView) {
-                ChatLogView(vm: chatLogViewModel)
+                ChatDetailScreen(vm: chatLogViewModel)
             }
         }
     }
