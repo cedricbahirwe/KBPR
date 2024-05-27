@@ -8,8 +8,10 @@
 import Foundation
 import Firebase
 
+import Combine
+
 class ChatLogViewModel: ObservableObject {
-    @Published var count = 0
+    let scrollUpdate = PassthroughSubject<Int, Never>()
     @Published var chatText = ""
     
     var cleanMessage: String {
@@ -20,11 +22,12 @@ class ChatLogViewModel: ObservableObject {
         !cleanMessage.isEmpty
     }
     
+    // TODO: Add alert support
     @Published var errorMessage = ""
     
     @Published var chatMessages = [KBChatMessage]()
     
-    var chatUser: KBChatUser?
+    @Published var chatUser: KBChatUser?
     
     init(chatUser: KBChatUser?) {
         self.chatUser = chatUser
@@ -44,48 +47,49 @@ class ChatLogViewModel: ObservableObject {
             .document(fromId)
             .collection(toId)
             .order(by: FirebaseConstants.timestamp)
-            .addSnapshotListener { querySnapshot, error in
+            .addSnapshotListener { [weak self] querySnapshot, error in
+                guard let self else { return }
+                guard let querySnapshot else { return }
                 if let error = error {
                     self.errorMessage = "Failed to listen for messages: \(error)"
                     print(error)
                     return
                 }
                 
-                querySnapshot?.documentChanges.forEach({ change in
+                querySnapshot.documentChanges.enumerated().forEach({ index, change in
                     if change.type == .added {
                         do {
                             let cm = try change.document.data(as: KBChatMessage.self)
                             self.chatMessages.append(cm)
-                            print("Appending chatMessage in ChatLogView: \(Date())")
+                            let changesCount = querySnapshot.documentChanges.count
+                            if (index + 1 == changesCount) {
+                                DispatchQueue.main.async {
+                                    self.scrollUpdate.send(changesCount)
+                                }
+                            }
+                            print("Appending chatMessage in ChatLogView", index)
                         } catch {
                             print("Failed to decode message: \(error)")
                         }
                     }
                 })
-                
-                DispatchQueue.main.async {
-                    self.count += 1
-                }
             }
     }
     
-    func handleSend() {
-        print(chatText)
-        
-        
-        guard let fromId = KBFBManager.shared.auth.currentUser?.uid else { return }
-        
-        guard let toId = chatUser?.uid else { return }
+    func sendMessage() {
+        guard let senderId = KBFBManager.shared.auth.currentUser?.uid else { return }
+        guard let receiverId = chatUser?.uid else { return }
         
         let document = KBFBManager.shared.firestore.collection(FirebaseConstants.messages)
-            .document(fromId)
-            .collection(toId)
+            .document(senderId)
+            .collection(receiverId)
             .document()
         
-        let msg = KBChatMessage(id: nil, fromId: fromId, toId: toId, text: cleanMessage, timestamp: Date())
+        let message = KBChatMessage(id: nil, fromId: senderId, toId: receiverId, text: cleanMessage, timestamp: .now)
         
-        try? document.setData(from: msg) { error in
-            if let error = error {
+        try? document.setData(from: message) { [weak self] error in
+            guard let self else { return }
+            if let error  {
                 print(error)
                 self.errorMessage = "Failed to save message into Firestore: \(error)"
                 return
@@ -93,19 +97,21 @@ class ChatLogViewModel: ObservableObject {
             
             print("Successfully saved current user sending message")
             
-            self.persistRecentMessage()
+            self.persistRecentMessage(senderId: senderId, receiverId: receiverId)
             
             self.chatText = ""
-            self.count += 1
+            self.scrollUpdate.send(1)
+//            self.count += 1
         }
         
-        let recipientMessageDocument = KBFBManager.shared.firestore.collection("messages")
-            .document(toId)
-            .collection(fromId)
+        let recipientMessageDocument = KBFBManager.shared.firestore.collection(FirebaseConstants.messages)
+            .document(receiverId)
+            .collection(senderId)
             .document()
         
-        try? recipientMessageDocument.setData(from: msg) { error in
-            if let error = error {
+        try? recipientMessageDocument.setData(from: message) { [weak self] error in
+            guard let self else { return }
+            if let error {
                 print(error)
                 self.errorMessage = "Failed to save message into Firestore: \(error)"
                 return
@@ -115,23 +121,20 @@ class ChatLogViewModel: ObservableObject {
         }
     }
     
-    private func persistRecentMessage() {
+    private func persistRecentMessage(senderId: String, receiverId: String) {
         guard let chatUser = chatUser else { return }
-        
-        guard let uid = KBFBManager.shared.auth.currentUser?.uid else { return }
-        guard let toId = self.chatUser?.uid else { return }
         
         let document = KBFBManager.shared.firestore
             .collection(FirebaseConstants.recentMessages)
-            .document(uid)
+            .document(senderId)
             .collection(FirebaseConstants.messages)
-            .document(toId)
+            .document(receiverId)
         
         let data = [
             FirebaseConstants.timestamp: Timestamp(),
             FirebaseConstants.text: self.chatText,
-            FirebaseConstants.fromId: uid,
-            FirebaseConstants.toId: toId,
+            FirebaseConstants.fromId: senderId,
+            FirebaseConstants.toId: receiverId,
             FirebaseConstants.profilePic: chatUser.profilePic,
             FirebaseConstants.email: chatUser.email
         ] as [String : Any]
@@ -139,7 +142,7 @@ class ChatLogViewModel: ObservableObject {
         // you'll need to save another very similar dictionary for the recipient of this message...how?
         
         document.setData(data) { error in
-            if let error = error {
+            if let error {
                 self.errorMessage = "Failed to save recent message: \(error)"
                 print("Failed to save recent message: \(error)")
                 return
@@ -150,19 +153,19 @@ class ChatLogViewModel: ObservableObject {
         let recipientRecentMessageDictionary = [
             FirebaseConstants.timestamp: Timestamp(),
             FirebaseConstants.text: self.chatText,
-            FirebaseConstants.fromId: uid,
-            FirebaseConstants.toId: toId,
+            FirebaseConstants.fromId: senderId,
+            FirebaseConstants.toId: receiverId,
             FirebaseConstants.profilePic: currentUser.profilePic,
             FirebaseConstants.email: currentUser.email
         ] as [String : Any]
         
         KBFBManager.shared.firestore
             .collection(FirebaseConstants.recentMessages)
-            .document(toId)
+            .document(receiverId)
             .collection(FirebaseConstants.messages)
             .document(currentUser.uid)
             .setData(recipientRecentMessageDictionary) { error in
-                if let error = error {
+                if let error {
                     print("Failed to save recipient recent message: \(error)")
                     return
                 }

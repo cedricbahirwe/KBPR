@@ -23,9 +23,7 @@ struct KBRecentMessage: Codable, Identifiable {
     var timeAgo: String {
         timestamp.timeAgo
     }
-  
 }
-
 
 extension Date {
     var timeAgo: String {

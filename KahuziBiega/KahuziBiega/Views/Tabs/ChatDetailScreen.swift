@@ -37,11 +37,22 @@ struct ChatDetailScreen: View {
                     HStack{ Spacer() }
                         .id(Self.emptyScrollToString)
                 }
-                .onReceive(vm.$count) { _ in
-                    withAnimation(.easeOut(duration: 0.5)) {
+                .onReceive(vm.scrollUpdate) { numberOfItems in
+                    print("trigger", numberOfItems)
+                    if numberOfItems > 10 {
                         scrollViewProxy.scrollTo(Self.emptyScrollToString, anchor: .bottom)
+                    } else {
+                        withAnimation(.easeOut(duration: 0.5)) {
+                            scrollViewProxy.scrollTo(Self.emptyScrollToString, anchor: .bottom)
+                        }
                     }
                 }
+//                .onReceive(vm.$chatUser) { _ in
+//                    print("Received")
+//                    withAnimation(.easeOut(duration: 0.5)) {
+//                        scrollViewProxy.scrollTo(Self.emptyScrollToString, anchor: .bottom)
+//                    }
+//                }
             }
         }
         .safeAreaInset(edge: .bottom) {
@@ -61,7 +72,7 @@ struct ChatDetailScreen: View {
                 .lineLimit(5)
             
             Button(action: {
-                vm.handleSend()
+                vm.sendMessage()
             }) {
                 Image(systemName: "paperplane")
                     .resizable()
