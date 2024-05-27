@@ -1,11 +1,11 @@
 //
-//  ChatLogView.swift
-//  LBTASwiftUIFirebaseChat
+//  ChatLogViewModel.swift
+//  KahuziBiega
 //
-//  Created by Brian Voong on 11/18/21.
+//  Created by Cédric Bahirwe on 27/05/2024.
 //
 
-import SwiftUI
+import Foundation
 import Firebase
 
 class ChatLogViewModel: ObservableObject {

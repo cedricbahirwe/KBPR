@@ -13,7 +13,6 @@
 		CB1851F72C022839001C00E0 /* KBRecentMessage.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB1851F62C022839001C00E0 /* KBRecentMessage.swift */; };
 		CB1851FC2C037BF2001C00E0 /* KBFBManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB1851FB2C037BF2001C00E0 /* KBFBManager.swift */; };
 		CB1851FE2C037CBA001C00E0 /* FirebaseConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB1851FD2C037CBA001C00E0 /* FirebaseConstants.swift */; };
-		CB1852052C037D03001C00E0 /* ChatLogView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB1851FF2C037D03001C00E0 /* ChatLogView.swift */; };
 		CB18520F2C048806001C00E0 /* MessagesViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB18520E2C048806001C00E0 /* MessagesViewModel.swift */; };
 		CB1852112C0488FD001C00E0 /* NewMessageSelectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB1852102C0488FD001C00E0 /* NewMessageSelectionView.swift */; };
 		CB1852132C048938001C00E0 /* NewMessageViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB1852122C048938001C00E0 /* NewMessageViewModel.swift */; };
@@ -87,6 +86,7 @@
 		CB58D5702BDEFC5C00F822A7 /* NetworkClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB58D56F2BDEFC5C00F822A7 /* NetworkClient.swift */; };
 		CB58D5722BDF9B2C00F822A7 /* response.json in Resources */ = {isa = PBXBuildFile; fileRef = CB58D5712BDF9B2C00F822A7 /* response.json */; };
 		CB58D5742BDF9B4500F822A7 /* LocalDecoder.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB58D5732BDF9B4500F822A7 /* LocalDecoder.swift */; };
+		CB623AE92C04DFB600AA3CA7 /* ChatLogViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB623AE82C04DFB600AA3CA7 /* ChatLogViewModel.swift */; };
 		CB71A2BF2BD4507C008AD154 /* KahuziBiegaApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB71A2BE2BD4507C008AD154 /* KahuziBiegaApp.swift */; };
 		CB71A2C12BD4507C008AD154 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB71A2C02BD4507C008AD154 /* ContentView.swift */; };
 		CB71A2C32BD4507C008AD154 /* Item.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB71A2C22BD4507C008AD154 /* Item.swift */; };
@@ -129,7 +129,6 @@
 		CB1851F62C022839001C00E0 /* KBRecentMessage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KBRecentMessage.swift; sourceTree = "<group>"; };
 		CB1851FB2C037BF2001C00E0 /* KBFBManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KBFBManager.swift; sourceTree = "<group>"; };
 		CB1851FD2C037CBA001C00E0 /* FirebaseConstants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseConstants.swift; sourceTree = "<group>"; };
-		CB1851FF2C037D03001C00E0 /* ChatLogView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChatLogView.swift; sourceTree = "<group>"; };
 		CB18520E2C048806001C00E0 /* MessagesViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessagesViewModel.swift; sourceTree = "<group>"; };
 		CB1852102C0488FD001C00E0 /* NewMessageSelectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewMessageSelectionView.swift; sourceTree = "<group>"; };
 		CB1852122C048938001C00E0 /* NewMessageViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewMessageViewModel.swift; sourceTree = "<group>"; };
@@ -196,6 +195,7 @@
 		CB58D56F2BDEFC5C00F822A7 /* NetworkClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkClient.swift; sourceTree = "<group>"; };
 		CB58D5712BDF9B2C00F822A7 /* response.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = response.json; sourceTree = "<group>"; };
 		CB58D5732BDF9B4500F822A7 /* LocalDecoder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalDecoder.swift; sourceTree = "<group>"; };
+		CB623AE82C04DFB600AA3CA7 /* ChatLogViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatLogViewModel.swift; sourceTree = "<group>"; };
 		CB71A2BB2BD4507C008AD154 /* KahuziBiega.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = KahuziBiega.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		CB71A2BE2BD4507C008AD154 /* KahuziBiegaApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KahuziBiegaApp.swift; sourceTree = "<group>"; };
 		CB71A2C02BD4507C008AD154 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -274,7 +274,6 @@
 		CB1852002C037D03001C00E0 /* Chat */ = {
 			isa = PBXGroup;
 			children = (
-				CB1851FF2C037D03001C00E0 /* ChatLogView.swift */,
 				CB1852102C0488FD001C00E0 /* NewMessageSelectionView.swift */,
 			);
 			path = Chat;
@@ -297,6 +296,7 @@
 				CBB554E72BF35499008663A8 /* UserStore.swift */,
 				CB18520E2C048806001C00E0 /* MessagesViewModel.swift */,
 				CB1852122C048938001C00E0 /* NewMessageViewModel.swift */,
+				CB623AE82C04DFB600AA3CA7 /* ChatLogViewModel.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -788,7 +788,7 @@
 				CB1F813D2BD64BF8006A2908 /* LocationAnnotationView.swift in Sources */,
 				CB2A65C42BE7DC5B0072027B /* AuthRoute.swift in Sources */,
 				CB4515582BD535AE0025AEB8 /* ChatsScreen.swift in Sources */,
-				CB1852052C037D03001C00E0 /* ChatLogView.swift in Sources */,
+				CB623AE92C04DFB600AA3CA7 /* ChatLogViewModel.swift in Sources */,
 				CB1851F72C022839001C00E0 /* KBRecentMessage.swift in Sources */,
 				CB58D56E2BDEDB5600F822A7 /* KBIncident.swift in Sources */,
 				CB4102542BF608B200FE2D1E /* APIError.swift in Sources */,

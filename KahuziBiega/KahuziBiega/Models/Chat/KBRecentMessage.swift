@@ -21,8 +21,24 @@ struct KBRecentMessage: Codable, Identifiable {
     }
     
     var timeAgo: String {
+        timestamp.timeAgo
+    }
+  
+}
+
+
+extension Date {
+    var timeAgo: String {
         let formatter = RelativeDateTimeFormatter()
         formatter.unitsStyle = .abbreviated
-        return formatter.localizedString(for: timestamp, relativeTo: Date())
+        return formatter.localizedString(for: self, relativeTo: Date())
+    }
+    
+    var timestampString: String {
+        if Date.now.timeIntervalSince(self) > 86_400 {
+            self.timeAgo
+        } else {
+            self.formatted(date: .omitted, time: .shortened)
+        }
     }
 }

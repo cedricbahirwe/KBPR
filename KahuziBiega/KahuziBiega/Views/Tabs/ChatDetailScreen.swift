@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import Firebase
 
 struct ChatDetailScreen: View {
     @ObservedObject var vm: ChatLogViewModel
@@ -98,7 +99,7 @@ struct ChatBubbleView: View {
                 .hidden()
         }
         .overlay(alignment: .bottomTrailing) {
-            Text(message.timestamp, format: .dateTime.hour().minute())
+            Text(message.timestampString)
                 .font(.caption)
                 .foregroundStyle(.secondary)
         }

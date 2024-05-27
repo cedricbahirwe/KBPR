@@ -16,4 +16,12 @@ struct KBChatMessage: Codable, Identifiable {
     var cleanMessage: String {
         text.trimmingCharacters(in: .whitespacesAndNewlines)
     }
+    
+    var timestampString: String {
+        if Date.now.timeIntervalSince(timestamp) > 86_400 {
+            timestamp.timeAgo
+        } else {
+            timestamp.formatted(date: .omitted, time: .shortened)
+        }
+    }
 }
