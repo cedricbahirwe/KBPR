@@ -16,9 +16,13 @@ struct KBRecentMessage: Codable, Identifiable {
     let timestamp: Date
     let kbId: String?
     
-    var username: String {
-        email.components(separatedBy: "@").first ?? email
-    }
+    let firstName: String
+    let lastName: String
+    let username: String
+    
+//    var username: String {
+//        email.components(separatedBy: "@").first ?? email
+//    }
     
     var timeAgo: String {
         timestamp.timeAgo

@@ -55,7 +55,16 @@ struct ChatsScreen: View {
                     Button {
                         let uid = KBFBManager.shared.auth.currentUser?.uid == recentMessage.fromId ? recentMessage.toId : recentMessage.fromId
                         
-                        let chatUser = KBChatUser(id: uid, uid: uid, email: recentMessage.email, profilePic: recentMessage.profilePic, kbId: recentMessage.kbId)
+                        let chatUser = KBChatUser(
+                            id: uid,
+                            uid: uid,
+                            email: recentMessage.email,
+                            profilePic: recentMessage.profilePic,
+                            firstName: recentMessage.firstName,
+                            lastName: recentMessage.lastName,
+                            username: recentMessage.username,
+                            kbId: recentMessage.kbId
+                        )
                         
                         self.chatLogViewModel.chatUser = chatUser
                         self.chatLogViewModel.fetchMessages()

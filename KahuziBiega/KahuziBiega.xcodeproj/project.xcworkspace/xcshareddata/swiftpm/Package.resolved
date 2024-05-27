@@ -1,5 +1,5 @@
 {
-  "originHash" : "e4c0b1ebc25e0774a0d5d7daf2fa365b39e6bbcac0dfdb2b8036cd5d5459edfe",
+  "originHash" : "e9bd151bd12adb9afb16fe71dc41135df4c02baa75f48c0ee2be99822685889e",
   "pins" : [
     {
       "identity" : "abseil-cpp-binary",
@@ -101,12 +101,30 @@
       }
     },
     {
+      "identity" : "nwwebsocket",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/pusher/NWWebSocket.git",
+      "state" : {
+        "revision" : "1e545fcb53966272fc042aa17ae932f11239e00f",
+        "version" : "0.5.4"
+      }
+    },
+    {
       "identity" : "promises",
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/google/promises.git",
       "state" : {
         "revision" : "540318ecedd63d883069ae7f1ed811a2df00b6ac",
         "version" : "2.4.0"
+      }
+    },
+    {
+      "identity" : "pusher-websocket-swift",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/pusher/pusher-websocket-swift.git",
+      "state" : {
+        "revision" : "886341f9dad453c9822f2525136ee2006a6c3c9e",
+        "version" : "10.1.5"
       }
     },
     {
@@ -134,6 +152,15 @@
       "state" : {
         "revision" : "9f0c76544701845ad98716f3f6a774a892152bcb",
         "version" : "1.26.0"
+      }
+    },
+    {
+      "identity" : "tweetnacl-swiftwrap",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/bitmark-inc/tweetnacl-swiftwrap",
+      "state" : {
+        "revision" : "f8fd111642bf2336b11ef9ea828510693106e954",
+        "version" : "1.1.0"
       }
     }
   ],

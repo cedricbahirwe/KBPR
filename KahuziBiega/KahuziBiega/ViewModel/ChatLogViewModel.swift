@@ -101,7 +101,6 @@ class ChatLogViewModel: ObservableObject {
             
             self.chatText = ""
             self.scrollUpdate.send(1)
-//            self.count += 1
         }
         
         let recipientMessageDocument = KBFBManager.shared.firestore.collection(FirebaseConstants.messages)
@@ -136,7 +135,11 @@ class ChatLogViewModel: ObservableObject {
             FirebaseConstants.fromId: senderId,
             FirebaseConstants.toId: receiverId,
             FirebaseConstants.profilePic: chatUser.profilePic,
-            FirebaseConstants.email: chatUser.email
+            FirebaseConstants.email: chatUser.email,
+            FirebaseConstants.firstName: chatUser.firstName,
+            FirebaseConstants.lastName: chatUser.firstName,
+            FirebaseConstants.username: chatUser.username,
+            
         ] as [String : Any]
         
         // you'll need to save another very similar dictionary for the recipient of this message...how?
@@ -156,7 +159,10 @@ class ChatLogViewModel: ObservableObject {
             FirebaseConstants.fromId: senderId,
             FirebaseConstants.toId: receiverId,
             FirebaseConstants.profilePic: currentUser.profilePic,
-            FirebaseConstants.email: currentUser.email
+            FirebaseConstants.email: currentUser.email,
+            FirebaseConstants.firstName: currentUser.firstName,
+            FirebaseConstants.lastName: currentUser.firstName,
+            FirebaseConstants.username: currentUser.username,
         ] as [String : Any]
         
         KBFBManager.shared.firestore

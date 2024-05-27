@@ -87,6 +87,8 @@
 		CB58D5722BDF9B2C00F822A7 /* response.json in Resources */ = {isa = PBXBuildFile; fileRef = CB58D5712BDF9B2C00F822A7 /* response.json */; };
 		CB58D5742BDF9B4500F822A7 /* LocalDecoder.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB58D5732BDF9B4500F822A7 /* LocalDecoder.swift */; };
 		CB623AE92C04DFB600AA3CA7 /* ChatLogViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB623AE82C04DFB600AA3CA7 /* ChatLogViewModel.swift */; };
+		CB623AEC2C05209400AA3CA7 /* PusherSwift in Frameworks */ = {isa = PBXBuildFile; productRef = CB623AEB2C05209400AA3CA7 /* PusherSwift */; };
+		CB623AEE2C0520B500AA3CA7 /* KBPusherManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB623AED2C0520B400AA3CA7 /* KBPusherManager.swift */; };
 		CB71A2BF2BD4507C008AD154 /* KahuziBiegaApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB71A2BE2BD4507C008AD154 /* KahuziBiegaApp.swift */; };
 		CB71A2C12BD4507C008AD154 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB71A2C02BD4507C008AD154 /* ContentView.swift */; };
 		CB71A2C32BD4507C008AD154 /* Item.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB71A2C22BD4507C008AD154 /* Item.swift */; };
@@ -196,6 +198,7 @@
 		CB58D5712BDF9B2C00F822A7 /* response.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = response.json; sourceTree = "<group>"; };
 		CB58D5732BDF9B4500F822A7 /* LocalDecoder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalDecoder.swift; sourceTree = "<group>"; };
 		CB623AE82C04DFB600AA3CA7 /* ChatLogViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatLogViewModel.swift; sourceTree = "<group>"; };
+		CB623AED2C0520B400AA3CA7 /* KBPusherManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KBPusherManager.swift; sourceTree = "<group>"; };
 		CB71A2BB2BD4507C008AD154 /* KahuziBiega.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = KahuziBiega.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		CB71A2BE2BD4507C008AD154 /* KahuziBiegaApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KahuziBiegaApp.swift; sourceTree = "<group>"; };
 		CB71A2C02BD4507C008AD154 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -224,6 +227,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				CB623AEC2C05209400AA3CA7 /* PusherSwift in Frameworks */,
 				CB3141C92BFA8B47006FAEB2 /* SDWebImageSwiftUI in Frameworks */,
 				CB3141BF2BFA7AA4006FAEB2 /* FirebaseMessaging in Frameworks */,
 				CB3141BD2BFA7AA4006FAEB2 /* FirebaseFunctions in Frameworks */,
@@ -267,6 +271,7 @@
 			children = (
 				CB1851FB2C037BF2001C00E0 /* KBFBManager.swift */,
 				CB1851FD2C037CBA001C00E0 /* FirebaseConstants.swift */,
+				CB623AED2C0520B400AA3CA7 /* KBPusherManager.swift */,
 			);
 			path = Utils;
 			sourceTree = "<group>";
@@ -616,6 +621,7 @@
 				CB3141C22BFA7AA4006FAEB2 /* FirebaseStorage */,
 				CB3141C82BFA8B47006FAEB2 /* SDWebImageSwiftUI */,
 				CB1851EF2C02279B001C00E0 /* FirebaseAuth */,
+				CB623AEB2C05209400AA3CA7 /* PusherSwift */,
 			);
 			productName = KahuziBiega;
 			productReference = CB71A2BB2BD4507C008AD154 /* KahuziBiega.app */;
@@ -692,6 +698,7 @@
 			packageReferences = (
 				CB3141B72BFA7AA4006FAEB2 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */,
 				CB3141C72BFA8B47006FAEB2 /* XCRemoteSwiftPackageReference "SDWebImageSwiftUI" */,
+				CB623AEA2C05209400AA3CA7 /* XCRemoteSwiftPackageReference "pusher-websocket-swift" */,
 			);
 			productRefGroup = CB71A2BC2BD4507C008AD154 /* Products */;
 			projectDirPath = "";
@@ -785,6 +792,7 @@
 				CB4635592BFB5735003D8AB1 /* RequiredKeysCache.swift in Sources */,
 				CB45155A2BD535C10025AEB8 /* AnalyticsScreen.swift in Sources */,
 				CB45154D2BD5125A0025AEB8 /* SignInScreen.swift in Sources */,
+				CB623AEE2C0520B500AA3CA7 /* KBPusherManager.swift in Sources */,
 				CB1F813D2BD64BF8006A2908 /* LocationAnnotationView.swift in Sources */,
 				CB2A65C42BE7DC5B0072027B /* AuthRoute.swift in Sources */,
 				CB4515582BD535AE0025AEB8 /* ChatsScreen.swift in Sources */,
@@ -1197,6 +1205,14 @@
 				minimumVersion = 3.0.4;
 			};
 		};
+		CB623AEA2C05209400AA3CA7 /* XCRemoteSwiftPackageReference "pusher-websocket-swift" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/pusher/pusher-websocket-swift.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 10.1.5;
+			};
+		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
@@ -1239,6 +1255,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = CB3141C72BFA8B47006FAEB2 /* XCRemoteSwiftPackageReference "SDWebImageSwiftUI" */;
 			productName = SDWebImageSwiftUI;
+		};
+		CB623AEB2C05209400AA3CA7 /* PusherSwift */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = CB623AEA2C05209400AA3CA7 /* XCRemoteSwiftPackageReference "pusher-websocket-swift" */;
+			productName = PusherSwift;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};

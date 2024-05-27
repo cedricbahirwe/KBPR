@@ -15,7 +15,7 @@ struct ChatDetailScreen: View {
         messagesView
             .toolbar {
                 ToolbarItem(placement: .principal) {
-                    Text(vm.chatUser?.email ?? "")
+                    Text(vm.chatUser?.username ?? "")
                         .fontWeight(.medium)
                 }
             }
