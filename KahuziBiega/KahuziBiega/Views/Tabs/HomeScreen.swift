@@ -15,66 +15,87 @@ struct HomeScreen: View {
         incidentsStore.getRecents(max: 6)
     }
     
+    
+    @State private var showSOSPopup = false
+    @State private var showSOSAlert = false
+    
     var body: some View {
-        
-        ScrollView {
-            VStack(spacing: 0) {
-                HStack(spacing: 25) {
-                    Button(action: {
-                        showSheet.toggle()
-                    }) {
-                        Image(.reportIncident)
-                            .resizable()
-                    }
-                    
-                    NavigationLink {
-                        IncidentsListView()
-                    } label: {
-                        Image(.viewReport)
-                            .resizable()
-                    }
-                }
-                .scaledToFit()
-                .padding(20)
-                .background(.background, in: .rect(cornerRadius: 20.0))
-                
-                
-                if !recentIncidentReports.isEmpty {
-                    LazyVStack(alignment: .leading, pinnedViews: .sectionHeaders) {
-                        Section {
-                            VStack(alignment: .leading) {
-                                ForEach(recentIncidentReports) { incident in
-                                    NavigationLink {
-                                        IncidentDetailView(incident: incident)
-                                    } label: {
-                                        //                                    ReportRowView(incident: incident)
-                                        RecentReportRowView(incident: incident)
-                                    }
-                                    .buttonStyle(.plain)
-                                    
-                                    if (recentIncidentReports.last?.id != incident.id) {
-                                        Divider()
-                                    }
-                                }
-                            }
-                            .padding()
-                            .background(
-                                .background
-                                    .shadow(.inner(color: Color.black.opacity(0.25), radius: 4, x: 0, y: 4))
-                                , in: .rect(cornerRadius: 15)
-                            )
-                        } header: {
-                            Text("Recent Reports")
-                                .font(.title.bold())
-                                .padding(10)
-                                .frame(maxWidth: .infinity, alignment: .leading)
-                                .background(.background.opacity(0.9))
+        ZStack {
+            ScrollView {
+                VStack(spacing: 0) {
+                    HStack(spacing: 25) {
+                        Button(action: {
+                            showSheet.toggle()
+                        }) {
+                            Image(.reportIncident)
+                                .resizable()
+                        }
+                        
+                        NavigationLink {
+                            IncidentsListView()
+                        } label: {
+                            Image(.viewReport)
+                                .resizable()
                         }
                     }
-                    .padding(.horizontal)
+                    .scaledToFit()
+                    .padding(20)
+                    .background(.background, in: .rect(cornerRadius: 20.0))
+                    
+                    
+                    if !recentIncidentReports.isEmpty {
+                        LazyVStack(alignment: .leading, pinnedViews: .sectionHeaders) {
+                            Section {
+                                VStack(alignment: .leading) {
+                                    ForEach(recentIncidentReports) { incident in
+                                        NavigationLink {
+                                            IncidentDetailView(incident: incident)
+                                        } label: {
+                                            //                                    ReportRowView(incident: incident)
+                                            RecentReportRowView(incident: incident)
+                                        }
+                                        .buttonStyle(.plain)
+                                        
+                                        if (recentIncidentReports.last?.id != incident.id) {
+                                            Divider()
+                                        }
+                                    }
+                                }
+                                .padding()
+                                .background(
+                                    .background
+                                        .shadow(.inner(color: Color.black.opacity(0.25), radius: 4, x: 0, y: 4))
+                                    , in: .rect(cornerRadius: 15)
+                                )
+                            } header: {
+                                Text("Recent Reports")
+                                    .font(.title.bold())
+                                    .padding(10)
+                                    .frame(maxWidth: .infinity, alignment: .leading)
+                                    .background(.background.opacity(0.9))
+                            }
+                        }
+                        .padding(.horizontal)
+                    }
                 }
             }
+            if showSOSPopup {
+                Color.black.opacity(0.7).ignoresSafeArea()
+                SOSPopupView {
+                    showSOSPopup = false
+                } onActivate: {
+                    showSOSPopup = false
+                    showSOSAlert = true
+                }
+
+            }
         }
+        .fullScreenCover(isPresented: $showSOSAlert, content: {
+            SOSAlertView {
+                // Stop triggering alerts
+                showSOSAlert = false
+            }
+        })
         .navigationTitle("Kauzi Biega Park")
         .toolbarTitleDisplayMode(.inline)
         .toolbar {
@@ -87,16 +108,19 @@ struct HomeScreen: View {
                         Image(.mapMarker)
                     }
                     
-                    Button(action: {}) {
+                    Button(action: {
+                        showSOSPopup = true
+                    }) {
                         Image(.siren)
                     }
                 }
             }
             
             ToolbarItemGroup(placement: .topBarTrailing) {
-                Button(action: {}) {
-                    Image(.radioTower)
-                }
+//                Button(action: {
+//                }) {
+//                    Image(.radioTower)
+//                }
                 
                 Button(action: {
                     NotificationCenter.default.post(name: .unauthorizedRequest, object: nil)

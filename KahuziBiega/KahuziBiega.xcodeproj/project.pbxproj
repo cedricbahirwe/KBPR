@@ -36,6 +36,8 @@
 		CB3141C32BFA7AA4006FAEB2 /* FirebaseStorage in Frameworks */ = {isa = PBXBuildFile; productRef = CB3141C22BFA7AA4006FAEB2 /* FirebaseStorage */; };
 		CB3141C62BFA7BF5006FAEB2 /* KBFBStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB3141C52BFA7BF5006FAEB2 /* KBFBStorage.swift */; };
 		CB3141C92BFA8B47006FAEB2 /* SDWebImageSwiftUI in Frameworks */ = {isa = PBXBuildFile; productRef = CB3141C82BFA8B47006FAEB2 /* SDWebImageSwiftUI */; };
+		CB3BEFAF2C11A6DF002266CA /* PushNotifications in Frameworks */ = {isa = PBXBuildFile; productRef = CB3BEFAE2C11A6DF002266CA /* PushNotifications */; };
+		CB3BEFB22C11C1E3002266CA /* SOSAlertView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB3BEFB12C11C1E3002266CA /* SOSAlertView.swift */; };
 		CB4102502BF607B900FE2D1E /* Endpoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB41024F2BF607B900FE2D1E /* Endpoint.swift */; };
 		CB4102522BF607C000FE2D1E /* HTTPMethod.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB4102512BF607C000FE2D1E /* HTTPMethod.swift */; };
 		CB4102542BF608B200FE2D1E /* APIError.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB4102532BF608B200FE2D1E /* APIError.swift */; };
@@ -81,6 +83,7 @@
 		CB46356A2BFB5735003D8AB1 /* CacheInitializable.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB46354F2BFB5734003D8AB1 /* CacheInitializable.swift */; };
 		CB46356C2BFB5BCD003D8AB1 /* KBImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB46356B2BFB5BCD003D8AB1 /* KBImage.swift */; };
 		CB46356E2BFB6A63003D8AB1 /* RecentReportRowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB46356D2BFB6A63003D8AB1 /* RecentReportRowView.swift */; };
+		CB5659302C21826A006DF848 /* alarm.wav in Resources */ = {isa = PBXBuildFile; fileRef = CB56592F2C21826A006DF848 /* alarm.wav */; };
 		CB58D56C2BDE663500F822A7 /* KBUser.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB58D56B2BDE663500F822A7 /* KBUser.swift */; };
 		CB58D56E2BDEDB5600F822A7 /* KBIncident.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB58D56D2BDEDB5600F822A7 /* KBIncident.swift */; };
 		CB58D5702BDEFC5C00F822A7 /* NetworkClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB58D56F2BDEFC5C00F822A7 /* NetworkClient.swift */; };
@@ -147,6 +150,8 @@
 		CB2A65CD2BE7E2300072027B /* IncidentsStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IncidentsStore.swift; sourceTree = "<group>"; };
 		CB3141AA2BFA7572006FAEB2 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		CB3141C52BFA7BF5006FAEB2 /* KBFBStorage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KBFBStorage.swift; sourceTree = "<group>"; };
+		CB3BEFAC2C11A605002266CA /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
+		CB3BEFB12C11C1E3002266CA /* SOSAlertView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SOSAlertView.swift; sourceTree = "<group>"; };
 		CB41024F2BF607B900FE2D1E /* Endpoint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Endpoint.swift; sourceTree = "<group>"; };
 		CB4102512BF607C000FE2D1E /* HTTPMethod.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HTTPMethod.swift; sourceTree = "<group>"; };
 		CB4102532BF608B200FE2D1E /* APIError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIError.swift; sourceTree = "<group>"; };
@@ -192,6 +197,7 @@
 		CB46354F2BFB5734003D8AB1 /* CacheInitializable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CacheInitializable.swift; sourceTree = "<group>"; };
 		CB46356B2BFB5BCD003D8AB1 /* KBImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KBImage.swift; sourceTree = "<group>"; };
 		CB46356D2BFB6A63003D8AB1 /* RecentReportRowView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecentReportRowView.swift; sourceTree = "<group>"; };
+		CB56592F2C21826A006DF848 /* alarm.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = alarm.wav; sourceTree = "<group>"; };
 		CB58D56B2BDE663500F822A7 /* KBUser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KBUser.swift; sourceTree = "<group>"; };
 		CB58D56D2BDEDB5600F822A7 /* KBIncident.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KBIncident.swift; sourceTree = "<group>"; };
 		CB58D56F2BDEFC5C00F822A7 /* NetworkClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkClient.swift; sourceTree = "<group>"; };
@@ -228,6 +234,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				CB623AEC2C05209400AA3CA7 /* PusherSwift in Frameworks */,
+				CB3BEFAF2C11A6DF002266CA /* PushNotifications in Frameworks */,
 				CB3141C92BFA8B47006FAEB2 /* SDWebImageSwiftUI in Frameworks */,
 				CB3141BF2BFA7AA4006FAEB2 /* FirebaseMessaging in Frameworks */,
 				CB3141BD2BFA7AA4006FAEB2 /* FirebaseFunctions in Frameworks */,
@@ -350,6 +357,14 @@
 				CB3141C52BFA7BF5006FAEB2 /* KBFBStorage.swift */,
 			);
 			path = Storage;
+			sourceTree = "<group>";
+		};
+		CB3BEFB02C11C1D9002266CA /* SOS */ = {
+			isa = PBXGroup;
+			children = (
+				CB3BEFB12C11C1E3002266CA /* SOSAlertView.swift */,
+			);
+			path = SOS;
 			sourceTree = "<group>";
 		};
 		CB41024E2BF6079000FE2D1E /* Networking */ = {
@@ -502,6 +517,7 @@
 		CB71A2BD2BD4507C008AD154 /* KahuziBiega */ = {
 			isa = PBXGroup;
 			children = (
+				CB3BEFAC2C11A605002266CA /* Info.plist */,
 				CB71A2BE2BD4507C008AD154 /* KahuziBiegaApp.swift */,
 				CB71A2C02BD4507C008AD154 /* ContentView.swift */,
 				CB1851F82C037BDF001C00E0 /* Utils */,
@@ -554,6 +570,7 @@
 		CB71A2EB2BD4535D008AD154 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				CB3BEFB02C11C1D9002266CA /* SOS */,
 				CB1852042C037D03001C00E0 /* MainMessages */,
 				CBB554E22BF24871008663A8 /* Admin */,
 				CB1F813B2BD64BEF006A2908 /* Custom */,
@@ -582,6 +599,7 @@
 		CBB554F12BF4B733008663A8 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				CB56592F2C21826A006DF848 /* alarm.wav */,
 				CBB554F22BF4B755008663A8 /* incidents.json */,
 			);
 			path = Resources;
@@ -622,6 +640,7 @@
 				CB3141C82BFA8B47006FAEB2 /* SDWebImageSwiftUI */,
 				CB1851EF2C02279B001C00E0 /* FirebaseAuth */,
 				CB623AEB2C05209400AA3CA7 /* PusherSwift */,
+				CB3BEFAE2C11A6DF002266CA /* PushNotifications */,
 			);
 			productName = KahuziBiega;
 			productReference = CB71A2BB2BD4507C008AD154 /* KahuziBiega.app */;
@@ -699,6 +718,7 @@
 				CB3141B72BFA7AA4006FAEB2 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */,
 				CB3141C72BFA8B47006FAEB2 /* XCRemoteSwiftPackageReference "SDWebImageSwiftUI" */,
 				CB623AEA2C05209400AA3CA7 /* XCRemoteSwiftPackageReference "pusher-websocket-swift" */,
+				CB3BEFAD2C11A6DF002266CA /* XCRemoteSwiftPackageReference "push-notifications-swift" */,
 			);
 			productRefGroup = CB71A2BC2BD4507C008AD154 /* Products */;
 			projectDirPath = "";
@@ -722,6 +742,7 @@
 				CB71A2C52BD4507E008AD154 /* Assets.xcassets in Resources */,
 				CBB554F32BF4B755008663A8 /* incidents.json in Resources */,
 				CB3141AB2BFA7572006FAEB2 /* GoogleService-Info.plist in Resources */,
+				CB5659302C21826A006DF848 /* alarm.wav in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -783,6 +804,7 @@
 				CBB554F02BF39C06008663A8 /* KBField.swift in Sources */,
 				CB4635552BFB5735003D8AB1 /* ExpiringCache.swift in Sources */,
 				CB4635672BFB5735003D8AB1 /* OptionallyCached.swift in Sources */,
+				CB3BEFB22C11C1E3002266CA /* SOSAlertView.swift in Sources */,
 				CB1851F52C02281F001C00E0 /* KBChatMessage.swift in Sources */,
 				CB4102502BF607B900FE2D1E /* Endpoint.swift in Sources */,
 				CB2A65C82BE7E0160072027B /* LocalStorage.swift in Sources */,
@@ -990,6 +1012,7 @@
 				ENABLE_HARDENED_RUNTIME = YES;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = KahuziBiega/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = KBNP;
 				"INFOPLIST_KEY_UIApplicationSceneManifest_Generation[sdk=iphoneos*]" = YES;
 				"INFOPLIST_KEY_UIApplicationSceneManifest_Generation[sdk=iphonesimulator*]" = YES;
@@ -1030,6 +1053,7 @@
 				ENABLE_HARDENED_RUNTIME = YES;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = KahuziBiega/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = KBNP;
 				"INFOPLIST_KEY_UIApplicationSceneManifest_Generation[sdk=iphoneos*]" = YES;
 				"INFOPLIST_KEY_UIApplicationSceneManifest_Generation[sdk=iphonesimulator*]" = YES;
@@ -1205,6 +1229,14 @@
 				minimumVersion = 3.0.4;
 			};
 		};
+		CB3BEFAD2C11A6DF002266CA /* XCRemoteSwiftPackageReference "push-notifications-swift" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/pusher/push-notifications-swift";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 4.0.0;
+			};
+		};
 		CB623AEA2C05209400AA3CA7 /* XCRemoteSwiftPackageReference "pusher-websocket-swift" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/pusher/pusher-websocket-swift.git";
@@ -1255,6 +1287,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = CB3141C72BFA8B47006FAEB2 /* XCRemoteSwiftPackageReference "SDWebImageSwiftUI" */;
 			productName = SDWebImageSwiftUI;
+		};
+		CB3BEFAE2C11A6DF002266CA /* PushNotifications */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = CB3BEFAD2C11A6DF002266CA /* XCRemoteSwiftPackageReference "push-notifications-swift" */;
+			productName = PushNotifications;
 		};
 		CB623AEB2C05209400AA3CA7 /* PusherSwift */ = {
 			isa = XCSwiftPackageProductDependency;
