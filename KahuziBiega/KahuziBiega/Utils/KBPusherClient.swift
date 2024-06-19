@@ -9,22 +9,24 @@ import Foundation
 import Pusher
 
 final class KBPusherClient {
-    static let shared = KBPusherClient()
-    private var pusher: Pusher! = nil
-
-    private init() { }
+    private let pusher: Pusher
     
-    func triggerEvent(_ cluster: String, secret: String, key: String, appId: Int, data: SOSEmergency) {
+    // Generated using: openssl rand -base64 32
+    private let encryptionMasterKey = "utqWjJs+3Sigm7RctlV0G61QKvECpSYMsgFPwgbvsRc="
 
-        self.pusher = Pusher(options: try! PusherClientOptions(appId: appId,
-                                                              key: key,
-                                                              secret: secret,
-                                                              encryptionMasterKey: "utqWjJs+3Sigm7RctlV0G61QKvECpSYMsgFPwgbvsRc=",
-                                                              cluster: cluster))
-        
-        let publicChannel = Channel(name: "emergencies", type: .public)
-        let publicEvent = try! Event(name: "sos-start",
-                                     data: data,
+    init(_ cluster: String, secret: String, key: String, appId: Int) {
+        self.pusher = Pusher(options: try! PusherClientOptions(
+            appId: appId,
+            key: key,
+            secret: secret,
+            encryptionMasterKey: encryptionMasterKey,
+            cluster: cluster))
+    }
+    
+    func triggerEvent<T>(event: KBPusherEvent<T>) {
+        let publicChannel = Channel(name: event.channel.rawValue, type: .public)
+        let publicEvent = try! Event(name: event.name.rawValue,
+                                     data: event.data,
                                      channel: publicChannel)
         
         pusher.trigger(event: publicEvent) { result in
@@ -39,8 +41,8 @@ final class KBPusherClient {
     
     func stopEvent() {
         
-        let publicChannel = Channel(name: "emergencies", type: .public)
-        let publicEvent = try! Event(name: "sos-end", 
+        let publicChannel = Channel(name: KBPusherChannelName.emergencies.rawValue, type: .public)
+        let publicEvent = try! Event(name: KBPusherEventName.sosEnd.rawValue, 
                                      data: "",
                                      channel: publicChannel)
         

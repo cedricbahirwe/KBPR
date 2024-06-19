@@ -1,5 +1,5 @@
 {
-  "originHash" : "5b83f75e441091cdaf33c9193c06e0201e6bb6f2ffb71cae1b60a3d62d84afcb",
+  "originHash" : "ef2f3453d3ff33fe323e444d80b1c2566d349b417c4cdce2c72af3fad5a604fc",
   "pins" : [
     {
       "identity" : "abseil-cpp-binary",
@@ -35,15 +35,6 @@
       "state" : {
         "revision" : "076b241a625e25eac22f8849be256dfb960fcdfe",
         "version" : "10.19.1"
-      }
-    },
-    {
-      "identity" : "cryptoswift",
-      "kind" : "remoteSourceControl",
-      "location" : "https://github.com/krzyzanowskim/CryptoSwift",
-      "state" : {
-        "revision" : "c9c3df6ab812de32bae61fc0cd1bf6d45170ebf0",
-        "version" : "1.8.2"
       }
     },
     {

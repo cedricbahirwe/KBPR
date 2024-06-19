@@ -58,46 +58,7 @@ struct SOSAlertView: View {
             // send data to channels
         }
         .onDisappear() {
-            KBPusherClient.shared.stopEvent()
-        }
-    }
-}
-
-extension SOSAlertView {
-    class AudioManager: NSObject, AVAudioPlayerDelegate {
-        private var audioPlayer: AVAudioPlayer!
-        
-        func startAudio() {
-            do {
-                let audioSession = AVAudioSession.sharedInstance()
-                try audioSession.setCategory(.playback, mode: .default)
-                try audioSession.setActive(true)
-                
-                playAlarmSound()
-            } catch {
-                print("Failed to set audio session category: \(error.localizedDescription)")
-            }
-        }
-        
-        func stopAudio() {
-            self.audioPlayer?.stop()
-            self.audioPlayer = nil
-        }
-        
-        private func playAlarmSound() {
-            do {
-                let alarmSoundURL = URL(filePath: Bundle.main.path(forResource: "alarm", ofType: "wav")!)
-                self.audioPlayer =  try AVAudioPlayer(contentsOf: alarmSoundURL)
-                self.audioPlayer.prepareToPlay()
-                self.audioPlayer.delegate = self
-                self.audioPlayer.numberOfLoops = -1 // indefinitely playing
-                self.audioPlayer.play()
-                
-                MPVolumeView.setVolume(0.8) // 80 %
-
-            } catch {
-                print("Failed to initialize AVAudioPlayer: \(error.localizedDescription)")
-            }
+            KBPusherManager.shared.stopSOSEvent()
         }
     }
 }
@@ -128,7 +89,7 @@ struct SOSPopupView: View {
                     .textCase(.uppercase)
                     .font(.system(size: 30, weight: .bold))
                     .foregroundStyle(.red)
-
+                
                 VStack {
                     Text("You are about to activate SOS.")
                     Text("Park Rangers & management will be contacted.")
@@ -176,11 +137,55 @@ import MediaPlayer
 
 private extension MPVolumeView {
     static func setVolume(_ volume: Float) {
-      let volumeView = MPVolumeView()
-      let slider = volumeView.subviews.first(where: { $0 is UISlider }) as? UISlider
-
-      DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 0.01) {
-        slider?.value = volume
-      }
+        let volumeView = MPVolumeView()
+        let slider = volumeView.subviews.first(where: { $0 is UISlider }) as? UISlider
+        
+        DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 0.01) {
+            slider?.value = volume
+        }
     }
-  }
+}
+
+class AudioManager: NSObject, AVAudioPlayerDelegate {
+    static let shared = AudioManager()
+    private var audioPlayer: AVAudioPlayer!
+    
+    override init() {
+        super.init()
+        
+        do {
+            let audioSession = AVAudioSession.sharedInstance()
+            try audioSession.setCategory(.playback, mode: .default)
+            try audioSession.setActive(true)
+            
+            ()
+        } catch {
+            print("Failed to set audio session category: \(error.localizedDescription)")
+        }
+    }
+    
+    func startAudio() {
+        playAlarmSound()
+    }
+    
+    func stopAudio() {
+        self.audioPlayer?.stop()
+        self.audioPlayer = nil
+    }
+    
+    private func playAlarmSound() {
+        do {
+            let alarmSoundURL = URL(filePath: Bundle.main.path(forResource: "alarm", ofType: "wav")!)
+            self.audioPlayer =  try AVAudioPlayer(contentsOf: alarmSoundURL)
+            self.audioPlayer.prepareToPlay()
+            self.audioPlayer.delegate = self
+            self.audioPlayer.numberOfLoops = -1 // indefinitely playing
+            self.audioPlayer.play()
+            
+            MPVolumeView.setVolume(0.8) // 80 %
+            
+        } catch {
+            print("Failed to initialize AVAudioPlayer: \(error.localizedDescription)")
+        }
+    }
+}

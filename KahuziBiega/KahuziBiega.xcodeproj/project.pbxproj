@@ -84,10 +84,10 @@
 		CB46356C2BFB5BCD003D8AB1 /* KBImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB46356B2BFB5BCD003D8AB1 /* KBImage.swift */; };
 		CB46356E2BFB6A63003D8AB1 /* RecentReportRowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB46356D2BFB6A63003D8AB1 /* RecentReportRowView.swift */; };
 		CB5659302C21826A006DF848 /* alarm.wav in Resources */ = {isa = PBXBuildFile; fileRef = CB56592F2C21826A006DF848 /* alarm.wav */; };
-		CB56593B2C21A7C1006DF848 /* CryptoSwift in Frameworks */ = {isa = PBXBuildFile; productRef = CB56593A2C21A7C1006DF848 /* CryptoSwift */; };
 		CB56593E2C21BD0E006DF848 /* Pusher in Frameworks */ = {isa = PBXBuildFile; productRef = CB56593D2C21BD0E006DF848 /* Pusher */; };
 		CB5659402C21BD4F006DF848 /* KBPusherClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB56593F2C21BD4F006DF848 /* KBPusherClient.swift */; };
 		CB5659432C22B699006DF848 /* KBProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB5659422C22B698006DF848 /* KBProfileView.swift */; };
+		CB5659482C2305EF006DF848 /* EmergencyAlertTypes.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB5659472C2305EF006DF848 /* EmergencyAlertTypes.swift */; };
 		CB58D56C2BDE663500F822A7 /* KBUser.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB58D56B2BDE663500F822A7 /* KBUser.swift */; };
 		CB58D56E2BDEDB5600F822A7 /* KBIncident.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB58D56D2BDEDB5600F822A7 /* KBIncident.swift */; };
 		CB58D5702BDEFC5C00F822A7 /* NetworkClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB58D56F2BDEFC5C00F822A7 /* NetworkClient.swift */; };
@@ -204,6 +204,7 @@
 		CB56592F2C21826A006DF848 /* alarm.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = alarm.wav; sourceTree = "<group>"; };
 		CB56593F2C21BD4F006DF848 /* KBPusherClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KBPusherClient.swift; sourceTree = "<group>"; };
 		CB5659422C22B698006DF848 /* KBProfileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KBProfileView.swift; sourceTree = "<group>"; };
+		CB5659472C2305EF006DF848 /* EmergencyAlertTypes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmergencyAlertTypes.swift; sourceTree = "<group>"; };
 		CB58D56B2BDE663500F822A7 /* KBUser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KBUser.swift; sourceTree = "<group>"; };
 		CB58D56D2BDEDB5600F822A7 /* KBIncident.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KBIncident.swift; sourceTree = "<group>"; };
 		CB58D56F2BDEFC5C00F822A7 /* NetworkClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkClient.swift; sourceTree = "<group>"; };
@@ -246,7 +247,6 @@
 				CB3141BD2BFA7AA4006FAEB2 /* FirebaseFunctions in Frameworks */,
 				CB3141B92BFA7AA4006FAEB2 /* FirebaseDatabase in Frameworks */,
 				CB3141BB2BFA7AA4006FAEB2 /* FirebaseFirestore in Frameworks */,
-				CB56593B2C21A7C1006DF848 /* CryptoSwift in Frameworks */,
 				CB3141C12BFA7AA4006FAEB2 /* FirebaseRemoteConfig in Frameworks */,
 				CB56593E2C21BD0E006DF848 /* Pusher in Frameworks */,
 				CB3141C32BFA7AA4006FAEB2 /* FirebaseStorage in Frameworks */,
@@ -287,6 +287,7 @@
 				CB1851FB2C037BF2001C00E0 /* KBFBManager.swift */,
 				CB1851FD2C037CBA001C00E0 /* FirebaseConstants.swift */,
 				CB623AED2C0520B400AA3CA7 /* KBPusherManager.swift */,
+				CB5659462C2305DC006DF848 /* Alerts */,
 				CB56593F2C21BD4F006DF848 /* KBPusherClient.swift */,
 			);
 			path = Utils;
@@ -511,6 +512,14 @@
 			path = Home;
 			sourceTree = "<group>";
 		};
+		CB5659462C2305DC006DF848 /* Alerts */ = {
+			isa = PBXGroup;
+			children = (
+				CB5659472C2305EF006DF848 /* EmergencyAlertTypes.swift */,
+			);
+			path = Alerts;
+			sourceTree = "<group>";
+		};
 		CB71A2B22BD4507C008AD154 = {
 			isa = PBXGroup;
 			children = (
@@ -659,7 +668,6 @@
 				CB1851EF2C02279B001C00E0 /* FirebaseAuth */,
 				CB623AEB2C05209400AA3CA7 /* PusherSwift */,
 				CB3BEFAE2C11A6DF002266CA /* PushNotifications */,
-				CB56593A2C21A7C1006DF848 /* CryptoSwift */,
 				CB56593D2C21BD0E006DF848 /* Pusher */,
 			);
 			productName = KahuziBiega;
@@ -739,7 +747,6 @@
 				CB3141C72BFA8B47006FAEB2 /* XCRemoteSwiftPackageReference "SDWebImageSwiftUI" */,
 				CB623AEA2C05209400AA3CA7 /* XCRemoteSwiftPackageReference "pusher-websocket-swift" */,
 				CB3BEFAD2C11A6DF002266CA /* XCRemoteSwiftPackageReference "push-notifications-swift" */,
-				CB5659392C21A7C1006DF848 /* XCRemoteSwiftPackageReference "CryptoSwift" */,
 				CB56593C2C21BD0E006DF848 /* XCRemoteSwiftPackageReference "pusher-http-swift" */,
 			);
 			productRefGroup = CB71A2BC2BD4507C008AD154 /* Products */;
@@ -862,6 +869,7 @@
 				CB4515632BD549E80025AEB8 /* IncidentReportview.swift in Sources */,
 				CB1851FE2C037CBA001C00E0 /* FirebaseConstants.swift in Sources */,
 				CB71A2C32BD4507C008AD154 /* Item.swift in Sources */,
+				CB5659482C2305EF006DF848 /* EmergencyAlertTypes.swift in Sources */,
 				CB4635542BFB5735003D8AB1 /* ComposableCache.swift in Sources */,
 				CBB554E62BF3545C008663A8 /* AdminDetailView.swift in Sources */,
 				CB4635622BFB5735003D8AB1 /* Global+loggers.swift in Sources */,
@@ -1261,14 +1269,6 @@
 				minimumVersion = 4.0.0;
 			};
 		};
-		CB5659392C21A7C1006DF848 /* XCRemoteSwiftPackageReference "CryptoSwift" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/krzyzanowskim/CryptoSwift";
-			requirement = {
-				kind = upToNextMajorVersion;
-				minimumVersion = 1.8.2;
-			};
-		};
 		CB56593C2C21BD0E006DF848 /* XCRemoteSwiftPackageReference "pusher-http-swift" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/pusher/pusher-http-swift.git";
@@ -1332,11 +1332,6 @@
 			isa = XCSwiftPackageProductDependency;
 			package = CB3BEFAD2C11A6DF002266CA /* XCRemoteSwiftPackageReference "push-notifications-swift" */;
 			productName = PushNotifications;
-		};
-		CB56593A2C21A7C1006DF848 /* CryptoSwift */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = CB5659392C21A7C1006DF848 /* XCRemoteSwiftPackageReference "CryptoSwift" */;
-			productName = CryptoSwift;
 		};
 		CB56593D2C21BD0E006DF848 /* Pusher */ = {
 			isa = XCSwiftPackageProductDependency;

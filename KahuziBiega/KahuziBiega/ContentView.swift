@@ -30,6 +30,7 @@ struct ContentView: View {
                 .onReceive(NotificationCenter.default.publisher(for: .unauthorizedRequest)) { _ in
                     LocalStorage.clear()
                     try? KBFBManager.shared.auth.signOut()
+                    KBPusherManager.shared.disconnect()
                     isLoggedIn = false
                 }
         } else {

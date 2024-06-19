@@ -29,6 +29,8 @@ struct KahuziBiegaApp: App {
     @StateObject private var authVM = AuthenticationStore()
     @StateObject private var incidentsStore = IncidentsStore()
     @StateObject private var usersStore = UserStore()
+    
+    @StateObject private var pusherManager = KBPusherManager.shared
 
     var body: some Scene {
         WindowGroup {
@@ -36,6 +38,7 @@ struct KahuziBiegaApp: App {
                 .environmentObject(authVM)
                 .environmentObject(incidentsStore)
                 .environmentObject(usersStore)
+                .environmentObject(pusherManager)
         }
         .modelContainer(sharedModelContainer)
     }

@@ -13,6 +13,13 @@ enum Constants {
     static let staticToken: String = """
     eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjU4ZTY0OTI4LWI3N2MtNDUxNy05YTllLWRlODcyMjdhZjIwOSIsImVtYWlsIjoiZHJpb3NtYW4iLCJ0aW1lIjoxNzE1NjcwNTA2NTA1LCJleHAiOjE3MTU2OTkzMDYsImlhdCI6MTcxNTY3MDUwNiwibmJmIjoxNzE1NjcwNTA2fQ.0nQW7HxZkGBBwR7jR_MIy61FD-UkaVrPkB5cTcoeGd4
     """
+    
+    enum Pusher {
+        static let app_id = "962207"
+        static let key = "fd4d4731402adac340ad"
+        static let secret = "fd97f4ac7fddf699759d"
+        static let cluster = "ap2"
+    }
 }
 final class NetworkClient: NSObject {
     static let shared = NetworkClient()

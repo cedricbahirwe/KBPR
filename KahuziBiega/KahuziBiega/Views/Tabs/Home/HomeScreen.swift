@@ -19,6 +19,7 @@ struct HomeScreen: View {
     @State private var showSOSPopup = false
     @State private var showSOSAlert = false
     @State private var profileItem: KBUser?
+    @EnvironmentObject private var pusherManager: KBPusherManager
     
     var body: some View {
         ZStack {
@@ -140,6 +141,7 @@ struct HomeScreen: View {
         .loadingIndicator(isVisible: incidentsStore.isLoading)
         .task {
             await incidentsStore.getIncidents()
+            KBPusherManager.shared.connect()
         }
         .fullScreenCover(isPresented: $showSheet) {
             IncidentCreationView()
@@ -149,6 +151,19 @@ struct HomeScreen: View {
             .presentationDetents([.medium])
             .presentationDragIndicator(.visible)
         }
+        .onReceive(pusherManager.emergencyDelegate, perform: { event in
+            if event.name == .sosStart {
+                AudioManager.shared.startAudio()
+                // ply sound something
+                // show Ui may beAudioManager
+            }
+            
+            if event.name == .sosEnd {
+                AudioManager.shared.stopAudio()
+                // stop sound sound something
+                // dismiss ui
+            }
+        })
     }
 }
 
