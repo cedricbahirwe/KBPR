@@ -1,5 +1,5 @@
 {
-  "originHash" : "27688a3ecbcc9861deb520e427421cb47c61aa3e7c10d3601f864f18d30f72dd",
+  "originHash" : "5b83f75e441091cdaf33c9193c06e0201e6bb6f2ffb71cae1b60a3d62d84afcb",
   "pins" : [
     {
       "identity" : "abseil-cpp-binary",
@@ -11,12 +11,39 @@
       }
     },
     {
+      "identity" : "anycodable",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/Flight-School/AnyCodable",
+      "state" : {
+        "revision" : "862808b2070cd908cb04f9aafe7de83d35f81b05",
+        "version" : "0.6.7"
+      }
+    },
+    {
+      "identity" : "apiota",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/danielrbrowne/APIota",
+      "state" : {
+        "revision" : "590dd92231b0428f2b6910f856845d1895c58af9",
+        "version" : "0.2.0"
+      }
+    },
+    {
       "identity" : "app-check",
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/google/app-check.git",
       "state" : {
         "revision" : "076b241a625e25eac22f8849be256dfb960fcdfe",
         "version" : "10.19.1"
+      }
+    },
+    {
+      "identity" : "cryptoswift",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/krzyzanowskim/CryptoSwift",
+      "state" : {
+        "revision" : "c9c3df6ab812de32bae61fc0cd1bf6d45170ebf0",
+        "version" : "1.8.2"
       }
     },
     {
@@ -164,6 +191,14 @@
       }
     },
     {
+      "identity" : "pusher-http-swift",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/pusher/pusher-http-swift.git",
+      "state" : {
+        "revision" : "1b2d6e9d41c92485e20bbbc8fabe108edd4cdaee"
+      }
+    },
+    {
       "identity" : "pusher-websocket-swift",
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/pusher/pusher-websocket-swift.git",
@@ -191,6 +226,15 @@
       }
     },
     {
+      "identity" : "swift-crypto",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/apple/swift-crypto",
+      "state" : {
+        "revision" : "ddb07e896a2a8af79512543b1c7eb9797f8898a5",
+        "version" : "1.1.7"
+      }
+    },
+    {
       "identity" : "swift-protobuf",
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/apple/swift-protobuf.git",
@@ -204,8 +248,7 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/bitmark-inc/tweetnacl-swiftwrap",
       "state" : {
-        "revision" : "f8fd111642bf2336b11ef9ea828510693106e954",
-        "version" : "1.1.0"
+        "revision" : "f8fd111642bf2336b11ef9ea828510693106e954"
       }
     }
   ],

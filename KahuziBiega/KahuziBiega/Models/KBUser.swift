@@ -17,6 +17,15 @@ struct KBUserData: Decodable {
     let data: KBUser
 }
 
+struct KBUserShort: Codable {
+    let id: UUID
+    let username: String
+    let firstName: String
+    let lastName: String
+    let phoneNumber: String?
+    let badgeNumber: String?
+    var profilePic: String?
+}
 struct KBUser: Identifiable, Codable {
     var id: UUID
     var username: String
@@ -55,6 +64,16 @@ struct KBUser: Identifiable, Codable {
 }
 
 extension KBUser {
+    func toShort() -> KBUserShort {
+        KBUserShort(id: id,
+                    username: username,
+                    firstName: firstName,
+                    lastName: lastName,
+                    phoneNumber: phoneNumber,
+                    badgeNumber: badgeNumber,
+                    profilePic: profilePic)
+    }
+    
     static let example = KBUser(
         id: UUID(),
         username: "john_doe",

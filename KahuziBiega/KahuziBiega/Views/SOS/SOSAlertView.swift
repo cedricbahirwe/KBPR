@@ -10,8 +10,7 @@ import AVFoundation
 
 struct SOSAlertView: View {
     var onCancel: () -> Void
-    @State var audioPlayer: AVAudioPlayer!
-    let audioDelegate = AudioDelegate()
+    private let audioManager = AudioManager()
     var body: some View {
         VStack {
             Spacer()
@@ -54,41 +53,52 @@ struct SOSAlertView: View {
         .background(.black, ignoresSafeAreaEdges: .all)
         .foregroundStyle(.white)
         .task {
+            audioManager.startAudio()
+            await KBPusherManager.shared.publishSOSEvent()
+            // send data to channels
+        }
+        .onDisappear() {
+            KBPusherClient.shared.stopEvent()
+        }
+    }
+}
+
+extension SOSAlertView {
+    class AudioManager: NSObject, AVAudioPlayerDelegate {
+        private var audioPlayer: AVAudioPlayer!
+        
+        func startAudio() {
             do {
-                AVAudioSession.sharedInstance().outputVolume 
                 let audioSession = AVAudioSession.sharedInstance()
                 try audioSession.setCategory(.playback, mode: .default)
                 try audioSession.setActive(true)
-//                try audioSession.setVolume(1.0, options:.notifyOthersOnDeactivation)
-
                 
                 playAlarmSound()
             } catch {
                 print("Failed to set audio session category: \(error.localizedDescription)")
             }
         }
-    }
-    
-    private func playAlarmSound() {
-        do {
-            let alarmSoundURL = URL(filePath: Bundle.main.path(forResource: "alarm", ofType: "wav")!)
-            self.audioPlayer =  try AVAudioPlayer(contentsOf: alarmSoundURL)
-            self.audioPlayer.prepareToPlay()
-            self.audioPlayer.delegate = audioDelegate
-            self.audioPlayer.numberOfLoops = -1 // indefinitely playing
-            self.audioPlayer.play()
-            
-            MPVolumeView.setVolume(0.8) // 80 KB
-
-        } catch {
-            print("Failed to initialize AVAudioPlayer: \(error.localizedDescription)")
-        }
-    }
-}
-
-extension SOSAlertView {
-    class AudioDelegate: NSObject, AVAudioPlayerDelegate {
         
+        func stopAudio() {
+            self.audioPlayer?.stop()
+            self.audioPlayer = nil
+        }
+        
+        private func playAlarmSound() {
+            do {
+                let alarmSoundURL = URL(filePath: Bundle.main.path(forResource: "alarm", ofType: "wav")!)
+                self.audioPlayer =  try AVAudioPlayer(contentsOf: alarmSoundURL)
+                self.audioPlayer.prepareToPlay()
+                self.audioPlayer.delegate = self
+                self.audioPlayer.numberOfLoops = -1 // indefinitely playing
+                self.audioPlayer.play()
+                
+                MPVolumeView.setVolume(0.8) // 80 %
+
+            } catch {
+                print("Failed to initialize AVAudioPlayer: \(error.localizedDescription)")
+            }
+        }
     }
 }
 

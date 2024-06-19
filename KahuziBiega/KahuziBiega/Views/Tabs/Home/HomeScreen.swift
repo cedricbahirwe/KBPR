@@ -18,6 +18,7 @@ struct HomeScreen: View {
     
     @State private var showSOSPopup = false
     @State private var showSOSAlert = false
+    @State private var profileItem: KBUser?
     
     var body: some View {
         ZStack {
@@ -123,7 +124,7 @@ struct HomeScreen: View {
 //                }
                 
                 Button(action: {
-                    NotificationCenter.default.post(name: .unauthorizedRequest, object: nil)
+                    profileItem = LocalStorage.getSessionUser()
                 }) {
                     
                     KBImage(LocalStorage.getSessionUser()?.profilePic) {
@@ -142,6 +143,11 @@ struct HomeScreen: View {
         }
         .fullScreenCover(isPresented: $showSheet) {
             IncidentCreationView()
+        }
+        .sheet(item: $profileItem) { profile in
+           KBProfileView(user: profile)
+            .presentationDetents([.medium])
+            .presentationDragIndicator(.visible)
         }
     }
 }
