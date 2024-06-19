@@ -23,7 +23,7 @@ class KBPusherManager: NSObject, ObservableObject {
     private let decoder = JSONDecoder()
     
     
-    let emergencyDelegate = PassthroughSubject<(EmergencyAlert,name: KBPusherEventName), Never>()
+    let emergencyDelegate = PassthroughSubject<(alert: EmergencyAlert,name: KBPusherEventName), Never>()
 //    var emergencyDelegate: EmergencyAlertDelegate?
     
     func connect() {
@@ -149,7 +149,6 @@ extension KBPusherManager {
                 let alert = try decodeEmergencyEvent(event).alert
                 guard sessionUser.id != alert.sender.id else { return }
                 emergencyDelegate.send((alert, .sosStart))
-//                emergencyDelegate?.didReceiveAlert(alert, event: .sosStart)
             } catch {
                 print("Final error", error.localizedDescription)
             }

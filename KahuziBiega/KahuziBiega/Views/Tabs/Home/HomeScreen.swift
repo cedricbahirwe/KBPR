@@ -10,14 +10,14 @@ import SwiftUI
 struct HomeScreen: View {
     @EnvironmentObject private var incidentsStore: IncidentsStore
     @State private var showSheet = false
-
+    
     private var recentIncidentReports: [KBIncident] {
         incidentsStore.getRecents(max: 6)
     }
     
     
     @State private var showSOSPopup = false
-    @State private var showSOSAlert = false
+    @State private var showSOSAlert: SOSAlertCreator?
     @State private var profileItem: KBUser?
     @EnvironmentObject private var pusherManager: KBPusherManager
     
@@ -87,17 +87,19 @@ struct HomeScreen: View {
                     showSOSPopup = false
                 } onActivate: {
                     showSOSPopup = false
-                    showSOSAlert = true
+                    showSOSAlert = .me()
                 }
-
+                
             }
         }
-        .fullScreenCover(isPresented: $showSOSAlert, content: {
-            SOSAlertView {
-                // Stop triggering alerts
-                showSOSAlert = false
-            }
-        })
+        .fullScreenCover(item: $showSOSAlert) { creator in
+            SOSAlertView(creator: creator, onCancel: {
+                if case .other = creator {
+                    AudioManager.shared.stopAudio()
+                }
+                showSOSAlert = nil
+            })
+        }
         .navigationTitle("Kauzi Biega Park")
         .toolbarTitleDisplayMode(.inline)
         .toolbar {
@@ -119,11 +121,6 @@ struct HomeScreen: View {
             }
             
             ToolbarItemGroup(placement: .topBarTrailing) {
-//                Button(action: {
-//                }) {
-//                    Image(.radioTower)
-//                }
-                
                 Button(action: {
                     profileItem = LocalStorage.getSessionUser()
                 }) {
@@ -147,19 +144,21 @@ struct HomeScreen: View {
             IncidentCreationView()
         }
         .sheet(item: $profileItem) { profile in
-           KBProfileView(user: profile)
-            .presentationDetents([.medium])
-            .presentationDragIndicator(.visible)
+            KBProfileView(user: profile)
+                .presentationDetents([.medium])
+                .presentationDragIndicator(.visible)
         }
         .onReceive(pusherManager.emergencyDelegate, perform: { event in
             if event.name == .sosStart {
                 AudioManager.shared.startAudio()
+                showSOSAlert = .other(event.alert.sender)
                 // ply sound something
                 // show Ui may beAudioManager
             }
             
             if event.name == .sosEnd {
                 AudioManager.shared.stopAudio()
+                showSOSAlert = nil
                 // stop sound sound something
                 // dismiss ui
             }

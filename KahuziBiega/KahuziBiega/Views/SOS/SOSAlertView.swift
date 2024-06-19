@@ -8,7 +8,24 @@
 import SwiftUI
 import AVFoundation
 
+enum SOSAlertCreator: Identifiable {
+    var id: UUID {
+        switch self {
+        case .me(let id):
+            return id
+        case .other(let user):
+            return user.id
+        }
+    }
+    
+    case me(id: UUID = UUID()), other(KBUserShort)
+}
 struct SOSAlertView: View {
+    var creator: SOSAlertCreator
+    private var isReceiver: Bool {
+        if case .other = creator { return true } else { return false }
+    }
+    
     var onCancel: () -> Void
     private let audioManager = AudioManager()
     var body: some View {
@@ -19,7 +36,7 @@ struct SOSAlertView: View {
                 .font(.largeTitle.bold())
                 .foregroundStyle(.thickMaterial)
             
-            Text("Notifying...")
+            Text(isReceiver ? "Emergency Notification Received" : "Notifying...")
                 .foregroundStyle(.red)
                 .opacity(0.75)
             
@@ -31,7 +48,7 @@ struct SOSAlertView: View {
             
             Spacer()
             
-            Text("Stay where you are, SOS\nResponders will be notified of your location.")
+            Text(isReceiver ? "" : "Stay where you are, SOS\nResponders will be notified of your location.")
                 .font(.title2)
                 .frame(maxWidth: .infinity, alignment: .leading)
             
@@ -40,7 +57,7 @@ struct SOSAlertView: View {
             Button(action: {
                 onCancel()
             }) {
-                Text("Cancel Alert")
+                Text(isReceiver ? "Ignore Alert" : "Cancel Alert")
                     .foregroundStyle(.white)
                     .bold()
                     .frame(maxWidth: .infinity)
@@ -53,18 +70,21 @@ struct SOSAlertView: View {
         .background(.black, ignoresSafeAreaEdges: .all)
         .foregroundStyle(.white)
         .task {
-            audioManager.startAudio()
-            await KBPusherManager.shared.publishSOSEvent()
-            // send data to channels
+            if !isReceiver {
+                audioManager.startAudio()
+                await KBPusherManager.shared.publishSOSEvent()
+            }
         }
         .onDisappear() {
-            KBPusherManager.shared.stopSOSEvent()
+            if !isReceiver {
+                KBPusherManager.shared.stopSOSEvent()
+            }
         }
     }
 }
 
 #Preview { //}(traits: .sizeThatFitsLayout) {
-    SOSAlertView(onCancel: {})
+    SOSAlertView(creator: .me(), onCancel: {})
 }
 
 
