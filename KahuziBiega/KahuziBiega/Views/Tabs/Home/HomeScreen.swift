@@ -169,9 +169,7 @@ struct HomeScreen: View {
             }
             
             if event.name == .sosResponse {
-//                AudioManager.shared.stopAudio()
                 showSOSAlert = nil
-                print("trigger")
                 showMapView = true
             }
         })
