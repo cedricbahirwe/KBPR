@@ -28,6 +28,7 @@ struct SOSAlertView: View {
     }
     
     var onCancel: () -> Void
+    var onRespond: () -> Void
     private let audioManager = AudioManager()
     var body: some View {
         VStack {
@@ -35,7 +36,6 @@ struct SOSAlertView: View {
             
             Text("SOS Alert")
                 .font(.largeTitle.bold())
-                .foregroundStyle(.thickMaterial)
             
             Text(isReceiver ? "Emergency Notification Received" : "Notifying...")
                 .foregroundStyle(.red)
@@ -76,8 +76,7 @@ struct SOSAlertView: View {
                 
                 if isReceiver {
                     Button(action: {
-                        // Dismiss
-                        // Go to make with coordinates and user info
+                        onRespond()
                     }) {
                         Text("Respond")
                             .foregroundStyle(.white)
@@ -90,6 +89,9 @@ struct SOSAlertView: View {
                 
                 Button(action: {
                     onCancel()
+                    if !isReceiver {
+                        KBPusherManager.shared.stopSOSEvent()
+                    }
                 }) {
                     Text(isReceiver ? "Ignore Alert" : "Cancel Alert")
                         .foregroundStyle(.white)
@@ -109,19 +111,14 @@ struct SOSAlertView: View {
 #if !targetEnvironment(simulator)
                 audioManager.startAudio()
 #endif
-                await KBPusherManager.shared.publishSOSEvent()
-            }
-        }
-        .onDisappear() {
-            if !isReceiver {
-                KBPusherManager.shared.stopSOSEvent()
+                KBPusherManager.shared.publishSOSEvent()
             }
         }
     }
 }
 
 #Preview { //}(traits: .sizeThatFitsLayout) {
-    SOSAlertView(creator: .me(), onCancel: {})
+    SOSAlertView(creator: .me(), onCancel: {}, onRespond: {})
 }
 
 

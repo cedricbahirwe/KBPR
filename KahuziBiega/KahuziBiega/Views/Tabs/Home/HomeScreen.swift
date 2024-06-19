@@ -16,6 +16,7 @@ struct HomeScreen: View {
     }
     
     
+    @State private var showMapView = false
     @State private var showSOSPopup = false
     @State private var showSOSAlert: SOSAlertCreator?
     @State private var profileItem: KBUser?
@@ -98,17 +99,25 @@ struct HomeScreen: View {
                     AudioManager.shared.stopAudio()
                 }
                 showSOSAlert = nil
+            }, onRespond: {
+                AudioManager.shared.stopAudio()
+                KBPusherManager.shared.respondSOSEvent()
+                showSOSAlert = nil
+                showMapView = true // pass later coordinates
             })
         }
         .navigationTitle("Kauzi Biega Park")
         .toolbarTitleDisplayMode(.inline)
+        .navigationDestination(isPresented: $showMapView, destination: {
+            MapScreen()
+        })
         .toolbar {
             
             ToolbarItem(placement: .topBarLeading) {
                 HStack(spacing: 16) {
-                    NavigationLink {
-                        MapScreen()
-                    } label: {
+                    Button(action: {
+                        showMapView = true
+                    }) {
                         Image(.mapMarker)
                     }
                     
@@ -152,15 +161,18 @@ struct HomeScreen: View {
             if event.name == .sosStart {
                 AudioManager.shared.startAudio()
                 showSOSAlert = .other(event.alert.sender)
-                // ply sound something
-                // show Ui may beAudioManager
             }
             
             if event.name == .sosEnd {
                 AudioManager.shared.stopAudio()
                 showSOSAlert = nil
-                // stop sound sound something
-                // dismiss ui
+            }
+            
+            if event.name == .sosResponse {
+//                AudioManager.shared.stopAudio()
+                showSOSAlert = nil
+                print("trigger")
+                showMapView = true
             }
         })
     }

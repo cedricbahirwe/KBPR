@@ -106,8 +106,9 @@ struct SignUpScreen: View {
                 .padding()
             }
         }
+        .backgroundStyle(.background)
         .background {
-            Color.white.onTapGesture(perform: hideKeyboard)
+            Color.white.opacity(0.001).onTapGesture(perform: hideKeyboard)
         }
         .safeAreaInset(edge: .bottom) {
             HStack {

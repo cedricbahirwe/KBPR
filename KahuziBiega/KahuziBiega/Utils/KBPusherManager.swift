@@ -53,7 +53,7 @@ class KBPusherManager: NSObject, ObservableObject {
         pusherClient = KBPusherClient(
             cluster,
             secret: secret,
-            key: key, appId: Int(appID)!
+            key: key, appId: appID
         )
         
         
@@ -110,7 +110,7 @@ extension KBPusherManager: PusherDelegate {
 
 extension KBPusherManager {
     // Trigger SOS emergency
-    func publishSOSEvent() async {
+    func publishSOSEvent() {
         guard var sender = LocalStorage.getSessionUser()?.toShort() else { return }
         sender.gps = .init(latitude: -1.9235236, longitude: 95.251512)
         let data = SOSEmergency(
@@ -120,6 +120,19 @@ extension KBPusherManager {
         )
         let event = KBPusherEvent(
             name: .sosStart,
+            channel: .emergencies,
+            data: data
+        )
+        pusherClient.triggerEvent(event: event)
+    }
+    
+    func respondSOSEvent() {
+        guard var sender = LocalStorage.getSessionUser()?.toShort() else { return }
+        // will also included the user location
+        sender.gps = .init(latitude: -1.03, longitude: 99.2)
+        let data = SOSEmergency(sender: sender)
+        let event = KBPusherEvent(
+            name: .sosResponse,
             channel: .emergencies,
             data: data
         )
@@ -161,6 +174,20 @@ extension KBPusherManager {
                 let alert = try decodeEmergencyEvent(event).alert
                 guard sessionUser.id != alert.sender.id else { return }
                 emergencyDelegate.send((alert, .sosEnd))
+            } catch {
+                print("Final error", error.localizedDescription)
+            }
+           
+        })
+        
+        // Emergency responded to, event received
+        myChannel.bind(eventName: .sosResponse, eventCallback: { [weak self ] (event: PusherEvent) in
+            guard let self, let sessionUser = LocalStorage.getSessionUser() else { return }
+
+            do {
+                let alert = try decodeEmergencyEvent(event).alert
+                guard sessionUser.id != alert.sender.id else { return }
+                emergencyDelegate.send((alert, .sosResponse))
             } catch {
                 print("Final error", error.localizedDescription)
             }
