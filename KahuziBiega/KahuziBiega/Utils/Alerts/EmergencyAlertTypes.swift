@@ -6,6 +6,12 @@
 //
 
 import Foundation
+import CoreLocation
+
+struct KBGPS: Codable {
+    let latitude: Double
+    let longitude: Double
+}
 
 protocol EmergencyAlert: Codable {
     var id: UUID { get }

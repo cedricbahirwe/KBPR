@@ -15,7 +15,7 @@ enum Constants {
     """
     
     enum Pusher {
-        static let app_id = "962207"
+        static let appID = 962207
         static let key = "fd4d4731402adac340ad"
         static let secret = "fd97f4ac7fddf699759d"
         static let cluster = "ap2"

@@ -23,9 +23,11 @@ struct KBUserShort: Codable {
     let firstName: String
     let lastName: String
     let phoneNumber: String?
-    let badgeNumber: String?
+    let badgeNumber: String
     var profilePic: String?
+    var gps: KBGPS?
 }
+
 struct KBUser: Identifiable, Codable {
     var id: UUID
     var username: String

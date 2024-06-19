@@ -13,7 +13,7 @@ import Combine
 class KBPusherManager: NSObject, ObservableObject {
     static let shared = KBPusherManager()
     
-    private let app_id = Constants.Pusher.app_id
+    private let appID = Constants.Pusher.appID
     private let key = Constants.Pusher.key
     private let secret = Constants.Pusher.secret
     private let cluster = Constants.Pusher.cluster
@@ -22,9 +22,7 @@ class KBPusherManager: NSObject, ObservableObject {
     private var pusherClient: KBPusherClient! = nil
     private let decoder = JSONDecoder()
     
-    
     let emergencyDelegate = PassthroughSubject<(alert: EmergencyAlert,name: KBPusherEventName), Never>()
-//    var emergencyDelegate: EmergencyAlertDelegate?
     
     func connect() {
         guard pusher != nil else {
@@ -43,7 +41,7 @@ class KBPusherManager: NSObject, ObservableObject {
         // Only use your secret here for testing or if you're sure that there's
         // no security risk
         let options = PusherClientOptions(host: .cluster(cluster))
-        let pusherClientOptions = PusherClientOptions(authMethod: .inline(secret: secret))
+//        let pusherClientOptions = PusherClientOptions(authMethod: .inline(secret: secret))
         pusher = Pusher(key: key, options: options)
       
         pusher.delegate = self
@@ -55,7 +53,7 @@ class KBPusherManager: NSObject, ObservableObject {
         pusherClient = KBPusherClient(
             cluster,
             secret: secret,
-            key: key, appId: Int(app_id)!
+            key: key, appId: Int(appID)!
         )
         
         
@@ -113,11 +111,12 @@ extension KBPusherManager: PusherDelegate {
 extension KBPusherManager {
     // Trigger SOS emergency
     func publishSOSEvent() async {
-        guard let sender = LocalStorage.getSessionUser() else { return }
+        guard var sender = LocalStorage.getSessionUser()?.toShort() else { return }
+        sender.gps = .init(latitude: -1.9235236, longitude: 95.251512)
         let data = SOSEmergency(
             title: "Park Ranger in distress",
             description: "Need urgeny assistance",
-            sender: sender.toShort()
+            sender: sender
         )
         let event = KBPusherEvent(
             name: .sosStart,

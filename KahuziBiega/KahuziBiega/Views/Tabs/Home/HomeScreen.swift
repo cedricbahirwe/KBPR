@@ -224,28 +224,28 @@ struct ReportRowView: View {
 //VStack(alignment: .leading, spacing: 0) {
 //    Text("Park Statistics").bold()
 //        .padding()
-//    
+//
 //    VStack(alignment: .leading, spacing: 5) {
 //        Divider()
 //        Text("138 \(Text("Visitors today").font(.title3).foregroundStyle(.secondary).baselineOffset(5))")
 //            .font(.largeTitle.bold())
 //    }
 //    .padding(.horizontal)
-//    
+//
 //    VStack(alignment: .leading, spacing: 5) {
 //        Divider()
-//        
+//
 //        Text(
 //            "015 \(Text("Incidents reported today").font(.title3).foregroundStyle(.secondary).baselineOffset(5))"
 //        )
 //        .font(.largeTitle.bold())
 //    }
 //    .padding(.horizontal)
-//    
+//
 ////                    Map()
 //    Image(.heatMap)
 //        .frame(height: 200)
-//    
+//
 //}
 //.clipShape(.rect(cornerRadius: 15.0))
 //.background(

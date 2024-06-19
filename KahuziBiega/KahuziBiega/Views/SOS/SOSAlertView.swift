@@ -20,6 +20,7 @@ enum SOSAlertCreator: Identifiable {
     
     case me(id: UUID = UUID()), other(KBUserShort)
 }
+
 struct SOSAlertView: View {
     var creator: SOSAlertCreator
     private var isReceiver: Bool {
@@ -48,21 +49,55 @@ struct SOSAlertView: View {
             
             Spacer()
             
-            Text(isReceiver ? "" : "Stay where you are, SOS\nResponders will be notified of your location.")
-                .font(.title2)
-                .frame(maxWidth: .infinity, alignment: .leading)
+            Group {
+                if case let .other(user) = creator {
+                    VStack(alignment: .leading) {
+                        Text("Alert By: \(user.firstName) \(user.lastName)")
+                        Text("Badge Number: \(user.badgeNumber)")
+                        if let coordinate = user.gps {
+                            Text("Coordinate: \(coordinate.latitude.formatted()), \(coordinate.longitude.formatted())")
+                        }
+                        
+                    }
+                    .frame(maxWidth: .infinity, alignment: .leading)
+
+                } else {
+                    Text("Stay where you are, SOS\nResponders will be notified of your location.")
+                }
+            }
+            .font(.title2)
+            .frame(maxWidth: .infinity, alignment: .leading)
+
+           
             
             Spacer()
             
-            Button(action: {
-                onCancel()
-            }) {
-                Text(isReceiver ? "Ignore Alert" : "Cancel Alert")
-                    .foregroundStyle(.white)
-                    .bold()
-                    .frame(maxWidth: .infinity)
-                    .frame(height: 60)
-                    .background(.red, in: .capsule)
+            VStack(spacing: 15) {
+                
+                if isReceiver {
+                    Button(action: {
+                        // Dismiss
+                        // Go to make with coordinates and user info
+                    }) {
+                        Text("Respond")
+                            .foregroundStyle(.white)
+                            .bold()
+                            .frame(maxWidth: .infinity)
+                            .frame(height: 60)
+                            .background(.tint, in: .capsule)
+                    }
+                }
+                
+                Button(action: {
+                    onCancel()
+                }) {
+                    Text(isReceiver ? "Ignore Alert" : "Cancel Alert")
+                        .foregroundStyle(.white)
+                        .bold()
+                        .frame(maxWidth: .infinity)
+                        .frame(height: 60)
+                        .background(.red, in: .capsule)
+                }
             }
         }
         .padding(20)
@@ -71,7 +106,9 @@ struct SOSAlertView: View {
         .foregroundStyle(.white)
         .task {
             if !isReceiver {
+#if !targetEnvironment(simulator)
                 audioManager.startAudio()
+#endif
                 await KBPusherManager.shared.publishSOSEvent()
             }
         }
