@@ -35,7 +35,7 @@ final class AuthenticationStore: ObservableObject {
             return response.data
         } catch let error as APIError {
             isLoading = false
-            print("Failed to login, Internal Error:", error.message)
+            print("Failed to login, Internal Error:", error.localizedDescription)
             throw error
         } catch {
             isLoading = false
@@ -78,7 +78,7 @@ final class AuthenticationStore: ObservableObject {
             return response.data
         } catch let error as APIError {
             isLoading = false
-            print("Failed to register, Internal Error:", error.message)
+            print("Failed to register, Internal Error:", error.localizedDescription)
             throw error
         } catch {
             isLoading = false
@@ -146,7 +146,7 @@ final class AuthenticationStore: ObservableObject {
             return response.status
         } catch let error as APIError {
             isLoading = false
-            print("Failed to check user status, Internal Error:", error.message)
+            print("Failed to check user status, Internal Error:", error.localizedDescription)
             throw error
         } catch {
             isLoading = false

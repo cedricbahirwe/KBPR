@@ -38,6 +38,10 @@ struct SignUpScreen: View {
     @State private var isUploadingPic = false
     @State private var uploadProgress = 0.0
     
+    @State private var alertItem: KBAlert?
+    @State private var showAlert = false
+    
+    
     var body: some View {
         ZStack(alignment: .top) {
             Image(.signupHeader)
@@ -90,6 +94,10 @@ struct SignUpScreen: View {
                 Spacer()
             }
             .frame(maxWidth: .infinity, maxHeight: .infinity)
+            .alert(alertItem?.title ?? "", isPresented: $showAlert, presenting: alertItem) { _ in
+            } message: {article in
+                Text(article.description)
+            }
            
             
             ActivityIndicator(isVisible: authVM.isLoading, interactive: true)
@@ -176,7 +184,8 @@ struct SignUpScreen: View {
                 navPath = [destination]
             } catch {
                 print("Not User Registered")
-//                self.alerm
+                self.alertItem = .init(description: error.localizedDescription)
+                self.showAlert = true
             }
         }
     }

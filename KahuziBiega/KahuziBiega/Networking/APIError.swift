@@ -8,7 +8,7 @@
 import Foundation
 
 // TODO: Customize Error Messages
-enum APIError: Error {
+enum APIError: LocalizedError {
     case invalidURL
     case requestFailed(Error)
     case invalidResponse
@@ -19,13 +19,27 @@ enum APIError: Error {
     case unknowStatus(Int)
     
     case unableToDecodeResponse(Error)
+    case knownError(String)
     
-    var message: String {
+    var errorDescription: String? {
         switch self {
         case .unableToDecodeResponse(let error),
                 .requestFailed(let error):
             return error.localizedDescription
-        default: return localizedDescription
+        case .knownError(let message):
+            return message
+        case .invalidURL:
+            return "Invalid URL"
+        case .invalidResponse:
+            return "A bad response was receive, try again later"
+        case .invalidData:
+            return "Invalid data, try again later"
+        case .badRequest(_):
+            return "Bad Rquest, try again later"
+        case .serverError(_):
+            return "Unknown Error ta, try again later"
+        case .unknowStatus(_):
+            return "Uknown Status, try again later"
         }
     }
 }

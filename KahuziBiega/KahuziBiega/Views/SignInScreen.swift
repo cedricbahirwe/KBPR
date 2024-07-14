@@ -14,6 +14,8 @@ struct SignInScreen: View {
     @EnvironmentObject private var authStore: AuthenticationStore
     @AppStorage(.isLoggedIn) private var isLoggedIn: Bool = false
     @State private var loginModel = LoginModel.admin
+    @State private var alertItem: KBAlert?
+    @State private var showAlert = false
     
     var body: some View {
         ZStack {
@@ -65,6 +67,10 @@ struct SignInScreen: View {
                 
                 Spacer()
             }
+            .alert(alertItem?.title ?? "", isPresented: $showAlert, presenting: alertItem) { _ in
+            } message: {article in
+                Text(article.description)
+            }
             
             ActivityIndicator(isVisible: authStore.isLoading, interactive: true)
         }
@@ -88,6 +94,15 @@ struct SignInScreen: View {
         }
         .ignoresSafeArea()
         .toolbar(.hidden, for: .navigationBar)
+//        .alert(alert?.title ?? "", isPresented: $showAlert, presenting: alertItem) { alert in
+//            Button("Cancel", role: .cancel) {}
+//        } message: { alert in
+//            Text(alert.message)
+//        }
+//        .alert("", isPresented: $showAlert, presenting: alert) { alert in
+//            Alert(title: Text(alert.title),
+//                  message: Text(alert.message))
+//        }
     }
     
     private func performLogin() {
@@ -106,7 +121,8 @@ struct SignInScreen: View {
                     navPath = [destination]
                 }
             } catch {
-                
+                self.alertItem = .init(description: error.localizedDescription)
+                self.showAlert = true
             }
         }
     }
@@ -143,5 +159,16 @@ extension SignInScreen {
             }
             return nil // No validation errors
         }
+    }
+}
+
+struct KBAlert: Identifiable {
+    var id: UUID { UUID() }
+    let title: String
+    let description: String
+    
+    init(title: String = "Error", description: String) {
+        self.title = title
+        self.description = description
     }
 }

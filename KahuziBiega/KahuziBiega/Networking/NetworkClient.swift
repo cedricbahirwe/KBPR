@@ -8,11 +8,12 @@
 import Foundation
 
 enum Constants {
-    static let baseURL = URL(string: "https://1e8d-102-22-141-31.ngrok-free.app")!
+    /// App URL: use ngrok http http://localhost:3000 to genrate when this one expires
+    static let baseURL = URL(string: "https://2fdb-102-22-141-31.ngrok-free.app")!
     
-    static let staticToken: String = """
-    eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjU4ZTY0OTI4LWI3N2MtNDUxNy05YTllLWRlODcyMjdhZjIwOSIsImVtYWlsIjoiZHJpb3NtYW4iLCJ0aW1lIjoxNzE1NjcwNTA2NTA1LCJleHAiOjE3MTU2OTkzMDYsImlhdCI6MTcxNTY3MDUwNiwibmJmIjoxNzE1NjcwNTA2fQ.0nQW7HxZkGBBwR7jR_MIy61FD-UkaVrPkB5cTcoeGd4
-    """
+//    static let staticToken: String = """
+//    eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjU4ZTY0OTI4LWI3N2MtNDUxNy05YTllLWRlODcyMjdhZjIwOSIsImVtYWlsIjoiZHJpb3NtYW4iLCJ0aW1lIjoxNzE1NjcwNTA2NTA1LCJleHAiOjE3MTU2OTkzMDYsImlhdCI6MTcxNTY3MDUwNiwibmJmIjoxNzE1NjcwNTA2fQ.0nQW7HxZkGBBwR7jR_MIy61FD-UkaVrPkB5cTcoeGd4
+//    """
     
     enum Pusher {
         static let appID = 962207
@@ -21,16 +22,12 @@ enum Constants {
         static let cluster = "ap2"
     }
 }
+
 final class NetworkClient: NSObject {
     static let shared = NetworkClient()
     
     private let baseURL = Constants.baseURL
-    
-    private var authorizationHeader: String {
-        LocalStorage.getString(.userToken) ??
-        Constants.staticToken
-    }
-    
+
     
     private override init() { }
     
@@ -40,7 +37,9 @@ final class NetworkClient: NSObject {
         }
         
         var request = URLRequest(url: url)
-        request.addValue("Bearer \(authorizationHeader)", forHTTPHeaderField: "Authorization")
+        if let token =  LocalStorage.getString(.userToken) {
+            request.addValue("Bearer \(token)", forHTTPHeaderField: "Authorization")
+        }
         request.httpMethod = endpoint.method.name
         return request
     }
@@ -50,16 +49,16 @@ final class NetworkClient: NSObject {
         let encodedData = try JSONEncoder().encode(content)
         
         do {
-            print("Start Upload")
+            print("===Posting Request===")
             let (data, response) = try await URLSession.shared.upload(
                 for: request,
                 from: encodedData,
                 delegate: self
             )
             
-            print("Finish Upload")
+            print("===Finish Posting===")
             
-            try validateResponse(response)
+            try validateResponse(response, data: data)
             try debugResponse(data)
             
             do {
@@ -88,7 +87,7 @@ final class NetworkClient: NSObject {
             
             print("Finish Update")
             
-            try validateResponse(response)
+            try validateResponse(response, data: data)
             
             try debugResponse(data)
             
@@ -112,7 +111,7 @@ final class NetworkClient: NSObject {
             let (data, response) = try await URLSession.shared.data(for: request)
             
             print("Start finish getting")
-            try validateResponse(response)
+            try validateResponse(response, data: data)
             
             try debugResponse(data)
             
@@ -127,14 +126,14 @@ final class NetworkClient: NSObject {
     
     private func debugResponse(_ data: Data) throws {
         let content = try JSONSerialization.jsonObject(with: data, options: [])
-        if let jsonObject: Any = content as? [[String: Any]] ?? content as? [String: Any] {
+        if let jsonObject: Any = (content as? [[String: Any]]) ?? (content as? [String: Any]) {
             print("Response JSON:", jsonObject)
         } else  {
             print("Failed to print JSON: ", String(data: data, encoding: .utf8) as Any)
         }
     }
     
-    private func validateResponse(_ response: URLResponse) throws {
+    private func validateResponse(_ response: URLResponse, data: Data) throws {
         guard let response = response as? HTTPURLResponse else {
             throw APIError.invalidResponse
         }
@@ -144,9 +143,15 @@ final class NetworkClient: NSObject {
         let statusCode = response.statusCode
         if statusCode == 401 {
             print("❌ Should log out")
+            let decoder = KBDecoder()
+            let errorDict = try decoder.decode([String: String].self, from: data)
+            if let errorMessage = errorDict["error"] {
+                throw APIError.knownError(errorMessage)
+            }
             DispatchQueue.main.async {
                 NotificationCenter.default.post(name: .unauthorizedRequest, object: nil)
             }
+            
             return
         }
         
