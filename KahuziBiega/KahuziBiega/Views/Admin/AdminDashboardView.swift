@@ -8,15 +8,30 @@
 import SwiftUI
 
 struct AdminDashboardView: View {
-    @State private var searchQuery = ""
+    @State private var searchText = ""
     @EnvironmentObject private var userStore: UserStore
     @State private var isLoading = false
     @State private var navPath: [ContentRoute] = []
     @State private var showSheet = false
+
+    //     Filtered users based on the search text
+//    var filteredUsers: Binding<[KBUser]> {
+//        $userStore.allUsers.fi
+//    }
+    
+    var filteredUsers: [Binding<KBUser>] {
+        let allUsersBinding = $userStore.allUsers
+        return allUsersBinding.filter { userBinding in
+            searchText.isEmpty || userBinding.wrappedValue.badgeNumber.localizedCaseInsensitiveContains(searchText) ||
+            userBinding.firstName.wrappedValue.localizedCaseInsensitiveContains(searchText) ||
+            userBinding.lastName.wrappedValue.localizedCaseInsensitiveContains(searchText)
+        }
+    }
     
     var body: some View {
         NavigationStack(path: $navPath) {
-            List($userStore.allUsers) { $user in
+//            List.init($userStore.allUsers) { $user in
+            List(filteredUsers) { $user in
                 NavigationLink {
                     AdminDetailView(user: $user)
                 } label: {
@@ -35,7 +50,7 @@ struct AdminDashboardView: View {
             }
             .navigationTitle("Users")
             .searchable(
-                text: $searchQuery,
+                text: $searchText,
                 placement: .navigationBarDrawer(displayMode: .always),
                 prompt: Text(
                     "Filter..."
