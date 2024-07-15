@@ -47,6 +47,10 @@ struct KahuziBiegaApp: App {
 import PushNotifications
 
 
+enum KBNotificationsInterests {
+    static let incidents = "incidents"
+}
+
 final class AppDelegate: NSObject, UIApplicationDelegate {
     let pushNotifications = PushNotifications.shared
     
@@ -54,9 +58,10 @@ final class AppDelegate: NSObject, UIApplicationDelegate {
                      didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey : Any]? = nil) -> Bool {
         FirebaseApp.configure()
         UNUserNotificationCenter.current().delegate = self
+        /// Below Instance ID found at  https://dashboard.pusher.com/beams/instances/
         self.pushNotifications.start(instanceId: "e05a8e13-930f-46f4-84b9-3585b6f50178")
         self.pushNotifications.registerForRemoteNotifications(options: [.alert, .sound])
-        try! self.pushNotifications.addDeviceInterest(interest: "incidents")
+        try! self.pushNotifications.addDeviceInterest(interest: KBNotificationsInterests.incidents)
         KBPusherManager.shared.configure()
         return true
     }

@@ -38,6 +38,7 @@ final class NetworkClient: NSObject {
         
         var request = URLRequest(url: url)
         if let token =  LocalStorage.getString(.userToken) {
+            print("===Token: ", token)
             request.addValue("Bearer \(token)", forHTTPHeaderField: "Authorization")
         }
         request.httpMethod = endpoint.method.name

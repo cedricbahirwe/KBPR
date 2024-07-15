@@ -14,11 +14,6 @@ struct AdminDashboardView: View {
     @State private var navPath: [ContentRoute] = []
     @State private var showSheet = false
 
-    //     Filtered users based on the search text
-//    var filteredUsers: Binding<[KBUser]> {
-//        $userStore.allUsers.fi
-//    }
-    
     var filteredUsers: [Binding<KBUser>] {
         let allUsersBinding = $userStore.allUsers
         return allUsersBinding.filter { userBinding in
@@ -30,7 +25,6 @@ struct AdminDashboardView: View {
     
     var body: some View {
         NavigationStack(path: $navPath) {
-//            List.init($userStore.allUsers) { $user in
             List(filteredUsers) { $user in
                 NavigationLink {
                     AdminDetailView(user: $user)
@@ -62,7 +56,6 @@ struct AdminDashboardView: View {
             .overlay {
                 if isLoading { ProgressView() }
             }
-//            .toolbar(.visible, for: .navigationBar)
             .toolbar {
                 ToolbarItem(placement: .topBarTrailing) {
                     Button("Add user", systemImage: "plus") { showSheet.toggle() }

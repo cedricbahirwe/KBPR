@@ -9,6 +9,7 @@ import Foundation
 import PusherSwift
 import Combine
 
+import PushNotifications
 
 class KBPusherManager: NSObject, ObservableObject {
     static let shared = KBPusherManager()
@@ -35,6 +36,8 @@ class KBPusherManager: NSObject, ObservableObject {
     func disconnect() {
         guard pusher != nil else { return }
         pusher.disconnect()
+        
+        try? PushNotifications.shared.removeDeviceInterest(interest: KBNotificationsInterests.incidents)
     }
     
     func configure() {
