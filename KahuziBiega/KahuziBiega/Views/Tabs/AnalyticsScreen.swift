@@ -120,7 +120,8 @@ struct AnalyticsScreen: View {
                 )
                 .annotation(position: .overlay) {
                     Text(incidentByCategory.value, format: .percent.precision(.fractionLength(1)))
-                        .font(.subheadline)
+                        .font(.footnote)
+                        .fontWeight(.semibold)
                         .foregroundStyle(.regularMaterial)
                 }
             }
