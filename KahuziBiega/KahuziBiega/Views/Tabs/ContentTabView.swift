@@ -26,6 +26,7 @@ struct ContentTabView: View {
                 .tag(2)
             
             AnalyticsScreen()
+                .embedInNavigation()
                 .tabItem { Image(systemName: "chart.bar.xaxis") }
                 .tag(3)
             

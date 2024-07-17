@@ -29,7 +29,8 @@ struct AnalyticsScreen: View {
         for incident in incidents {
             counts[incident.category, default: 0] += 1
         }
-        let result =  counts.map { IncidentByCategory(key: $0.key, value: $0.value / Double(incidents.count)) }
+        let valuesTotal = counts.values.reduce(0, +)
+        let result =  counts.map { IncidentByCategory(key: $0.key, value: $0.value / Double(valuesTotal)) }
         return result.sorted(by: { $0.value > $1.value })
     }
     
@@ -40,20 +41,68 @@ struct AnalyticsScreen: View {
     
     var incidentsOverTime: [IncidentsOverTime] {
         var results = [Date: Double]()
+        let calendar = Calendar.current
+        
         for incident in incidents {
-            results[incident.createAt, default: 0] += 1
+            let components = calendar.dateComponents([.year, .month], from: incident.createAt)
+            if let monthDate = calendar.date(from: components) {
+                results[monthDate, default: 0] += 1
+            }
         }
         
-        let result =  results.map { IncidentsOverTime(key: $0.key, value: $0.value) }
-        return result//.sorted(by: { $0.value > $1.value })
+        // We multiply by 30 for simulation purpose
+        var result = results.map { IncidentsOverTime(key: $0.key, value: $0.value * 30.0) }
+            .sorted { $0.key < $1.key }
+        
+        result[2].value = 150
+        
+        return result
+    }
+    
+    var months: [Date] {
+        let calendar = Calendar.current
+        let currentYear = calendar.component(.year, from: Date())
+        let months = (5...12).compactMap { calendar.date(from: DateComponents(year: currentYear, month: $0)) }
+        return months
     }
     
     var body: some View {
+        ScrollView {
+            VStack(alignment: .leading) {
+                incidentsByCategoryView
+                    .padding()
+                Divider()
+//                incidentsOverYear
+                    .padding()
+                
+                //            ForEach(incidentsOverTime, id: \.key) { i in
+                //                Text("\(i.key.formatted()) - \(i.value)")
+                //            }
+                
+                
+            }
+        }
+        .navigationTitle(Text("Analytics"))
+        .navigationBarTitleDisplayMode(.inline)
+    }
+    
+    func rangeCategory(for value: Double) -> String {
+        switch value {
+        case 0..<50:
+            return "Low"
+        case 50..<100:
+            return "Medium"
+        case 100..<150:
+            return "High"
+        default:
+            return "Highest"
+        }
+    }
+    
+    private var incidentsByCategoryView: some View {
         VStack(alignment: .leading) {
-            Text("Reported incidents by category")
-                .font(.title.bold())
-                .fontDesign(.serif)
-
+            titleLabel("Reported incidents by \(incidentsByCategory.count) category")
+            
             Chart(incidentsByCategory) { incidentByCategory in
                 SectorMark(
                     angle: .value(
@@ -69,50 +118,60 @@ struct AnalyticsScreen: View {
                         incidentByCategory.key.formatted
                     )
                 )
-            }
-            
-            .frame(maxHeight: 300)
-
-            Text("Reported incidents in the last 4 months")
-                .font(.title.bold())
-                .fontDesign(.serif)
-            
-            Chart {
-                ForEach(incidentsOverTime, id: \.key) { incident in
-                    BarMark(
-                        x: .value("Month", incident.key, unit: .month),
-                        y: .value("Incidents", incident.value * Double.random(in: 10...100))
-                    )
-                    .foregroundStyle(
-                        by: .value(
-                            Text(verbatim: incident.key.formatted()),
-                            incident.key, unit: .month
-                        )
-                    )
+                .annotation(position: .overlay) {
+                    Text(incidentByCategory.value, format: .percent.precision(.fractionLength(1)))
+                        .font(.subheadline)
+                        .foregroundStyle(.regularMaterial)
                 }
-                
-//                ForEach(incidents, id: \.createAt) { incident in
-//                    BarMark(
-//                        x: .value("City", incident.category.rawValue),// incident.createAt),
-//                        y: .value("Population", incident.createAt.timeIntervalSince1970)// incident.category.rawValue)
-//                    )
-//                }
             }
-            .frame(maxHeight: 300)
-            Spacer()
-            
-            
-//            FlippableView()
+            .frame(height: 280)
         }
-        .padding()
-        .onAppear() {
-            print("Receive", incidents)
+    }
+    
+    private var incidentsOverYear: some View {
+        VStack(alignment: .leading) {
+            titleLabel("Reported incidents in the last \(incidentsOverTime.count) months")
+            Chart {
+                ForEach(incidentsOverTime) { incident in
+                    BarMark(
+                        x: .value("Month",  incident.key, unit: .month),
+                        y: .value("Number of incidents", incident.value)
+                    )
+                    .cornerRadius(4)
+                    .foregroundStyle(by: .value("Number of incidents", rangeCategory(for: incident.value)))
+                }
+            }
+            .frame(height: 350)
+            .chartXAxisLabel("Number of incidents:")
+            .chartForegroundStyleScale([
+                "Low": .green,
+                "Medium": .blue,
+                "High": .orange,
+                "Highest": .red
+            ])
+            .chartXAxis {
+                AxisMarks(values: .stride(by: .month, count: 1)) {
+                    AxisValueLabel(centered: true)
+                    AxisGridLine()
+                    AxisTick()
+                }
+            }
         }
+    }
+    
+    private func titleLabel(_ title: String) -> some View {
+        Text(title)
+            .font(.title.bold())
+            .fontDesign(.serif)
     }
 }
 
 #Preview {
-    AnalyticsScreen()
+//    PieChartView(data: data)
+    ScrollView {
+        AnalyticsScreen()
+    }
+    //        .embedInNavigation()
 }
 
 import SwiftUI
@@ -163,7 +222,7 @@ struct FlippableView: View {
                             }
                         })
                         .cornerRadius(20)
-
+                    
                         .rotation3DEffect(
                             .degrees(180),
                             axis: (x: 0, y: 1, z: 0)
@@ -184,4 +243,3 @@ struct FlippableView: View {
         }
     }
 }
-
