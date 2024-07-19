@@ -7,7 +7,7 @@
 
 import SwiftUI
 import Charts
-
+import MapKit
 
 struct IncidentByCategory: Identifiable {
     var id: KBIncident.Category { key }
@@ -69,16 +69,26 @@ struct AnalyticsScreen: View {
     var body: some View {
         ScrollView {
             VStack(alignment: .leading) {
-                incidentsByCategoryView
-                    .padding()
+//                incidentsByCategoryView
+//                    .padding()
                 Divider()
 //                incidentsOverYear
-                    .padding()
+//                    .padding()
                 
-                //            ForEach(incidentsOverTime, id: \.key) { i in
-                //                Text("\(i.key.formatted()) - \(i.value)")
-                //            }
+                Divider()
                 
+                VStack(alignment: .leading) {
+                    titleLabel("Incident Distribution Map")
+                    
+                    Image("incidents-distribution")
+                        .resizable()
+                    
+                    Text("Geographic Distribution of Incident Frequency by Region")
+                        .foregroundStyle(.gray)
+                        .font(.callout).italic()
+                    
+                }
+                .padding(/*@START_MENU_TOKEN@*/EdgeInsets()/*@END_MENU_TOKEN@*/)
                 
             }
         }
