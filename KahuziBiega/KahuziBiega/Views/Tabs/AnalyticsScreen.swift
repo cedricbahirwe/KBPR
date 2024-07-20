@@ -69,27 +69,15 @@ struct AnalyticsScreen: View {
     var body: some View {
         ScrollView {
             VStack(alignment: .leading) {
-//                incidentsByCategoryView
-//                    .padding()
+                incidentsByCategoryView
+                    .padding()
                 Divider()
-//                incidentsOverYear
-//                    .padding()
+                incidentsOverYear
+                    .padding()
                 
                 Divider()
-                
-                VStack(alignment: .leading) {
-                    titleLabel("Incident Distribution Map")
-                    
-                    Image("incidents-distribution")
-                        .resizable()
-                    
-                    Text("Geographic Distribution of Incident Frequency by Region")
-                        .foregroundStyle(.gray)
-                        .font(.callout).italic()
-                    
-                }
-                .padding(/*@START_MENU_TOKEN@*/EdgeInsets()/*@END_MENU_TOKEN@*/)
-                
+               incidentsOnMap
+                                
             }
         }
         .navigationTitle(Text("Analytics"))
@@ -167,6 +155,32 @@ struct AnalyticsScreen: View {
                     AxisTick()
                 }
             }
+        }
+    }
+    
+    @StateObject private var mapVM = MapViewModel()
+
+    private var incidentsOnMap: some View {
+        VStack(alignment: .leading) {
+            titleLabel("Incident Distribution Map")
+                .padding(.horizontal)
+//            Image("incidents-distribution")
+//                .resizable()
+            MapView(viewModel: mapVM)
+                .frame(height: 400)
+                .overlay {
+                    if let overlayImage = mapVM.heatmapImage {
+                        Image(uiImage: overlayImage)
+                            .resizable()
+                            .allowsHitTesting(true)
+                    }
+                }
+            
+            Text("Geographic Distribution of Incident Frequency by Region")
+                .foregroundStyle(.gray)
+                .font(.callout).italic()
+                .padding(.horizontal)
+            
         }
     }
     
