@@ -8,26 +8,32 @@
 import SwiftUI
 
 struct IncidentDetailView: View {
-    let incident: KBIncident
-    
-    private var incidentImg: String? {
-        incident.report.attachments?.first(where: { $0.type == .Photo })?.url
+    @State var incident: KBIncident
+    @State private var isLoading = false
+    @EnvironmentObject private var incidentsStore: IncidentsStore
+
+    private var incidentAttachements: [KBIncident.Attachment] {
+        incident.report.attachments?.filter({  $0.type == .Photo  }) ?? []
     }
     
     var body: some View {
         ScrollView {
             VStack(alignment: .leading) {
                          
-                if let incidentImg {
-                    KBImage(incidentImg) {
-                        EmptyView()
+                ScrollView(.horizontal) {
+                    LazyHStack {
+                        ForEach(incidentAttachements, id: \.url) { att in
+                            KBImage(att.url) {
+                                ProgressView()
+                            }
+                            .frame(minWidth: 350, maxWidth: .infinity)
+                            .frame(height: 250)
+                            .background(.gray)
+                            .clipped()
+                        }
                     }
-                    .frame(maxWidth: .infinity)
-                    .frame(height: 250)
-                    .background(.gray)
-                    .clipped()
                 }
-                
+               
                 Text(incident.report.title)
                     .font(.title)
                 
@@ -149,9 +155,15 @@ struct IncidentDetailView: View {
         }
     }
     
-    private func updateStatus(_ status: KBIncident.Status) {
+    private func updateStatus(_ newStatus: KBIncident.Status) {
+        guard incident.status != newStatus else { return }
+                
         Task {
-            // Update status
+            isLoading = true
+            if let updatedIncident = await incidentsStore.updateIncidentStatus(incident, newStatus: newStatus) {
+                self.incident = updatedIncident
+            }
+            isLoading = false
         }
     }
 }

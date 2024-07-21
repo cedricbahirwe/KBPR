@@ -18,6 +18,7 @@ enum Endpoint {
     case getuser(id: UUID)
     
     case updateStatus(user: KBUser.ID)
+    case updateIncidentStatus(incidentID: KBIncident.ID)
     
     // MARK: - Incidents:
     case allIncidents
@@ -30,6 +31,8 @@ enum Endpoint {
             "/api/users"
         case .allIncidents, .newIncident:
             "/api/incidents"
+        case .updateIncidentStatus(let incidentID):
+            "/api/incidents/\(incidentID)/status"
         case .register:
             "/api/register"
         case .login:
@@ -43,7 +46,7 @@ enum Endpoint {
     
     var method: HTTPMethod {
         switch self {
-        case .updateStatus:
+        case .updateStatus, .updateIncidentStatus:
             return .put
         case .login, .register, .newIncident:
             return .post

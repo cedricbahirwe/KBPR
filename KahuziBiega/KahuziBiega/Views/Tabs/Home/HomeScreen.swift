@@ -15,7 +15,6 @@ struct HomeScreen: View {
         incidentsStore.getRecents(max: 6)
     }
     
-    
     @State private var showMapView = false
     @State private var showSOSPopup = false
     @State private var showSOSAlert: SOSAlertCreator?
@@ -71,11 +70,20 @@ struct HomeScreen: View {
                                     , in: .rect(cornerRadius: 15)
                                 )
                             } header: {
-                                Text("Recent Reports")
-                                    .font(.title.bold())
-                                    .padding(10)
-                                    .frame(maxWidth: .infinity, alignment: .leading)
-                                    .background(.background.opacity(0.9))
+                                HStack {
+                                    Text("Recent Reports")
+                                        .font(.title.bold())
+                                    Spacer()
+                                    
+                                    Button("Refresh") {
+                                        Task {
+                                            await incidentsStore.getIncidents()
+                                        }
+                                    }
+                                }
+                                .padding(10)
+                                .frame(maxWidth: .infinity, alignment: .leading)
+                                .background(.background.opacity(0.9))
                             }
                         }
                         .padding(.horizontal)

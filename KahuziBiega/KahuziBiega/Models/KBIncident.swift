@@ -127,6 +127,7 @@ struct KBIncident: Identifiable, Decodable {
         let type: AttachmentType
         let url: String
     }
+    
     enum AttachmentType: String, Codable {
         case Photo, Video
     }

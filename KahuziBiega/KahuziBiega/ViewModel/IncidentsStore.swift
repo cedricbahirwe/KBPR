@@ -33,6 +33,37 @@ import Foundation
         }
     }
     
+    func uploadMedias(_ medias: [Media]) async throws -> [KBIncident.Attachment] {
+        do {
+            isLoading = true
+            let asyncUploads: [KBIncident.Attachment] = try await withThrowingTaskGroup(of: KBIncident.Attachment.self) { group in
+                for media in medias {
+                    group.addTask {
+                        switch media {
+                        case .image(let image):
+                            let imageURL = try await KBFBStorage.shared.uploadImage(image)
+                            return .init(type: .Photo, url: imageURL)
+                        case .movie(let movie):
+                            let videoURL = try await KBFBStorage.shared.uploadMovie(movie.url)
+                            return .init(type: .Video, url: videoURL)
+                        }
+                    }
+                }
+                
+                var results = [KBIncident.Attachment]()
+                for try await result in group {
+                    results.append(result)
+                }
+                return results
+            }
+            print("Media upload finished: ", asyncUploads)
+            return asyncUploads
+        } catch {
+            isLoading = false
+            throw error
+        }
+    }
+    
     func submitIncidentReport(_ report: IncidentModel) async {
         isLoading = true
 
@@ -44,6 +75,20 @@ import Foundation
         } catch {
             print("Error submitting: ", error)
             isLoading = false
+        }
+    }
+    
+    func updateIncidentStatus(_ incident: KBIncident, newStatus: KBIncident.Status) async -> KBIncident? {
+        do {
+            let statusUpdate = ["status": newStatus.rawValue]
+            let updateIncident: KBIncident = try await NetworkClient.shared.put(.updateIncidentStatus(incidentID: incident.id), content: statusUpdate)
+            if let index = allIncidents.firstIndex(where: { $0.id == updateIncident.id }) {
+                self.allIncidents[index] = updateIncident
+            }
+            return updateIncident
+        } catch {
+            print("Error update status: ", error.localizedDescription)
+            return nil
         }
     }
     

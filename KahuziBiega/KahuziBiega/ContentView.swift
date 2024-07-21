@@ -28,6 +28,7 @@ struct ContentView: View {
                         }
                 }
                 .onReceive(NotificationCenter.default.publisher(for: .unauthorizedRequest)) { _ in
+                    print("lOggou")
                     LocalStorage.clear()
                     try? KBFBManager.shared.auth.signOut()
                     KBPusherManager.shared.disconnect()

@@ -144,9 +144,8 @@ final class NetworkClient: NSObject {
         let statusCode = response.statusCode
         if statusCode == 401 {
             print("❌ Should log out")
-            let decoder = KBDecoder()
-            let errorDict = try decoder.decode([String: String].self, from: data)
-            if let errorMessage = errorDict["error"] {
+            if let errorDict = try? KBDecoder().decode([String: String].self, from: data),
+                let errorMessage = errorDict["error"] {
                 throw APIError.knownError(errorMessage)
             }
             DispatchQueue.main.async {

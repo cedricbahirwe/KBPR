@@ -11,7 +11,7 @@ import AVKit
 
 
 enum Media {
-    case image(Image)
+    case image(UIImage)
     case movie(Movie)
 }
 
@@ -96,14 +96,14 @@ struct IncidentCreationView: View {
                                 let media = selectedMedias[i]
                                 switch media {
                                 case .image(let img):
-                                    img
+                                    Image(uiImage: img)
                                         .resizable()
                                         .scaledToFill()
                                         .frame(width: 300, height: 225)
                                         .clipped()
                                         .onTapGesture {
                                             withAnimation {
-                                                previewedImage = img
+                                                previewedImage = Image(uiImage: img)
                                             }
                                         }
                                 case .movie(let movie):
@@ -133,8 +133,9 @@ struct IncidentCreationView: View {
                         selectedMedias.removeAll()
                         
                         for item in selectedItems {
-                            if let image = try? await item.loadTransferable(type: Image.self) {
-                                selectedMedias.append(.image(image))
+                            if let imageData = try? await item.loadTransferable(type: Data.self),
+                               let inputImage = UIImage(data: imageData) {
+                                selectedMedias.append(.image(inputImage))
                             } else if let movie = try? await item.loadTransferable(type: Movie.self) {
                                 selectedMedias.append(.movie(movie))
                                 selectedMovie = movie
@@ -167,13 +168,8 @@ struct IncidentCreationView: View {
         }
         .safeAreaInset(edge: .bottom) {
             Button {
-                Task {
-                    guard let selectedMovie else { return }
-                    let link = try await KBFBStorage.shared.uploadMovie(selectedMovie.url)
-                    print("Path", link)
-                }
-//                hideKeyboard()
-//                submitReport()
+                hideKeyboard()
+                submitReport()
             } label: {
                 Text("Submit New Report")
                     .padding(5.0)
@@ -244,18 +240,21 @@ struct IncidentCreationView: View {
             do {
                 model.report.reporterId = LocalStorage.getSessionUser()?.id
                 try model.isValid()
+
+                let mediaURLs = try await incidentsStore.uploadMedias(selectedMedias)
+               
+                model.report.attachments = mediaURLs
                 print("✅ Ready to go")
                 await incidentsStore.submitIncidentReport(model)
                 dismiss()
             } catch {
+                
                 alertMessage = (error as? SubmissionValidation)?.message ?? error.localizedDescription
                 showAlert = true
-                print("Validation", error.localizedDescription)
+                print("Validation", alertMessage)
             }
         }
     }
-    
-  
     
 }
 
@@ -396,16 +395,10 @@ struct ReportModel: Encodable {
     
 //    var area:
     
-    var attachments: [Attachment] = []
+    var attachments: [KBIncident.Attachment] = []
     
     var reporterId: KBUser.ID!
     
-    
-    
-    struct Attachment: Encodable {
-        let type: KBIncident.AttachmentType
-        let url: String
-    }
     
 }
 

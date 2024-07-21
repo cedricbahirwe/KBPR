@@ -99,7 +99,7 @@ struct AnalyticsScreen: View {
     
     private var incidentsByCategoryView: some View {
         VStack(alignment: .leading) {
-            titleLabel("Reported incidents by \(incidentsByCategory.count) category")
+            titleLabel("Reported incidents by category")
             
             Chart(incidentsByCategory) { incidentByCategory in
                 SectorMark(
