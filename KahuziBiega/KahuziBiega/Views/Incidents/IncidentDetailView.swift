@@ -149,9 +149,15 @@ struct IncidentDetailView: View {
         .navigationBarTitleDisplayMode(.inline)
     }
     
-    private func updateCategory(_ category: KBIncident.Category) {
+    private func updateCategory(_ newCategory: KBIncident.Category) {
+        guard incident.category != newCategory else { return }
+                
         Task {
-            // Update category
+            isLoading = true
+            if let updatedIncident = await incidentsStore.updateIncidentCategory(incident, newCategory: newCategory) {
+                self.incident = updatedIncident
+            }
+            isLoading = false
         }
     }
     

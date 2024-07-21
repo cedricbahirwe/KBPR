@@ -78,6 +78,20 @@ import Foundation
         }
     }
     
+    func updateIncidentCategory(_ incident: KBIncident, newCategory: KBIncident.Category) async -> KBIncident? {
+        do {
+            let update = ["category": newCategory.rawValue]
+            let updateIncident: KBIncident = try await NetworkClient.shared.put(.updateIncidentStatus(incidentID: incident.id), content: update)
+            if let index = allIncidents.firstIndex(where: { $0.id == updateIncident.id }) {
+                self.allIncidents[index] = updateIncident
+            }
+            return updateIncident
+        } catch {
+            print("Error update status: ", error.localizedDescription)
+            return nil
+        }
+    }
+    
     func updateIncidentStatus(_ incident: KBIncident, newStatus: KBIncident.Status) async -> KBIncident? {
         do {
             let statusUpdate = ["status": newStatus.rawValue]
